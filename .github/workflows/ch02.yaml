@@ -1,9 +1,9 @@
-name: KIAMOL Image Builds
+name: Ch02 Image Builds
 
 on:
   push:
     paths:
-      - "**"
+      - "ch02/**"
   schedule:
     - cron: "0 0-7 * * *"
 
