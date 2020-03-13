@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kiamol-4
+spec:
+  selector:
+    matchLabels:
+      app: hello-kiamol-4
+  template:
+    metadata:
+      labels:
+        app: hello-kiamol-4
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch02-hello-kiamol

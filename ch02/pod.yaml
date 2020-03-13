@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-kiamol-3
+spec:
+  containers:
+    - name: web
+      image: kiamol/ch02-hello-kiamol

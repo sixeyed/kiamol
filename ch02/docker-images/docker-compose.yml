@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  ch02-hello-kiamol:
+    image: kiamol/ch02-hello-kiamol
+    build:
+      context: ./hello-kiamol
+
+  ch02-whoami:
+    image: kiamol/ch02-whoami
+    build:
+      context: ./whoami

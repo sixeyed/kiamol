@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami
+  labels:
+    app: whoami
+    version: ch02
+spec:
+  selector:
+    matchLabels:
+      app: whoami
+      version: ch02
+  template:
+    metadata:
+      labels:
+        app: whoami
+        version: ch02
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch02-whoami
