@@ -1,0 +1,23 @@
+name: KIAMOL Image Builds
+
+on:
+  push:
+    paths:
+      - "**"
+  schedule:
+    - cron: "0 0-7 * * *"
+
+jobs:
+  ch02:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: ch02
+        working-directory: ./ch02
+        run: |
+          docker login -u $USER -p $TOKEN  
+          docker-compose build 
+          docker-compose push
+        env:
+          USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
