@@ -3,6 +3,7 @@ name: Ch02 Image Builds
 on:
   push:
     paths:
+      - ".github/workflows/ch02.yaml"
       - "ch02/**"
   schedule:
     - cron: "0 0-7 * * *"
