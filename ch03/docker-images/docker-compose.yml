@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  ch03-numbers-api:
+    image: kiamol/ch03-numbers-api
+    build:
+      context: ./numbers
+      dockerfile: ./numbers-api/Dockerfile
+
+  ch03-numbers-web:
+    image: kiamol/ch03-numbers-web
+    build:
+      context: ./numbers
+      dockerfile: ./numbers-web/Dockerfile
+
+  ch03-sleep:
+    image: kiamol/ch03-sleep
+    build:
+      context: ./sleep

@@ -1,0 +1,18 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.101 AS builder
+
+WORKDIR /src
+COPY src/Numbers.Web/Numbers.Web.csproj .
+RUN dotnet restore
+
+COPY src/Numbers.Web/ .
+RUN dotnet publish -c Release -o /out Numbers.Web.csproj
+
+# app image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.1
+
+ENV RngApi__Url=http://numbers-api/rng
+
+ENTRYPOINT ["dotnet", "/app/Numbers.Web.dll"]
+
+WORKDIR /app
+COPY --from=builder /out/ .

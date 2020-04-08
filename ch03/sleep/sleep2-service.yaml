@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sleep-2
+spec:
+  selector:
+    app: sleep-2
+  ports:
+    - port: 80

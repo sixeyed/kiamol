@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "KIAMOL";
+}
+
+<h1>KIAMOL Random Number Generator</h1>
+
+@if (@Model.CallFailed == false && @Model.RandomNumber != -1)
+{
+    <p>Here it is: @Model.RandomNumber</p>
+}
+else if (@Model.CallFailed)
+{
+    <p>RNG service unavailable!</p>
+}
+else
+{
+    <form method="post">
+        <p>Get a random number</p>
+        <input type="submit" value="Go!"/>
+    </form>
+}
