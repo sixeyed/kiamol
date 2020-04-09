@@ -3,7 +3,5 @@ kind: Service
 metadata:
   name: numbers-api
 spec:
-  ports:
-    - port: 80
-  selector:
-    app: numbers-api
+  type: ExternalName
+  externalName: raw.githubusercontent.com

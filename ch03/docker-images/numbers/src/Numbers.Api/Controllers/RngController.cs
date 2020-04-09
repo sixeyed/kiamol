@@ -6,6 +6,7 @@ namespace Numbers.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Route("/sixeyed/kiamol/master/ch03/numbers/rng")] //this route matches the GitHub path for a static response
     public class RngController : ControllerBase
     {
         private static Random _Random = new Random();

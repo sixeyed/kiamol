@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Numbers.Web.Services;
+using System;
 
 namespace Numbers.Web.Pages
 {
@@ -13,6 +14,11 @@ namespace Numbers.Web.Pages
         public bool CallFailed { get; private set; }
 
         public int RandomNumber { get; private set; } = -1;
+
+        public string ApiUrl 
+        {
+            get { return _randomNumberService.ApiUrl; }
+        }
 
         public IndexModel(RandomNumberService randomNumberService, ILogger<IndexModel> logger)
         {
@@ -32,8 +38,9 @@ namespace Numbers.Web.Pages
                 RandomNumber = _randomNumberService.GetNumber();
                 CallFailed = false;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError($"API call failed: {ex}");
                 RandomNumber = -1;
                 CallFailed = true;
             }

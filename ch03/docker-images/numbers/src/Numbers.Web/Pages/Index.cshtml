@@ -9,10 +9,12 @@
 @if (@Model.CallFailed == false && @Model.RandomNumber != -1)
 {
     <p>Here it is: @Model.RandomNumber</p>
+    <p>(Using API at: @Model.ApiUrl)</p>
 }
 else if (@Model.CallFailed)
 {
     <p>RNG service unavailable!</p>
+    <p>(Using API at: @Model.ApiUrl)</p>
 }
 else
 {
