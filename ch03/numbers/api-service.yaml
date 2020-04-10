@@ -7,3 +7,4 @@ spec:
     - port: 80
   selector:
     app: numbers-api
+  type: ClusterIP
