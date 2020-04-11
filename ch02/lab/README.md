@@ -1,4 +1,4 @@
-kubectl apply -f ./solution/deployment.yaml
+kubectl apply -f solution/deployment.yaml
 
 kubectl port-forward deploy/whoami 8080:80
 

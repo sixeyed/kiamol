@@ -13,7 +13,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: lab-numbers-web
+  name: numbers-web
 spec:
   ports:
     - port: 8088
