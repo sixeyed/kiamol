@@ -11,7 +11,13 @@ services:
     image: kiamol/ch03-numbers-web
     build:
       context: ./numbers
-      dockerfile: ./numbers-web/Dockerfile
+      dockerfile: ./numbers-web/Dockerfile      
+
+  ch03-numbers-web:
+    image: kiamol/ch03-numbers-web:v2
+    build:
+      context: ./numbers
+      dockerfile: ./numbers-web-v2/Dockerfile
 
   ch03-sleep:
     image: kiamol/ch03-sleep
