@@ -1,4 +1,4 @@
-name: Ch02 Image Builds
+name: Ch03 Image Builds
 
 on:
   push:

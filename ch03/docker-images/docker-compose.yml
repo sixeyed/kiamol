@@ -13,7 +13,7 @@ services:
       context: ./numbers
       dockerfile: ./numbers-web/Dockerfile      
 
-  ch03-numbers-web:
+  ch03-numbers-web-v2:
     image: kiamol/ch03-numbers-web:v2
     build:
       context: ./numbers
