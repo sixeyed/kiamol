@@ -17,8 +17,8 @@ ENTRYPOINT ["dotnet", "ToDoList.dll"]
 ENV DATA_DIRECTORY="/data"\
     USER="root"
 
-# disable config view
-ENV ConfigController__Enabled="false"
+ENV ConfigController__Enabled="false" \
+    ConnectionStrings__ToDoDb="Filename=/data/todo-list.db"
 
 VOLUME $DATA_DIRECTORY
 USER $USER

@@ -26,11 +26,13 @@ namespace ToDoList.Pages
         {
             if (_config.GetValue<bool>("ConfigController:Enabled"))
             {
-                ConfigItems= _config.AsEnumerable();
+                _logger.LogDebug("GET /config called");
+                ConfigItems = _config.AsEnumerable();
                 return Page();
             }
             else
             {
+                _logger.LogWarning("Attempt to view config settings");
                 return NotFound();
             }            
         }

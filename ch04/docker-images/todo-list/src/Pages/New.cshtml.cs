@@ -26,6 +26,7 @@ namespace ToDoList.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            _logger.LogDebug("POST /new called");
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -33,6 +34,7 @@ namespace ToDoList.Pages
 
             ToDo.DateAdded = DateTime.Now;
             await _todoService.AddToDoAsync(ToDo);
+            _logger.LogInformation("New item created");
 
             return RedirectToPage("/list");
         }

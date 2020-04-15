@@ -26,3 +26,6 @@ spec:
       containers:
         - name: web
           image: kiamol/ch04-todo-list
+          env:
+          - name: Logging__LogLevel__Default
+            value: Warning

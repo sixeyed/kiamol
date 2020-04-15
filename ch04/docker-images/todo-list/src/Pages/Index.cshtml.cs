@@ -21,7 +21,9 @@ namespace ToDoList.Pages
 
         public async Task<IActionResult> OnGet()
         {
+            _logger.LogDebug("GET / called");
             TodoCount = await _todoService.GetToDoCountAsync();
+            _logger.LogDebug($"Fetched count: {TodoCount} from service");
             return Page();
         }
     }
