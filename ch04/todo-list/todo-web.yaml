@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web
+spec:
+  ports:
+    - port: 8080
+      targetPort: 80
+  selector:
+    app: todo-web
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web
+spec:
+  selector:
+    matchLabels:
+      app: todo-web
+  template:
+    metadata:
+      labels:
+        app: todo-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list

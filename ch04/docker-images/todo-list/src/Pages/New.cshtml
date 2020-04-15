@@ -1,0 +1,10 @@
+﻿@page
+@model ToDoList.Pages.NewModel
+
+<h1>New Item</h1>
+
+<form method="post">
+    Name:
+    <input asp-for="ToDo.Item" />
+    <input type="submit" />
+</form>
