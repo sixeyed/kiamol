@@ -42,6 +42,12 @@
 
         <div class="main">
             <div class="top-row px-4">
+                <environment include="Development">
+                    <div>[This is DEV]</div>
+                </environment>
+                <environment include="Test">
+                    <div>[This is TEST]</div>
+                </environment>
                 <a href="https://github.com/sixeyed/kiamol/tree/master/ch04/docker-images/todo-list" target="_blank">Source Code</a>
             </div>
 
@@ -49,6 +55,7 @@
                 @RenderBody()
             </div>
         </div>
+
     </app>
 </body>
 </html>

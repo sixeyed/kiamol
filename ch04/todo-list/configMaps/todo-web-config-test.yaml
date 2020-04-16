@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-web-config-test
+data:
+  config.json: |-
+    {
+      "ASPNETCORE_ENVIRONMENT": "Test",
+      "ConfigController": {
+        "Enabled" : false
+      },
+      "Database" : {
+        "Provider" : "Postgres"
+      }
+    }

@@ -16,7 +16,7 @@ namespace ToDoList
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
                     config.AddJsonFile("config/config.json", optional: true)
-                          .AddJsonFile("config/secrets.json", optional: true);
+                          .AddJsonFile("secrets/secrets.json", optional: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
