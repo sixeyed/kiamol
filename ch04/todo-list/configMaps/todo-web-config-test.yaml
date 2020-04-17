@@ -5,7 +5,6 @@ metadata:
 data:
   config.json: |-
     {
-      "ASPNETCORE_ENVIRONMENT": "Test",
       "ConfigController": {
         "Enabled" : false
       },

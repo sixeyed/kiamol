@@ -14,12 +14,6 @@ spec:
       containers:
         - name: web
           image: kiamol/ch04-todo-list
-          env:
-          - name: Logging__LogLevel__Default
-            valueFrom:
-              configMapKeyRef:              
-                name: todo-web-config-dev2
-                key: logging.loglevel.default     
           volumeMounts:
             - name: config
               mountPath: "/app/config"
@@ -27,4 +21,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: todo-web-config-dev2
+            name: todo-web-config-dev
+            items:
+            - key: config.json
+              path: config.json

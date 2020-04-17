@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-web-config-dev
+data:
+  config.json: |-
+    {
+      "ConfigController": {
+        "Enabled" : true
+      }
+    }
+  logging.json: |-
+    {
+      "Logging": {
+        "LogLevel": {
+          "ToDoList.Pages" : "Debug"
+        }
+      }
+    }

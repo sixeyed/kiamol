@@ -21,4 +21,4 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: todo-web-config-dev2
+            name: todo-web-config-dev

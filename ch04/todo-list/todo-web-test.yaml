@@ -49,6 +49,7 @@ spec:
         - name: secret
           secret:
             secretName: todo-web-secret-test
+            defaultMode: 0400
             items:
             - key: secrets.json
               path: secrets.json

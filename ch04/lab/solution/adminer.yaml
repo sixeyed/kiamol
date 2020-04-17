@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer-web
+spec:
+  ports:
+    - port: 8082
+      targetPort: 8080
+  selector:
+    app: adminer-web
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer-web
+spec:
+  selector:
+    matchLabels:
+      app: adminer-web
+  template:
+    metadata:
+      labels:
+        app: adminer-web
+    spec:
+      containers:
+        - name: web
+          image: adminer:4.7-standalone
+          args: ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
+          env:
+          - name: ADMINER_DESIGN
+            valueFrom:
+              configMapKeyRef:              
+                name: adminer-config
+                key: ADMINER_DESIGN
+          - name: ADMINER_DEFAULT_SERVER
+            valueFrom:
+              secretKeyRef:              
+                name: adminer-secret
+                key: ADMINER_DEFAULT_SERVER

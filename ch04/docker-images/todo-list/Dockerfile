@@ -18,7 +18,8 @@ ENV DATA_DIRECTORY="/data"\
     USER="root"
 
 ENV ConfigController__Enabled="false" \
-    ConnectionStrings__ToDoDb="Filename=/data/todo-list.db"
+    ConnectionStrings__ToDoDb="Filename=/data/todo-list.db" \
+    Logging__LogLevel__Default="Error"
 
 VOLUME $DATA_DIRECTORY
 USER $USER
