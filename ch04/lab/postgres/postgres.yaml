@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ch04-lab-db
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: ch04-lab-db
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ch04-lab-db
+spec:
+  selector:
+    matchLabels:
+      app: ch04-lab-db
+  template:
+    metadata:
+      labels:
+        app: ch04-lab-db
+    spec:
+      containers:
+        - name: db
+          image: postgres:11.6-alpine
+          env:
+          - name: POSTGRES_PASSWORD_FILE
+            value: /db-secrets/password
+          volumeMounts:
+            - name: secret
+              mountPath: "/db-secrets"
+      volumes:
+        - name: secret
+          secret:
+            secretName: ch04-lab-db-secret
+            defaultMode: 0400
+            items:
+            - key: PASSWORD
+              path: password
