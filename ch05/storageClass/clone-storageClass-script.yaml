@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clone-script
+data:
+  duplicate-default-storage-class.sh: |-
+    #!/bin/sh
+    apk add --no-cache jq > /dev/null
+    cat /defaultStorageClass.json | \
+    jq '.metadata={}' | \
+    jq '.metadata.name="kiamol"'
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: clone-sc
+spec:
+  containers:
+  - name: clone
+    image: kiamol/ch03-sleep
+    volumeMounts:
+    - name: scripts
+      mountPath: "/scripts"
+  volumes:
+    - name: scripts
+      configMap:
+        name: clone-script            
+        defaultMode: 0500

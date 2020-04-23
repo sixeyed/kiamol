@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+spec:
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+    spec:
+      containers:
+        - name: sleep
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: podname
+              mountPath: /etc/pod
+      volumes:
+        - name: podname
+          downwardAPI:
+            items:
+              - path: "name"
+                fieldRef:
+                  fieldPath: metadata.name

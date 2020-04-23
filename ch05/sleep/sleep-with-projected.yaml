@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+spec:
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+    spec:
+      containers:
+        - name: sleep
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: projection
+              mountPath: /etc/projected
+      volumes:
+        - name: projection
+          projected:
+            sources:
+              - downwardAPI:
+                  items:
+                    - path: pod.name
+                      fieldRef:
+                        fieldPath: metadata.name
+              - secret:
+                  name: todo-db-secret            
+                  items:
+                    - path: postgres.password
+                      key: POSTGRES_PASSWORD
+              - configMap:
+                  name: todo-web-config
+                  items:
+                    - path: config.json
+                      key: config.json
