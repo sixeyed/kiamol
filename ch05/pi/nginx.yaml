@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pi-proxy
+  labels:
+    app: pi-proxy
+spec:
+  ports:
+    - port: 8080
+      targetPort: 80
+  selector:
+    app: pi-proxy
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-proxy
+  labels:
+    app: pi-proxy
+spec:
+  selector:
+    matchLabels:
+      app: pi-proxy
+  template:
+    metadata:
+      labels:
+        app: pi-proxy
+    spec:
+      containers:
+        - image: nginx:1.17-alpine
+          name: nginx
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/nginx/"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: pi-proxy-configmap

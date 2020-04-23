@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+spec:
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+    spec:
+      containers:
+        - name: sleep
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: node-root
+              mountPath: /pod-logs
+              subPath: var/log/pods
+            - name: node-root
+              mountPath: /container-logs
+              subPath: var/log/containers
+      volumes:
+        - name: node-root
+          hostPath:
+            path: /
+            type: Directory
