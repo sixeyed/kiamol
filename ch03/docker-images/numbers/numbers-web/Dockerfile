@@ -8,7 +8,7 @@ COPY src/Numbers.Web/ .
 RUN dotnet publish -c Release -o /out Numbers.Web.csproj
 
 # app image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.1
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 
 ENV RngApi__Url=http://numbers-api/sixeyed/kiamol/master/ch03/numbers/rng \
     RngApi__RetryHost=raw.githubusercontent.com

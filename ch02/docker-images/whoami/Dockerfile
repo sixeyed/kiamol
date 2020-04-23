@@ -8,7 +8,7 @@ COPY src /src
 RUN dotnet publish -c Release -o /out whoami.csproj
 
 # app image
-FROM  mcr.microsoft.com/dotnet/core/aspnet:3.1.2
+FROM  mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 
 EXPOSE 80
 
