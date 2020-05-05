@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: whoami-web
+  labels:
+    app: whoami-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whoami-web
+  template:
+    metadata:
+      labels:
+        app: whoami-web
+    spec:
+      containers:
+        - image: kiamol/ch02-whoami
+          name: web
+          ports:
+            - containerPort: 80
+              name: http
