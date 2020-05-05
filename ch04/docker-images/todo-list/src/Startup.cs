@@ -23,15 +23,17 @@ namespace ToDoList
         {
             services.AddRazorPages();
 
+            var dbReadOnly = Configuration.GetValue<bool>("Database:ReadOnly");
+            var connectionString = Configuration.GetConnectionString(dbReadOnly ? "ToDoDb-ReadOnly" : "ToDoDb");
+
             var dbProvider = Configuration.GetValue<DbProvider>("Database:Provider");
             _ = dbProvider switch
             {
                 DbProvider.Sqlite => services.AddDbContext<ToDoContext>(options =>
-                     options.UseSqlite(Configuration.GetConnectionString("ToDoDb"))),
+                     options.UseSqlite(connectionString)),
 
                 DbProvider.Postgres => services.AddDbContext<ToDoContext>(options =>
-                     options.UseNpgsql(Configuration.GetConnectionString("ToDoDb"),
-                     postgresOptions => postgresOptions.EnableRetryOnFailure())),
+                     options.UseNpgsql(connectionString, postgresOptions => postgresOptions.EnableRetryOnFailure())),
 
                 _ => throw new NotSupportedException("Supported providers: Sqlite and Posgtres")
             };
