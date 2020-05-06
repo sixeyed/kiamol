@@ -31,12 +31,5 @@ spec:
           hostPath:
             path: /volumes/nginx-cache
             type: DirectoryOrCreate
-      affinity:
-        nodeAffinity: 
-          requiredDuringSchedulingIgnoredDuringExecution: 
-            nodeSelectorTerms: 
-            - matchExpressions:
-                - key: kiamol
-                  operator: In
-                  values:
-                    - ch06
+      nodeSelector:
+        kiamol: ch06
