@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: numbers-web
+  labels:
+    kiamol: ch06-lab
+spec:
+  replicas: 2
+  selector:    
+    app: numbers-web
+  template:
+    metadata:
+      labels:
+        app: numbers-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web
