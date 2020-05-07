@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: todo-db
+  labels:
+    kiamol: ch06
 spec:
   selector:
     matchLabels:

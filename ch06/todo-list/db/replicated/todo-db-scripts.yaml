@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: todo-db-scripts
+  labels:
+    kiamol: ch06
 data:
   startup.sh: |-
     #!/bin/sh
@@ -12,7 +14,7 @@ data:
     else
       echo '** Postgres standby **'
       if [ -z "$(ls -A ${PGDATA})" ]; then
-        sleep 5
+        sleep 15
         pg_basebackup -R -h "$POSTGRES_PRIMARY_FQDN" -D "$PGDATA" -P -U replication
         chown -R postgres:postgres $PGDATA
       fi

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: whoami-web
   labels:
-    app: whoami-web
+    kiamol: ch06
 spec:
   ports:
     - port: 8088

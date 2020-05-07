@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: whoami-web
   labels:
-    app: whoami-web
+    kiamol: ch06
 spec:
   replicas: 3
   selector:

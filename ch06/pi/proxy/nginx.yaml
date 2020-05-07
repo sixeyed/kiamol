@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pi-proxy
   labels:
-    app: pi-proxy
+    kiamol: ch06
 spec:
   replicas: 2
   selector:

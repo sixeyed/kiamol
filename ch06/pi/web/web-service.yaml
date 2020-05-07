@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: pi-web
   labels:
-    app: pi-web
+    kiamol: ch06
 spec:
   ports:
     - port: 80

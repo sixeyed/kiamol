@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pi-web
   labels:
-    app: pi-web
+    kiamol: ch06
 spec:
   replicas: 2
   selector:

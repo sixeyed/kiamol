@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pi-proxy-configmap
+  labels:
+    kiamol: ch06
 data:
   nginx.conf: |-
     user  nginx;
