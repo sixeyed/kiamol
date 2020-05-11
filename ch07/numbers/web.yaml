@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-web
+  labels:
+    kiamol: ch07
+spec:
+  selector:
+    matchLabels:
+      app: numbers-web
+  template:
+    metadata:
+      labels:
+        app: numbers-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web

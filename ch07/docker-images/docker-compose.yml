@@ -5,3 +5,7 @@ services:
     image: kiamol/ch07-timecheck
     build:
       context: ./timecheck
+  ch07-simple-proxy:
+    image: kiamol/ch07-simple-proxy
+    build:
+      context: ./simple-proxy

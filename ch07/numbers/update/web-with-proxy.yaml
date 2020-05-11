@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-web
+  labels:
+    kiamol: ch07
+spec:
+  selector:
+    matchLabels:
+      app: numbers-web
+  template:
+    metadata:
+      labels:
+        app: numbers-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web 
+          env:
+          - name: http_proxy
+            value: http://localhost:1080
+          - name: RngApi__Url
+            value: http://localhost/api
+        - name: proxy
+          image: kiamol/ch07-simple-proxy          
+          env:
+          - name: Proxy__Port
+            value: "1080"
+          - name: Proxy__Request__UriMap__Source
+            value: http://localhost/api
+          - name: Proxy__Request__UriMap__Target
+            value: http://numbers-api/sixeyed/kiamol/master/ch03/numbers/rng
+
