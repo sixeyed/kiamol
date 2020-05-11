@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: timecheck
+  labels:
+    kiamol: ch07
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: healthz
+    - port: 8081
+      targetPort: 8081
+      name: metrics
+  selector:
+    app: timecheck
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timecheck
+  labels:
+    kiamol: ch07
+spec:
+  selector:
+    matchLabels:
+      app: timecheck
+  template:
+    metadata:
+      labels:
+        app: timecheck
+    spec:
+      initContainers:
+        - name: init-config
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', 'cp /config-in/appsettings.json /config-out/appsettings.json']          
+          volumeMounts:
+            - name: config-map
+              mountPath: /config-in
+            - name: config-dir
+              mountPath: /config-out
+      containers:
+        - name: timecheck
+          image: kiamol/ch07-timecheck
+          volumeMounts:
+            - name: config-dir
+              mountPath: /config
+              readOnly: true
+            - name: logs-dir
+              mountPath: /logs
+        - name: logger
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', 'tail -f /logs-ro/timecheck.log'] 
+          volumeMounts:
+            - name: logs-dir
+              mountPath: /logs-ro
+              readOnly: true
+        - name: healthz
+          image: kiamol/ch03-sleep  
+          command: ['sh', '-c', "while true; do echo -e 'HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Length: 17\n\n{\"status\": \"OK\"}' | nc -l -p 8080; done"]
+          ports:
+            - containerPort: 8080
+              name: http
+        - name: metrics
+          image: kiamol/ch03-sleep  
+          command: ['sh', '-c', "while true; do echo -e 'HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 104\n\n# HELP timechecks_total The total number timechecks.\n# TYPE timechecks_total counter\ntimechecks_total 6' | nc -l -p 8081; done"]
+          ports:
+            - containerPort: 8081
+              name: http
+      volumes:
+        - name: config-map
+          configMap:
+            name: timecheck-config
+        - name: config-dir
+          emptyDir: {}
+        - name: logs-dir
+          emptyDir: {}

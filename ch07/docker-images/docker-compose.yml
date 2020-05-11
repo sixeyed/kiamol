@@ -1,0 +1,7 @@
+version: "3.6"
+
+services:
+  ch07-timecheck:
+    image: kiamol/ch07-timecheck
+    build:
+      context: ./timecheck

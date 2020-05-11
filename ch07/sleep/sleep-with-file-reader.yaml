@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+  labels:
+    kiamol: ch07
+spec:
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+    spec:
+      containers:
+        - name: sleep
+          image: kiamol/ch03-sleep   
+          volumeMounts:
+            - name: data
+              mountPath: /data-rw    
+        - name: file-reader
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: data
+              mountPath: /data-ro
+              readOnly: true
+      volumes:
+        - name: data
+          emptyDir: {}

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timecheck
+  labels:
+    kiamol: ch07
+spec:
+  selector:
+    matchLabels:
+      app: timecheck
+  template:
+    metadata:
+      labels:
+        app: timecheck
+    spec:
+      initContainers:
+        - name: init-config
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', 'cp /config-in/appsettings.json /config-out/appsettings.json']          
+          volumeMounts:
+            - name: config-map
+              mountPath: /config-in
+            - name: config-dir
+              mountPath: /config-out
+      containers:
+        - name: timecheck
+          image: kiamol/ch07-timecheck
+          volumeMounts:
+            - name: config-dir
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config-map
+          configMap:
+            name: timecheck-config
+        - name: config-dir
+          emptyDir: {}
