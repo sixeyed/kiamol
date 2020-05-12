@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: todo-db
+  labels:
+    kiamol: ch06
+spec:
+  selector:
+    matchLabels:
+      app: todo-db
+  serviceName: todo-db
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: todo-db
+    spec:
+      containers:
+        - name: db
+          image: postgres:11.6-alpine
+          command: ["/scripts/startup.sh"]
+          env:
+          - name: POSTGRES_PASSWORD_FILE
+            value: /secrets/postgres_password
+          - name: POSTGRES_PRIMARY_NAME
+            value: todo-db-0
+          - name: POSTGRES_PRIMARY_FQDN
+            value: todo-db-0.todo-db.default.svc.cluster.local
+          - name: PGPASSWORD   # used as replication password
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: todo-db-secret
+          volumeMounts:
+            - name: secret
+              mountPath: "/secrets"
+            - name: scripts
+              mountPath: "/scripts"
+            - name: config
+              mountPath: "/conf"
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: secret
+          secret:
+            secretName: todo-db-secret
+            defaultMode: 0400
+            items:
+            - key: POSTGRES_PASSWORD
+              path: postgres_password
+        - name: scripts
+          configMap:
+            name: todo-db-scripts
+            defaultMode: 0555
+        - name: config
+          configMap:
+            name: todo-db-config
+            defaultMode: 0444
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: 
+       - ReadWriteOnce
+      resources:
+        requests:
+          storage: 50Mi

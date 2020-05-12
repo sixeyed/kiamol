@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: todo-db
+  labels:
+    kiamol: ch06
+spec:
+  selector:
+    matchLabels:
+      app: todo-db
+  serviceName: todo-db
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: todo-db
+    spec:
+      containers:
+        - name: db
+          image: postgres:11.6-alpine
+          env:
+          - name: POSTGRES_PASSWORD_FILE
+            value: /secrets/postgres_password
+          volumeMounts:
+            - name: secret
+              mountPath: "/secrets"
+      volumes:
+        - name: secret
+          secret:
+            secretName: todo-db-secret
+            defaultMode: 0400
+            items:
+            - key: POSTGRES_PASSWORD
+              path: postgres_password

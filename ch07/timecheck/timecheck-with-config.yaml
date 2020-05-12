@@ -16,7 +16,10 @@ spec:
       initContainers:
         - name: init-config
           image: kiamol/ch03-sleep
-          command: ['sh', '-c', 'cp /config-in/appsettings.json /config-out/appsettings.json']          
+          command: ['sh', '-c', "cat /config-in/appsettings.json | jq --arg APP_ENV \"$APP_ENVIRONMENT\" '.Application.Environment=$APP_ENV' > /config-out/appsettings.json"]
+          env:
+          - name: APP_ENVIRONMENT
+            value: TEST         
           volumeMounts:
             - name: config-map
               mountPath: /config-in
