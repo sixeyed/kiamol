@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-web
+  labels:
+    kiamol: ch07-lab
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pi-web
+  template:
+    metadata:
+      labels:
+        app: pi-web
+    spec:
+      initContainers:
+        - name: init-script-1
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', "echo '#!/bin/sh\ndotnet Pi.Web.dll -m web' > /init/startup.sh"]
+          volumeMounts:
+            - name: init
+              mountPath: "/init"
+        - name: init-script-2
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', "chmod +x /init/startup.sh"]
+          volumeMounts:
+            - name: init
+              mountPath: "/init"
+        - name: init-version
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', "echo 'ch07-lab' > /init/version.txt"]
+          volumeMounts:
+            - name: init
+              mountPath: "/init"
+      containers:
+        - name: web
+          image: kiamol/ch05-pi
+          command: ["/init/startup.sh"] 
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: init
+              mountPath: "/init"     
+        - name: server
+          image: kiamol/ch03-sleep  
+          command: ['sh', '-c', 'while true; do echo -e "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 9\n\n$(cat /init/version.txt)" | nc -l -p 8080; done']
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: init
+              mountPath: "/init"
+      volumes:
+        - name: init
+          emptyDir: {}
+              
