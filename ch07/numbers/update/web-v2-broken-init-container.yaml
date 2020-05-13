@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-web
+  labels:
+    kiamol: ch07
+spec:
+  selector:
+    matchLabels:
+      app: numbers-web
+  template:
+    metadata:
+      labels:
+        app: numbers-web
+        version: v2
+    spec:
+      initContainers:
+        - name: init-version
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', "echo v2 > /config-out/version.txt"]
+          env:
+          - name: APP_ENVIRONMENT
+            value: TEST         
+          volumeMounts:
+            - name: config-dir
+              mountPath: /config-out              
+              readOnly: true
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web:v2
+          env:
+          - name: http_proxy
+            value: http://localhost:1080
+          - name: RngApi__Url
+            value: http://localhost/api
+        - name: proxy
+          image: kiamol/ch07-simple-proxy          
+          env:
+          - name: Proxy__Port
+            value: "1080"
+          - name: Proxy__Request__UriMap__Source
+            value: http://localhost/api
+          - name: Proxy__Request__UriMap__Target
+            value: http://numbers-api/sixeyed/kiamol/master/ch03/numbers/rng
+      volumes:
+        - name: config-dir
+          emptyDir: {}

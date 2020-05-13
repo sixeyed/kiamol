@@ -30,6 +30,7 @@ spec:
     metadata:
       labels:
         app: timecheck
+        version: v4
     spec:
       initContainers:
         - name: init-config

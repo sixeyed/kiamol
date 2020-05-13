@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: sleep
+        version: shared
     spec:
       shareProcessNamespace: true
       containers:
