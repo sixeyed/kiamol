@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: todo-web-config
   labels:
-    kiamol: ch06
+    kiamol: ch08
 data:
   config.json: |-
     {

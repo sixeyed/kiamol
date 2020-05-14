@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: todo-web
   labels:
-    kiamol: ch06
+    kiamol: ch08
 spec:
   ports:
     - port: 8081

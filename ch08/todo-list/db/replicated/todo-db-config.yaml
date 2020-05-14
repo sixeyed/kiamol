@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: todo-db-config
   labels:
-    kiamol: ch06
+    kiamol: ch08
 data:
   primary.conf: |-
     listen_addresses = '*'

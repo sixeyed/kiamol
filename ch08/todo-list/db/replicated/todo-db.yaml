@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: todo-db
   labels:
-    kiamol: ch06
+    kiamol: ch08
 spec:
   selector:
     matchLabels:
@@ -15,17 +15,43 @@ spec:
       labels:
         app: todo-db
     spec:
+      initContainers:
+        - name: wait-service
+          image: kiamol/ch03-sleep
+          envFrom:
+          - configMapRef:
+              name: todo-db-env
+          command: ['/scripts/wait-service.sh']
+          volumeMounts:
+            - name: scripts
+              mountPath: "/scripts"
+        - name: initialize-replication
+          image: postgres:11.6-alpine
+          envFrom:
+          - configMapRef:
+              name: todo-db-env
+          env:
+          - name: PGPASSWORD   # used as replication password
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: todo-db-secret
+          command: ['/scripts/initialize-replication.sh']
+          volumeMounts:
+            - name: scripts
+              mountPath: "/scripts"
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
       containers:
         - name: db
           image: postgres:11.6-alpine
           command: ["/scripts/startup.sh"]
+          envFrom:
+          - configMapRef:
+              name: todo-db-env
           env:
           - name: POSTGRES_PASSWORD_FILE
             value: /secrets/postgres_password
-          - name: POSTGRES_PRIMARY_NAME
-            value: todo-db-0
-          - name: POSTGRES_PRIMARY_FQDN
-            value: todo-db-0.todo-db.default.svc.cluster.local
           - name: PGPASSWORD   # used as replication password
             valueFrom:
               secretKeyRef:
@@ -38,6 +64,8 @@ spec:
               mountPath: "/scripts"
             - name: config
               mountPath: "/conf"
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: secret
           secret:
@@ -54,3 +82,5 @@ spec:
           configMap:
             name: todo-db-config
             defaultMode: 0444
+        - name: initdb
+          emptyDir: {}

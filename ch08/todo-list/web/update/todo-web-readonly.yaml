@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: todo-web
   labels:
-    kiamol: ch06
+    kiamol: ch08
 spec:
   selector:
     matchLabels:

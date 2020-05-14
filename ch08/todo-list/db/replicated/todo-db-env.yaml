@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-db-env
+  labels:
+    kiamol: ch08
+data:
+  POSTGRES_PRIMARY_NAME: "todo-db-0"
+  POSTGRES_PRIMARY_FQDN: "todo-db-0.todo-db.default.svc.cluster.local"
+  POSTGRES_SECONDARY_FQDN: "todo-db-1.todo-db.default.svc.cluster.local"

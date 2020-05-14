@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: todo-db
   labels:
-    kiamol: ch06
+    kiamol: ch08
 spec:
   selector:
     matchLabels:

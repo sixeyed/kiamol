@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: todo-db
   labels:
-    kiamol: ch06
+    kiamol: ch08
 spec:
   ports:
     - port: 5432
