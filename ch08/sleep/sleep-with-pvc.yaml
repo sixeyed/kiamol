@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sleep-with-pvc
+  labels:
+    kiamol: ch08
+spec:
+  selector:
+    app: sleep-with-pvc
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sleep-with-pvc
+  labels:
+    kiamol: ch08
+spec:
+  selector:
+    matchLabels:
+      app: sleep-with-pvc
+  serviceName: sleep-with-pvc
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sleep-with-pvc
+    spec:
+      containers:
+        - name: sleep
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        kiamol: ch08
+    spec:
+      accessModes: 
+       - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Mi
