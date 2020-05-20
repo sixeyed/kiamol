@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: disk-calc
+  labels:
+    kiamol: ch08-lab
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - image: kiamol/ch03-sleep
+          name: calc
+          command: ['sh', '-c', 'du -h /nginx0/access.log /nginx1/access.log /nginx2/access.log']
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx0
+              mountPath: /nginx0/
+            - name: nginx1
+              mountPath: /nginx1/
+            - name: nginx2
+              mountPath: /nginx2/
+      volumes:
+        - name: nginx0
+          persistentVolumeClaim:
+            claimName: logs-nginx-stateful-0
+        - name: nginx1
+          persistentVolumeClaim:
+            claimName: logs-nginx-stateful-1
+        - name: nginx2
+          persistentVolumeClaim:
+            claimName: logs-nginx-stateful-2
