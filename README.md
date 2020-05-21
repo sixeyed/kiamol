@@ -10,3 +10,4 @@ Source code and exercises for the book [Learn Kubernetes in a Month of Lunches](
 ![Ch04](https://github.com/sixeyed/kiamol/workflows/Ch04%20Image%20Builds/badge.svg)
 ![Ch05](https://github.com/sixeyed/kiamol/workflows/Ch05%20Image%20Builds/badge.svg)
 ![Ch07](https://github.com/sixeyed/kiamol/workflows/Ch07%20Image%20Builds/badge.svg)
+![Ch09](https://github.com/sixeyed/kiamol/workflows/Ch07%20Image%20Builds/badge.svg)

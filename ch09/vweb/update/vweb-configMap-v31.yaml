@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vweb-config
+  labels:
+    kiamol: ch09
+data:
+  v.txt:
+    v3.1

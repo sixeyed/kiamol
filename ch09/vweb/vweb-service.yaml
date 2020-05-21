@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vweb
+  labels:
+    kiamol: ch09
+spec:
+  ports:
+    - port: 8090
+      targetPort: http
+  selector:
+    app: vweb
+  type: LoadBalancer
