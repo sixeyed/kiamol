@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: timecheck
+        version: v3
     spec:
       initContainers:
         - name: init-config
