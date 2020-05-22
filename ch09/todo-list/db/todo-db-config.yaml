@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-db-config
+  labels:
+    kiamol: ch09
+data:
+  primary.conf: |-
+    listen_addresses = '*'
+    max_connections = 100
+    shared_buffers = 128MB
+    dynamic_shared_memory_type = posix
+    log_timezone = 'UTC'
+    datestyle = 'iso, mdy'
+    timezone = 'UTC'
+    lc_messages = 'en_US.utf8'			
+    lc_monetary = 'en_US.utf8'
+    lc_numeric = 'en_US.utf8'			
+    lc_time = 'en_US.utf8'				
+    default_text_search_config = 'pg_catalog.english'
+    wal_level = hot_standby
+    max_wal_senders = 5
+    wal_keep_segments = 32
+  standby.conf: |-
+    listen_addresses = '*'
+    max_connections = 100
+    shared_buffers = 128MB
+    dynamic_shared_memory_type = posix
+    log_timezone = 'UTC'
+    datestyle = 'iso, mdy'
+    timezone = 'UTC'
+    lc_messages = 'en_US.utf8'			
+    lc_monetary = 'en_US.utf8'
+    lc_numeric = 'en_US.utf8'			
+    lc_time = 'en_US.utf8'				
+    default_text_search_config = 'pg_catalog.english'
+    hot_standby = on
+  pg_hba.conf: |-
+    # "local" is for Unix domain socket connections only
+    local   all             all                                     trust
+    # IPv4 local connections:
+    host    all             all             127.0.0.1/32            trust
+    # IPv6 local connections:
+    host    all             all             ::1/128                 trust
+    # Allow replication connections from localhost, by a user with the
+    # replication privilege.
+    local   replication     all                                     trust
+    host    replication     all             127.0.0.1/32            trust
+    host    replication     all             ::1/128                 trust
+    host    replication     replication     all                     md5
+    host all all all md5

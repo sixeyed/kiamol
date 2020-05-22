@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web
+  labels:
+    kiamol: ch09
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: todo-web
+  type: ClusterIP

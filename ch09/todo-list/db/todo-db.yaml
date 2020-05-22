@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: todo-db
+  labels:
+    kiamol: ch09
+spec:
+  selector:
+    matchLabels:
+      app: todo-db
+  serviceName: todo-db
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: todo-db
+    spec:
+      initContainers:
+        - name: wait-service
+          image: kiamol/ch03-sleep
+          envFrom:
+          - configMapRef:
+              name: todo-db-env
+          command: ['/scripts/wait-service.sh']
+          volumeMounts:
+            - name: scripts
+              mountPath: "/scripts"
+        - name: initialize-replication
+          image: postgres:11.6-alpine
+          envFrom:
+          - configMapRef:
+              name: todo-db-env
+          env:
+          - name: PGPASSWORD   # used as replication password
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: todo-db-secret
+          command: ['/scripts/initialize-replication.sh']
+          volumeMounts:
+            - name: scripts
+              mountPath: "/scripts"
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
+      containers:
+        - name: db
+          image: postgres:11.6-alpine
+          command: ["/scripts/startup.sh"]
+          envFrom:
+          - configMapRef:
+              name: todo-db-env
+          env:
+          - name: POSTGRES_PASSWORD_FILE
+            value: /secrets/postgres_password
+          - name: PGPASSWORD   # used as replication password
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: todo-db-secret
+          volumeMounts:
+            - name: secret
+              mountPath: "/secrets"
+            - name: scripts
+              mountPath: "/scripts"
+            - name: config
+              mountPath: "/conf"
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: secret
+          secret:
+            secretName: todo-db-secret
+            defaultMode: 0400
+            items:
+            - key: POSTGRES_PASSWORD
+              path: postgres_password
+        - name: scripts
+          configMap:
+            name: todo-db-scripts
+            defaultMode: 0555
+        - name: config
+          configMap:
+            name: todo-db-config
+            defaultMode: 0444
+        - name: initdb
+          emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        kiamol: ch09
+    spec:
+      accessModes: 
+       - ReadWriteOnce
+      resources:
+        requests:
+          storage: 50Mi

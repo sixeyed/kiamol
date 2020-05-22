@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: todo-proxy
+  labels:
+    kiamol: ch09
+spec:
+  selector:
+    matchLabels:
+      app: todo-proxy
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  minReadySeconds: 90
+  template:
+    metadata:
+      labels:
+        app: todo-proxy
+    spec:
+      containers:
+        - image: nginx:1.18-alpine
+          name: nginx
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/nginx/"
+              readOnly: true
+            - name: cache-volume
+              mountPath: /data/nginx/cache
+      volumes:
+        - name: config
+          configMap:
+            name: todo-proxy-configmap
+        - name: cache-volume
+          emptyDir: {}
