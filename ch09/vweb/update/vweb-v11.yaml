@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: vweb
-        version: v1
+        version: v1.1
     spec:
       containers:
         - name: web

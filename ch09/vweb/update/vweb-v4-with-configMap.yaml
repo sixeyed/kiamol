@@ -23,7 +23,7 @@ spec:
     metadata:
       labels:
         app: vweb
-        version: v2
+        version: v4
     spec:
       containers:
         - name: web

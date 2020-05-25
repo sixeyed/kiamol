@@ -9,13 +9,13 @@ spec:
   selector:
     matchLabels:
       app: vweb
-  minReadySeconds: 5
-  progressDeadlineSeconds: 30 
+  minReadySeconds: 30
+  progressDeadlineSeconds: 120 
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
-      maxSurge: 5
+      maxSurge: 1
   template:
     metadata:
       labels:

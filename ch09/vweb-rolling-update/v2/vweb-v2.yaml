@@ -5,14 +5,15 @@ metadata:
   labels:
     kiamol: ch09
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: vweb
+  minReadySeconds: 60
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
+      maxUnavailable: 1
       maxSurge: 1
   template:
     metadata:

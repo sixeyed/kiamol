@@ -92,7 +92,7 @@ spec:
   - metadata:
       name: data
       labels:
-        kiamol: ch08
+        kiamol: ch09
     spec:
       accessModes: 
        - ReadWriteOnce
