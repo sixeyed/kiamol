@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: vweb
   labels:
-    kiamol: ch09
+    kiamol: ch09-lab
 spec:
   ports:
     - port: 8090
       targetPort: http
   selector:
     app: vweb
-    version: v1
+    version: v2
   type: LoadBalancer

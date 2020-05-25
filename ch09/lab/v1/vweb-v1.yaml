@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vweb-v1
   labels:
-    kiamol: ch09    
+    kiamol: ch09-lab   
     app: vweb
 spec:
   replicas: 4
@@ -11,12 +11,6 @@ spec:
     matchLabels:
       app: vweb
       version: v1
-  minReadySeconds: 60
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
   template:
     metadata:
       labels:
