@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-proxy
+  labels:
+    kiamol: ch10
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+      component: proxy
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        component: proxy
+    spec:
+      containers:
+        - image: nginx:1.17-alpine
+          name: nginx
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/nginx/"
+              readOnly: true
+            - name: cache-volume
+              mountPath: /data/nginx/cache
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-config
+        - name: cache-volume
+          emptyDir: {}

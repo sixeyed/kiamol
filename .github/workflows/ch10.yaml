@@ -1,15 +1,15 @@
-name: Ch09 Image Builds
+name: Ch10 Image Builds
 
 on:
   push:
     paths:
-      - ".github/workflows/ch09.yaml"
-      - "ch09/docker-images/**"
+      - ".github/workflows/ch10.yaml"
+      - "ch10/docker-images/**"
   schedule:
     - cron: "0 0-7 * * *"
 
 jobs:
-  ch09:
+  ch10:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -17,8 +17,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: ch09
-        working-directory: ./ch09/docker-images
+      - name: ch10
+        working-directory: ./ch10/docker-images
         run: |
           docker-compose build 
           docker-compose push

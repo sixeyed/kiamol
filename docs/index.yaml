@@ -3,9 +3,9 @@ entries:
   vweb:
   - apiVersion: v2
     appVersion: 2.0.0
-    created: "2020-06-10T10:01:44.6015101+01:00"
+    created: "2020-06-10T10:42:32.3790003+01:00"
     description: Simple versioned web app
-    digest: 7c39dca895054681cdb7e28e4f8eeaef5ba997f12260618b9a60b94a3b34147d
+    digest: 16b2d1059639208d64fa0c6d9d7aeb825021f7fe25034760a70d33afda51a8cb
     name: vweb
     type: application
     urls:
@@ -13,9 +13,9 @@ entries:
     version: 2.0.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2020-06-10T10:01:44.600496+01:00"
+    created: "2020-06-10T10:42:32.3790003+01:00"
     description: Simple versioned web app
-    digest: dd09b4fee5f1038fc728aa8a9f760b8ff1fc70344d4f69054185202f3582ca5c
+    digest: 182061847198468c8ee55e56104d8eaa2b1662e10846aed7134930ef6e03f95b
     name: vweb
     type: application
     urls:

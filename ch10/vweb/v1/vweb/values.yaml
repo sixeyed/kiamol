@@ -1,0 +1,4 @@
+# port for the Service to listen on
+servicePort: 8090
+# number of replicas for the web Pod
+replicaCount: 2

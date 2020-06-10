@@ -1,0 +1,6 @@
+apiVersion: v2
+name: proxy
+description: A reverse proxy using Nginx
+type: application
+version: 0.1.0
+appVersion: 1.16.0

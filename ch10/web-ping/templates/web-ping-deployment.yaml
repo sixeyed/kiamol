@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    kiamol: ch10
+spec:
+  selector:
+    matchLabels:
+      app: web-ping
+  template:
+    metadata:
+      labels:
+        app: web-ping
+    spec:
+      containers:
+        - name: app
+          image: kiamol/ch10-web-ping
+          env:
+            - name: TARGET
+              value: {{ .Values.targetUrl }}
+            - name: METHOD
+              value: {{ .Values.httpMethod }}
+            - name: INTERVAL
+              value: {{ .Values.pingIntervalMilliseconds | quote }}
+
+

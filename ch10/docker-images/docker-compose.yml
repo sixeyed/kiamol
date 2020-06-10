@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  ch10-web-ping:
+    image: kiamol/ch10-web-ping
+    build:
+      context: ./web-ping

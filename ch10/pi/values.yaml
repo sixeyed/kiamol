@@ -1,0 +1,16 @@
+# number of app Pods to run
+replicaCount: 2
+# settings for vweb
+vweb:
+   # whether to deploy vweb
+   enabled: false    
+# settings for the reverse proxy
+proxy:
+  # whether to deploy the proxy
+  enabled: false
+  # name of the app Service to proxy
+  upstreamToProxy: "{{ .Release.Name }}-web"
+  # port of the proxy Service
+  servicePort: 8030
+  # number of proxy Pods to run
+  replicaCount: 2

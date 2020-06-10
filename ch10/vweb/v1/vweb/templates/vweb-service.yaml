@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  {{ .Release.Name }}
+  labels:
+    app.kubernetes.io/name: vweb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    kiamol: ch10
+spec:
+  ports:
+    - port: {{ .Values.servicePort }}
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: vweb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  type: LoadBalancer

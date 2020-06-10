@@ -1,0 +1,6 @@
+# port for the Service to listen on
+servicePort: 8090
+# type of the Service:
+serviceType: LoadBalancer
+# number of replicas for the web Pod
+replicaCount: 2
