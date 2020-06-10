@@ -14,4 +14,4 @@ All patterns are described generically, so you can easily apply them to your app
 
 ## Cover Art
 
-![Cover of the book, Learn Kubernetes in a Month of Lunches](img/cover_-_meap.PNG)
+![Cover of the book, Learn Kubernetes in a Month of Lunches](img/cover_meap.PNG)
