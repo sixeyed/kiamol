@@ -1,0 +1,24 @@
+apiVersion: v1
+entries:
+  vweb:
+  - apiVersion: v2
+    appVersion: 2.0.0
+    created: "2020-06-10T10:01:44.6015101+01:00"
+    description: Simple versioned web app
+    digest: 7c39dca895054681cdb7e28e4f8eeaef5ba997f12260618b9a60b94a3b34147d
+    name: vweb
+    type: application
+    urls:
+    - https://github.com/sixeyed/kiamol/archive/v2.0.0.tar.gz
+    version: 2.0.0
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2020-06-10T10:01:44.600496+01:00"
+    description: Simple versioned web app
+    digest: dd09b4fee5f1038fc728aa8a9f760b8ff1fc70344d4f69054185202f3582ca5c
+    name: vweb
+    type: application
+    urls:
+    - https://github.com/sixeyed/kiamol/archive/v1.0.0.tar.gz
+    version: 1.0.0
+generated: "2020-06-10T10:01:44.600496+01:00"
