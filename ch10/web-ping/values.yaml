@@ -3,4 +3,6 @@ targetUrl: blog.sixeyed.com
 # httpMethod - HTTP method to use for pings
 httpMethod: HEAD
 # pingIntervalMilliseconds - interval between pings in ms
-pingIntervalMilliseconds: 5000
+pingIntervalMilliseconds: 30000
+# chapter where this exercise is used
+kiamolChapter: ch10

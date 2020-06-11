@@ -3,15 +3,17 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-    kiamol: ch10
+    kiamol: {{ .Values.kiamolChapter }}
 spec:
   selector:
     matchLabels:
       app: web-ping
+      instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
         app: web-ping
+        instance: {{ .Release.Name }}
     spec:
       containers:
         - name: app

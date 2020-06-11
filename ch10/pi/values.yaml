@@ -1,5 +1,7 @@
 # number of app Pods to run
 replicaCount: 2
+# type of the app Service:
+serviceType: LoadBalancer
 # settings for vweb
 vweb:
    # whether to deploy vweb

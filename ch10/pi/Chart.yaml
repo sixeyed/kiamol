@@ -3,11 +3,10 @@ name: pi
 description: A Pi calculator
 type: application
 version: 0.1.0
-appVersion: 1.16.0
 dependencies: 
   - name: vweb
     version: 2.0.0
-    repository: https://sixeyed.github.io/kiamol
+    repository: https://kiamol.net
     condition: vweb.enabled
   - name: proxy
     version: 0.1.0

@@ -11,4 +11,4 @@ spec:
   selector:
     app: {{ .Release.Name }}
     component: web
-  type: ClusterIP
+  type: {{ .Values.serviceType }}
