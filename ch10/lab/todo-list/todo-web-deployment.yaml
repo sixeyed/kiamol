@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web       # this needs to be templated
+  labels:
+    kiamol: ch10-lab
+spec:
+  selector:
+    matchLabels:            # this needs to be templated
+      app: todo-web        
+      environment: test
+  template:
+    metadata:
+      labels:               # this needs to be templated
+        app: todo-web
+        environment: test
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list
+          env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Test     # this should be parameterized
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: todo-web-config   # this needs to be templated

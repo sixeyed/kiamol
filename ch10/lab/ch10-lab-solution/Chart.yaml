@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ch10-lab-solution
+description: Solution to Kiamol ch10 lab
+type: application
+version: 0.1.0
+appVersion: 1.0.0

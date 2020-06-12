@@ -1,0 +1,3 @@
+environment: Dev
+configControllerEnabled: true
+servicePort: 8088

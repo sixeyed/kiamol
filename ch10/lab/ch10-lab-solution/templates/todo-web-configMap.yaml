@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  labels:
+    kiamol: ch10-lab
+data:
+  config.json: |-
+    {
+      "ConfigController": {
+        "Enabled" :  {{ .Values.configControllerEnabled }}             
+      }
+    } 
