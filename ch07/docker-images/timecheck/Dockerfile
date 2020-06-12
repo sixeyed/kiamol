@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.101 AS builder
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.301 AS builder
 
 WORKDIR /src
 COPY src/TimeCheck.csproj .
@@ -8,7 +8,7 @@ COPY src /src
 RUN dotnet publish -c Release -o /out TimeCheck.csproj
 
 # app image
-FROM mcr.microsoft.com/dotnet/core/runtime:3.1.1
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1.5
 
 COPY src/appsettings.json /config/appsettings.json
 
