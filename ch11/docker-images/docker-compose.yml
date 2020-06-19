@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:  
+  ch11-gogs:
+    image: kiamol/ch11-gogs
+    build:
+      context: ./gogs
+
+  ch11-jenkins:
+    image: kiamol/ch11-jenkins
+    build:
+      context: ./jenkins
