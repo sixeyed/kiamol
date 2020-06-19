@@ -23,7 +23,7 @@ pipeline {
             steps {
               echo "Deploying to test"
               dir ('ch11/bulletin-board') {
-                sh 'chmod +x ci/build.sh && ./ci/build.sh'
+                sh 'chmod +x ci/run.sh && ./ci/run.sh'
               }
             }
         }
