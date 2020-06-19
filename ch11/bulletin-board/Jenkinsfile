@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('Audit tools') {                        
+            steps {
+                sh '''
+                  git version
+                  buildctl --version
+                  kubectl version --short
+                  helm version --short
+                '''
+            }
+        }
+        stage('Build') {
+            steps {
+              echo "Building version: ${BUILD_NUMBER}"
+              dir ('ch11/bulletin-board') {
+                sh 'chmod +x ci/build.sh && ./ci/build.sh'
+              }
+            }
+        }
+    }
+}
