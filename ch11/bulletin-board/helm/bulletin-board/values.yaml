@@ -2,7 +2,9 @@
 servicePort: 8080
 # type of the Service:
 serviceType: LoadBalancer
-# build number tag to use for the image:
-imageBuildNumber: dev
 # domain of the registry server - e.g docker.io for Docker Hub
 registryServer: docker.io
+# user portion of the image repostory:
+registryUser: kiamol
+# build number portion of the image tag:
+imageBuildNumber: dev
