@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  bulletin-board:
+    image: kiamol/ch11-bulletin-board
+    ports:
+      - 8090:8080
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile

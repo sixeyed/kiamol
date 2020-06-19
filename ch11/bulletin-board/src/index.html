@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bulletin Board</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="site.css">
+  <style>
+  .form-control {
+    margin-bottom: 10px;
+  }
+  .btn-danger {
+    margin-top: 8px;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="jumbotron">
+    <h1>Welcome to the Bulletin Board</h1>
+  </div>
+
+  <div class="container" id="events">
+    <div class="col-sm-7">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Add an Event</h3>
+        </div>
+        <div class="panel-body">
+          <div>
+            <input class="form-control" placeholder="Title" v-model="event.title">
+            <textarea class="form-control" placeholder="Detail" v-model="event.detail"></textarea>
+            <input type="date" class="form-control" placeholder="Date" v-model="event.date">
+            <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="list-group">
+        <a href="#" class="list-group-item" v-for="event in events">
+          <h4 class="list-group-item-heading"><i class="glyphicon glyphicon-bullhorn"></i> {{ event.title }}</h4>
+          <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> {{ event.date }}</h5>
+          <p class="list-group-item-text" v-if="event.detail">{{ event.detail }}</p>
+          <button class="btn btn-xs btn-danger" v-on:click="deleteEvent(event.id)">Delete</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script src="node_modules/vue-resource/dist/vue-resource.min.js"></script>
+<script src="app.js"></script>
+</html>

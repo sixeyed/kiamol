@@ -1,0 +1,23 @@
+{
+  "name": "vue-event-bulletin",
+  "version": "1.0.0",
+  "description": "Demo application for the scotch.io tutorial",
+  "main": "server.js",
+  "author": "Ryan Chenkie, Jason Lam",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "vue": "^1.0.10",
+    "vue-resource": "^0.1.17",
+    "body-parser": "^1.14.1",
+    "errorhandler": "^1.4.2",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1"
+  },
+  "engines": {
+    "node": "10.7.0"
+  }
+}
