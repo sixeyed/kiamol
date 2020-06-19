@@ -20,7 +20,10 @@ spec:
     spec:
       containers:
         - name: bulletin-board
-          image: {{ .Values.registryServer }}/{{ .Values.registryUser }}/bulletin-board:{{ .Values.imageBuildNumber }}-kiamol
+          image: {{ .Values.registryServer }}/{{ .Values.registryUser }}/bulletin-board:{{ .Values.imageBuildNumber }}-kiamol 
+          imagePullPolicy: Always    
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8080  
+      imagePullSecrets:
+      - name: {{ .Values.registrySecretName }}

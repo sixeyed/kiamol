@@ -20,6 +20,7 @@ def workflowJob = new WorkflowJob(jenkins, "${gitRepo}");
 workflowJob.definition = new CpsScmFlowDefinition(scm, "ch11/bulletin-board/Jenkinsfile");
 def gitTrigger = new SCMTrigger("* * * * *");
 workflowJob.addTrigger(gitTrigger);
+workflowJob.disabled = true;
 workflowJob.save();
 
 jenkins.reload()

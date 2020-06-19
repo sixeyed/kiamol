@@ -1,0 +1,6 @@
+apiVersion: v2
+name: jenkins
+description: Customized Jenkins install for Kiamol
+type: application
+version: 1.0.0
+appVersion: 2.2.235.1

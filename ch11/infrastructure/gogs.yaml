@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gogs
+  labels:
+    kiamol: ch11
+spec:
+  ports:
+    - port: 3000
+      targetPort: gogs
+  selector:
+    app: gogs
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gogs
+  labels:
+    kiamol: ch11
+spec:
+  selector:
+    matchLabels:
+      app: gogs
+  template:
+    metadata:
+      labels:
+        app: gogs
+    spec:
+      containers:
+        - name: gogs
+          image: kiamol/ch11-gogs
+          ports:
+            - name: gogs
+              containerPort: 3000
