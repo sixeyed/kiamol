@@ -1,0 +1,8 @@
+# port for the Service to listen on
+servicePort: 8080
+# type of the Service:
+serviceType: LoadBalancer
+# build number tag to use for the image:
+imageBuildNumber: dev
+# domain of the registry server - e.g docker.io for Docker Hub
+registryServer: docker.io
