@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  bulletin-board
+  labels:
+    kiamol: ch11
+spec:
+  selector:
+    matchLabels:
+      app: bulletin-board
+  template:
+    metadata:
+      labels:
+        app: bulletin-board
+    spec:
+      containers:
+        - name: bulletin-board
+          image: kiamol/ch11-bulletin-board:dev
+          imagePullPolicy: IfNotPresent 
+          ports:
+            - name: http
+              containerPort: 8080

@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   bulletin-board:
-    image: kiamol/ch11-bulletin-board
+    image: kiamol/ch11-bulletin-board:dev
     ports:
       - 8010:8080
     build:

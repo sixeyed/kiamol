@@ -1,5 +1,5 @@
 # port for the Service to listen on
-servicePort: 8011
+servicePort: 8012
 # type of the Service:
 serviceType: LoadBalancer
 # domain of the registry server - e.g docker.io for Docker Hub

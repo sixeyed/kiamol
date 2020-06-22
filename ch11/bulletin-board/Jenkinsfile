@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-              echo "Building version: ${BUILD_NUMBER}"
+              echo "Building image tag: ${REGISTRY_SERVER}/${REGISTRY_USER}/bulletin-board:${BUILD_NUMBER}-kiamol"
               dir ('ch11/bulletin-board') {
                 sh 'chmod +x ci/build.sh && ./ci/build.sh'
               }
