@@ -40,15 +40,3 @@ spec:
         ports:
           - name: buildkitd
             containerPort: 1234
-        volumeMounts:
-          - name: registry-creds
-            mountPath: /root/.docker
-            readOnly: true
-      volumes:
-        - name: registry-creds
-          secret:
-            secretName: registry-creds
-            defaultMode: 0400
-            items:
-            - key: .dockerconfigjson
-              path: config.json

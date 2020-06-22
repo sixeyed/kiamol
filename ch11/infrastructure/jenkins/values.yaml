@@ -1,8 +1,0 @@
-# port for the Service to listen on
-servicePort: 8080
-# type of the Service:
-serviceType: LoadBalancer
-# name of the Secret containing registry credentials:
-registrySecretName: registry-creds
-# domain of the registry server - e.g docker.io for Docker Hub
-registryServer: docker.io
