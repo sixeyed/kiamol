@@ -13,3 +13,4 @@ RUN chmod +x init.sh && ./init.sh
 
 # replace with custom start script:
 COPY start.sh ./docker/start.sh
+RUN chmod +x ./docker/start.sh
