@@ -4,6 +4,7 @@ metadata:
   name: bulletin-board
   labels:
     kiamol: ch11
+    app: bulletin-board
 spec:
   ports:
     - port: 8011

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: bulletin-board
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    kiamol: ch11-lab
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bulletin-board
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bulletin-board
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: bulletin-board
+          image: {{ .Values.registryServer }}/{{ .Values.registryUser }}/bulletin-board:{{ .Values.imageBuildNumber }}-kiamol 
+          imagePullPolicy: Always    
+          ports:
+            - name: http
+              containerPort: 8080  
+      imagePullSecrets:
+      - name: {{ .Values.registrySecretName }}

@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    stages {
+        stage('Audit tools') {                        
+            steps {
+                sh '''
+                  git version
+                  buildctl --version
+                  kubectl version --short
+                  helm version --short
+                '''
+            }
+        }
+        stage('Build') {
+            steps {
+              echo "Building image tag: ${REGISTRY_SERVER}/${REGISTRY_USER}/bulletin-board:${BUILD_NUMBER}-kiamol"
+              dir ('ch11/lab/bulletin-board') {
+                sh 'chmod +x ci/build.sh && ./ci/build.sh'
+              }
+            }
+        }
+        stage('Run') {
+            steps {
+              echo "Deploying to test"
+              dir ('ch11/lab/bulletin-board') {
+                sh 'chmod +x ci/run.sh && ./ci/run.sh'
+              }
+            }
+        }
+    }
+}

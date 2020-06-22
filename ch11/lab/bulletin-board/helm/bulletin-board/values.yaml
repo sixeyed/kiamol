@@ -1,0 +1,12 @@
+# port for the Service to listen on
+servicePort: 8012
+# type of the Service:
+serviceType: LoadBalancer
+# domain of the registry server - e.g docker.io for Docker Hub
+registryServer: docker.io
+# user portion of the image repostory:
+registryUser: kiamol
+# build number portion of the image tag:
+imageBuildNumber: dev
+# name of the Secret containing registry credentials:
+registrySecretName: registry-creds
