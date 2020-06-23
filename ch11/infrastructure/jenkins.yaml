@@ -40,7 +40,7 @@ spec:
       volumes:
         - name: registry-creds
           secret:
-            secretName: registry-creds2
+            secretName: registry-creds
             defaultMode: 0400
             items:
             - key: .dockerconfigjson
