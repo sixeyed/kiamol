@@ -2,7 +2,11 @@ ch04/docker-images/todo-list/src/todo-list.db
 ch05/kiamolStorageClass.json
 ch05/defaultStorageClass.json
 *.tgz
+ch09/url.txt
 ch10/charts/
+ch10/pi/Chart.lock
+ch10/vweb-values.yaml
+ch12/api-url.txt
 
 # .net
 
@@ -355,6 +359,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-ch09/url.txt
-ch10/pi/Chart.lock
-ch10/vweb-values.yaml
+
