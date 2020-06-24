@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.301 AS builder
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.301-alpine3.12 AS builder
 
 WORKDIR /src
 COPY src/Numbers.Api/Numbers.Api.csproj .
@@ -8,7 +8,9 @@ COPY src/Numbers.Api/ .
 RUN dotnet publish -c Release -o /out Numbers.Api.csproj
 
 # app image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.5
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.5-alpine3.12
+
+ENV FailAfterCallCount=0
 
 ENTRYPOINT ["dotnet", "/app/Numbers.Api.dll"]
 

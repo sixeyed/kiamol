@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Numbers.Api.Controllers
@@ -13,18 +14,38 @@ namespace Numbers.Api.Controllers
         private static int _CallCount;
 
         private readonly ILogger<RngController> _logger;
+        private readonly IConfiguration _config;
+        private readonly int _failAfterCallCount;
 
-        public RngController(ILogger<RngController> logger)
+        public RngController(IConfiguration config, ILogger<RngController> logger)
         {
+            _config = config;
             _logger = logger;
+            _failAfterCallCount = _config.GetValue<int>("FailAfterCallCount");
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var n = _Random.Next(0,100);
-            _logger.LogDebug($"Returning random number: {n}");
-            return Ok(n);
+            _CallCount++;
+            
+            if (Status.Healthy)
+            {
+                var n = _Random.Next(0, 100);
+                _logger.LogDebug($"Returning random number: {n}");
+
+                if (_failAfterCallCount > 0 && _CallCount >= _failAfterCallCount)
+                {
+                    Status.Healthy = false;
+                }
+
+                return Ok(n);
+            }
+            else
+            {
+                _logger.LogWarning("Unhealthy!");
+                return StatusCode(500, new { message= "Unhealthy" });
+            }
         }
     }
 }
