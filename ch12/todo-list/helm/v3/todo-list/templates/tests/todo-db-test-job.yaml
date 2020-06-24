@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  {{ .Release.Name }}-db-test
+  labels:
+    kiamol: ch12
+  annotations:
+    "helm.sh/hook": test
+spec:
+  completions: 1
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db
+          image: postgres:11.8-alpine          
+          env:
+          - name: PGHOST 
+            value: {{ .Release.Name }}-db
+          - name: PGDATABASE 
+            value: todo
+          - name: PGUSER
+            value: postgres
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: todo-db-secret
+          command: ["psql", "-c", "SELECT COUNT(*) FROM \"public\".\"ToDos\""]

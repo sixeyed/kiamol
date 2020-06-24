@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  {{ .Release.Name }}-db-check
+  labels:
+    kiamol: ch12
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "10"
+spec:
+  completions: 1
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db
+          image: postgres:11.8-alpine          
+          env:
+          - name: PGHOST 
+            value: {{ .Release.Name }}-db
+          - name: PGDATABASE 
+            value: todo
+          - name: PGUSER
+            value: postgres
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: POSTGRES_PASSWORD
+                name: todo-db-secret
+          command: ["/scripts/check-postgres-version.sh"]
+          volumeMounts:
+            - name: scripts
+              mountPath: "/scripts"
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ .Release.Name }}-db-check-scripts
+            defaultMode: 0555

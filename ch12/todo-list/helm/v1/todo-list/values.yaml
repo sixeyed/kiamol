@@ -1,0 +1,6 @@
+# number of replicas for the web Deployment:
+replicaCount: 2
+# port for the Service to listen on:
+servicePort: 8012
+# type of the Service:
+serviceType: LoadBalancer

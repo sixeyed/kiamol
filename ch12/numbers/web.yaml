@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-web
+  labels:
+    kiamol: ch12
+spec:
+  selector:
+    matchLabels:
+      app: numbers-web
+  template:
+    metadata:
+      labels:
+        app: numbers-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web
+          ports:
+            - containerPort: 80
+              name: web
+          env:
+            - name: RngApi__Url
+              value: http://numbers-api:8013/rng

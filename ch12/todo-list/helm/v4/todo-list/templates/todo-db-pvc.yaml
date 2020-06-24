@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name:  {{ .Release.Name }}-db-pvc
+  labels:
+    kiamol: ch12
+  annotations:
+    "helm.sh/hook": pre-install
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi

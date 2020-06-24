@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  {{ .Release.Name }}-db-check-scripts
+  labels:
+    kiamol: ch12
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "1"
+data:
+  check-postgres-version.sh: |-
+    #!/bin/sh
+    PG_VERSION=$(pg_config --version)
+    if [ "$PG_VERSION" == "PostgreSQL 11.6" ]; then
+      echo '** Postgres at expected version - good to upgrade **'
+      exit 0
+    else
+      echo "** ERROR - Postgres not at expected version - wanted: 11.6, got: $PG_VERSION - CANNOT UPGRADE **"
+      exit 1
+    fi

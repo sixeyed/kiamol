@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    kiamol: ch12
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-web
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+              readOnly: true
+            - name: secret
+              mountPath: "/app/secrets"
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10
+            initialDelaySeconds: 10
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-web-config
+            items:
+            - key: config.json
+              path: config.json
+        - name: secret
+          secret:
+            secretName: {{ .Release.Name }}-web-secret
+            defaultMode: 0400
+            items:
+            - key: secrets.json
+              path: secrets.json
