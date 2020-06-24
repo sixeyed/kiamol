@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: numbers-api
+        version: v3
     spec:
       restartPolicy: Always
       containers:
