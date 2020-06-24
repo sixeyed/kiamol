@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: memory-quota
+  namespace: kiamol-ch12-memory
+spec:
+  hard:
+    limits.memory: 150Mi

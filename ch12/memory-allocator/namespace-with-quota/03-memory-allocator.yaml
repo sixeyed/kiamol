@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memory-allocator
+  namespace: kiamol-ch12-memory
+  labels:
+    kiamol: ch12
+spec:
+  selector:
+    matchLabels:
+      app: memory-allocator
+  template:
+    metadata:
+      labels:
+        app: memory-allocator
+    spec:
+      containers:
+        - name: api
+          image: kiamol/ch12-memory-allocator
+          resources:
+            limits:
+              memory: 200Mi
