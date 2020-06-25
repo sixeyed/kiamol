@@ -9,7 +9,7 @@ metadata:
     "helm.sh/hook-weight": "10"
 spec:
   completions: 1
-  backoffLimit: 1
+  backoffLimit: 0
   template:
     spec:
       restartPolicy: Never

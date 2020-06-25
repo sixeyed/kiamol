@@ -1,0 +1,2 @@
+Installed Kiamol to-do list {{ .Chart.Version }}. This is how to get the URL:
+ $ kubectl get svc {{ .Release.Name }}-web -o jsonpath='http://{.status.loadBalancer.ingress[0].*}:{{ .Values.servicePort }}'

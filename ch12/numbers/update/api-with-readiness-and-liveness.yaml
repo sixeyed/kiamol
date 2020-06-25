@@ -36,5 +36,6 @@ spec:
               port: 80
             periodSeconds: 10
             initialDelaySeconds: 10
+            failureThreshold: 2
 
 
