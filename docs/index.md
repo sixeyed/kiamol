@@ -1,4 +1,4 @@
-# [Learn Kubernetes in a Month of Lunches](https://www.manning.com/books/learn-Kubernetes-in-a-month-of-lunches)
+# [Learn Kubernetes in a Month of Lunches](https://www.manning.com/books/learn-kubernetes-in-a-month-of-lunches)
 
 This is the source code for my Manning book _Learn Kubernetes in a Month of Lunches_ (codename `kiamol`).
 
