@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pi-dev
+  labels:
+    kiamol: ch12-lab
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pi-test
+  labels:
+    kiamol: ch12-lab
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pi-uat
+  labels:
+    kiamol: ch12-lab

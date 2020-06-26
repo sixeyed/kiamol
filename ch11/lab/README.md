@@ -1,4 +1,4 @@
-# Ch11
+# Ch11 lab
 
 Set up the new Jenkins job by copying the old one - from the Jenkins homepage click _New Item_ and copy the project called _kiamol_:
 

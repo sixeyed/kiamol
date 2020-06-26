@@ -1,4 +1,4 @@
-# Ch10
+# Ch10 lab
 
 Run the app using plain manifests (from this `lab` folder):
 
