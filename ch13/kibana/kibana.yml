@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: kiamol-ch13-logging
+  labels:
+    kiamol: ch13
+spec:
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - image: kiamol/ch13-kibana
+        name: kibana
+        ports:
+        - containerPort: 5601
+          name: kibana

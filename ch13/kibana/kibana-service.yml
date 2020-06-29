@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: kiamol-ch13-logging
+  labels:
+    kiamol: ch13
+spec:
+  selector:    
+    app: kibana
+  ports:
+  - name: kibana
+    port: 5601
+    targetPort: 5601
+  type: LoadBalancer

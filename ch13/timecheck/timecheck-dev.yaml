@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-ch13-dev
+  labels:
+    kiamol: ch13
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timecheck
+  namespace: kiamol-ch13-dev
+spec:
+  selector:
+    matchLabels:
+      app: timecheck
+  template:
+    metadata:
+      labels:
+        app: timecheck
+    spec:
+      containers:
+        - name: timecheck
+          image: kiamol/ch07-timecheck
+          volumeMounts:
+            - name: logs-dir
+              mountPath: /logs
+        - name: logger
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', 'tail -f /logs-ro/timecheck.log'] 
+          volumeMounts:
+            - name: logs-dir
+              mountPath: /logs-ro
+              readOnly: true
+      volumes:
+        - name: logs-dir
+          emptyDir: {}

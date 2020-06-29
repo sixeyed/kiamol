@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-ch13-test
+  labels:
+    kiamol: ch13
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: timecheck-config
+  namespace: kiamol-ch13-test
+data:
+  appsettings.json: |-
+    {
+      "Application": {
+        "Version": "1.1",
+        "Environment": "TEST"
+      },
+      "Timer": {
+        "IntervalSeconds": "10"
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timecheck
+  namespace: kiamol-ch13-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: timecheck
+  template:
+    metadata:
+      labels:
+        app: timecheck
+    spec:
+      initContainers:
+        - name: init-config
+          image: kiamol/ch03-sleep         
+          command: ['sh', '-c', 'cp /config-in/appsettings.json /config-out/appsettings.json']            
+          volumeMounts:
+            - name: config-map
+              mountPath: /config-in
+            - name: config-dir
+              mountPath: /config-out
+      containers:
+        - name: timecheck
+          image: kiamol/ch07-timecheck
+          volumeMounts:
+            - name: config-dir
+              mountPath: /config
+              readOnly: true
+            - name: logs-dir
+              mountPath: /logs
+        - name: logger
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', 'tail -f /logs-ro/timecheck.log'] 
+          volumeMounts:
+            - name: logs-dir
+              mountPath: /logs-ro
+              readOnly: true
+      volumes:
+        - name: config-map
+          configMap:
+            name: timecheck-config
+        - name: config-dir
+          emptyDir: {}
+        - name: logs-dir
+          emptyDir: {}

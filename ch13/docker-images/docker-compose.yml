@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:  
+  ch13-elasticsearch:
+    image: kiamol/ch13-elasticsearch
+    build:
+      context: ./elasticsearch
+
+  ch13-kibana:
+    image: kiamol/ch13-kibana
+    build:
+      context: ./kibana
