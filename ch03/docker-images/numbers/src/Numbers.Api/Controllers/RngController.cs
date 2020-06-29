@@ -16,12 +16,14 @@ namespace Numbers.Api.Controllers
         private readonly ILogger<RngController> _logger;
         private readonly IConfiguration _config;
         private readonly int _failAfterCallCount;
+        private readonly bool _useFailureId;
 
         public RngController(IConfiguration config, ILogger<RngController> logger)
         {
             _config = config;
             _logger = logger;
             _failAfterCallCount = _config.GetValue<int>("FailAfterCallCount");
+            _useFailureId = _config.GetValue<bool>("UseFailureId");
         }
 
         [HttpGet]
@@ -43,8 +45,9 @@ namespace Numbers.Api.Controllers
             }
             else
             {
-                _logger.LogWarning("Unhealthy!");
-                return StatusCode(500, new { message= "Unhealthy" });
+                var message = _useFailureId ? $"Unhealthy! Failure ID: {Guid.NewGuid()}" : "Unhealthy!";
+                _logger.LogWarning(message);
+                return StatusCode(500, new { message= message });
             }
         }
     }

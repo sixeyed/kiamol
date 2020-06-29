@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+  namespace: kiamol-ch13-logging
+  labels:
+    kiamol: ch13
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush         5
+        Log_Level     error
+        Daemon        off
+        Parsers_File  parsers.conf
+
+    @INCLUDE input.conf
+    @INCLUDE output.conf
+
+  input.conf: |
+    [INPUT]
+        Name              tail
+        Tag               kube.*
+        Path              /var/log/containers/timecheck*.log
+        Parser            docker
+        Refresh_Interval  10
+
+  output.conf: |
+    [OUTPUT]
+        Name            stdout        
+        Format          json_lines
+        Match           kube.*
+
+  parsers.conf: |
+    [PARSER]
+        Name        docker
+        Format      json
+        Time_Key    time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L
+        Time_Keep   On

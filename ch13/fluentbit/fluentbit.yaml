@@ -17,13 +17,6 @@ spec:
       containers:
       - name: fluent-bit
         image: fluent/fluent-bit:1.4.6
-        ports:
-          - containerPort: 2020
-        env:
-        - name: FLUENT_ELASTICSEARCH_HOST
-          value: "elasticsearch"
-        - name: FLUENT_ELASTICSEARCH_PORT
-          value: "9200"
         volumeMounts:
         - name: fluent-bit-config
           mountPath: /fluent-bit/etc/

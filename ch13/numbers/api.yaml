@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: numbers-api
+  namespace: kiamol-ch13-test
+spec:
+  ports:
+    - port: 80
+      targetPort: api
+  selector:
+    app: numbers-api
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-api
+  namespace: kiamol-ch13-test
+spec:
+  selector:
+    matchLabels:
+      app: numbers-api
+  template:
+    metadata:
+      labels:
+        app: numbers-api
+    spec:
+      containers:
+        - name: api
+          image: kiamol/ch03-numbers-api
+          ports:
+            - containerPort: 80
+              name: api
+          env:
+            - name: FailAfterCallCount
+              value: "1"
+            - name: UseFailureId
+              value: "true"
+
