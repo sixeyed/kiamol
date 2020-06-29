@@ -16,8 +16,6 @@ spec:
       containers:
       - name: sleep
         image: kiamol/ch03-sleep
-        securityContext:
-          privileged: true
         volumeMounts:
         - name: varlog
           mountPath: /var/log
