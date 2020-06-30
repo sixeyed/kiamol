@@ -38,8 +38,8 @@ data:
 
     [FILTER]
         Name                grep
-        Match               kube.kiamol-ch13-test.numbers-api*
-        Regex               pri [01234]
+        Match               kube.kiamol-ch13-test.api.numbers-api*
+        Regex               priority [234]
 
   output.conf: |
     [OUTPUT]
@@ -78,5 +78,4 @@ data:
         Name        dotnet-syslog
         Format      regex
         Regex       ^\<(?<priority>[0-9]+)\>*(?<message>.*)$
-        Time_Key    time
-        Time_Format %b %d %H:%M:%S
+        

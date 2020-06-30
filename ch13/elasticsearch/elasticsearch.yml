@@ -20,6 +20,3 @@ spec:
         ports:
         - containerPort: 9200
           name: elasticsearch
-        env:
-          - name: discovery.type
-            value: single-node

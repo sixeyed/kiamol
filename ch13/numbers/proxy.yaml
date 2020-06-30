@@ -39,7 +39,7 @@ data:
             proxy_pass             http://numbers-api;
             proxy_set_header       Host $host;
             proxy_cache            STATIC;
-            proxy_cache_valid      200  30s;
+            proxy_cache_valid      20s;
             add_header             X-Cache     $upstream_cache_status;
             add_header             X-Host      $hostname;         
         }
