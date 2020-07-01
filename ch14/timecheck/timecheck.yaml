@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-ch14-test
+  labels:
+    kiamol: ch14
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timecheck
+  namespace: kiamol-ch14-test
+  labels:
+    kiamol: ch14
+spec:
+  selector:
+    matchLabels:
+      app: timecheck
+  template:
+    metadata:
+      labels:
+        app: timecheck
+    spec:
+      containers:
+        - name: timecheck
+          image: kiamol/ch07-timecheck
+          env:
+            - name: Metrics__Enabled
+              value: "true"
+          ports:
+            - containerPort: 8080
+              name: metrics

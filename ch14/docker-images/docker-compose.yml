@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  ch14-access-log:
+    image: kiamol/ch14-access-log
+    build:
+      context: ./access-log
+
+  ch14-image-gallery:
+    image: kiamol/ch14-image-gallery
+    build:
+      context: ./image-gallery
+
+  ch14-image-of-the-day:
+    image: kiamol/ch14-image-of-the-day
+    build:
+      context: ./image-of-the-day
