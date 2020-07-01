@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  namespace: kiamol-ch13-lab-logging
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - image: kiamol/ch13-elasticsearch
+        name: elasticsearch
+        ports:
+        - containerPort: 9200
+          name: elasticsearch

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: kiamol-ch13-lab-logging
+spec:
+  selector:    
+    app: elasticsearch
+  ports:
+  - name: elasticsearch
+    port: 9200
+    targetPort: 9200
+  type: ClusterIP

@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+  namespace: kiamol-ch13-lab-logging
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush         5
+        Log_Level     error
+        Daemon        off
+        Parsers_File  parsers.conf
+
+    @INCLUDE input.conf
+    @INCLUDE filter.conf
+    @INCLUDE output.conf
+
+  input.conf: |
+    [INPUT]
+        Name              tail
+        Tag               kube.<namespace_name>.<container_name>.<pod_name>.<docker_id>-
+        Tag_Regex         (?<pod_name>[a-z0-9](?:[-a-z0-9]*[a-z0-9])?(?:\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)_(?<namespace_name>[^_]+)_(?<container_name>.+)-(?<docker_id>[a-z0-9]{64})\.log$
+        Path              /var/log/containers/*.log
+        Parser            docker
+        Refresh_Interval  10 
+
+  filter.conf: |
+    [FILTER]
+        Name                kubernetes
+        Match               kube.*
+        Kube_Tag_Prefix     kube.
+        Regex_Parser        kube-tag
+        Annotations         Off
+        Merge_Log           On
+        K8S-Logging.Parser  On
+
+    [FILTER]
+        Name                grep
+        Match               kube.kiamol-ch13-lab.web.vweb*
+        Exclude             code 304
+
+  output.conf: |
+    [OUTPUT]
+        Name            es
+        Match           kube.kiamol-ch13-lab.*
+        Host            elasticsearch
+        Index           lab
+
+  parsers.conf: |
+    [PARSER]
+        Name        docker
+        Format      json
+        Time_Key    time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L
+        Time_Keep   On
+    
+    [PARSER]
+        Name    kube-tag
+        Format  regex
+        Regex   ^(?<namespace_name>[^_]+)\.(?<container_name>.+)\.(?<pod_name>[a-z0-9](?:[-a-z0-9]*[a-z0-9])?(?:\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)\.(?<docker_id>[a-z0-9]{64})-$
+
+    [PARSER]
+        Name   nginx
+        Format regex
+        Regex  ^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*?)(?: +\S*)?)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?
+        Time_Key time
+        Time_Format %d/%b/%Y:%H:%M:%S %z
