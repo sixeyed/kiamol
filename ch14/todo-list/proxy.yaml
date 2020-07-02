@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-proxy
+  namespace: kiamol-ch14-test
+spec:
+  ports:
+    - port: 8015
+      targetPort: 80
+  selector:
+    app: todo-proxy
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-proxy-config
+  namespace: kiamol-ch14-test
+data:
+  nginx.conf: |-
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+    events {
+      worker_connections  1024;
+    }
+
+    http {
+      server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        location / {
+            proxy_pass             http://todo-web;
+            proxy_set_header       Host $host;      
+        }
+
+        location /stub_status {
+            stub_status;
+        }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-proxy
+  namespace: kiamol-ch14-test
+spec:
+  selector:
+    matchLabels:
+      app: todo-proxy
+  template:
+    metadata:
+      labels:
+        app: todo-proxy
+      annotations:
+        prometheus.io/scrape: "false"
+    spec:
+      containers:
+        - image: nginx:1.17-alpine
+          name: nginx
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/nginx/"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: todo-proxy-config
+              

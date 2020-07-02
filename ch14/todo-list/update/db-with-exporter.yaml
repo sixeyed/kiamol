@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-db
+  namespace: kiamol-ch14-test
+spec:
+  selector:
+    matchLabels:
+      app: todo-db
+  template:
+    metadata:
+      labels:
+        app: todo-db
+      annotations:
+        prometheus.io/port: "9187"
+    spec:
+      containers:
+        - name: db
+          image: postgres:11.6-alpine
+          env:
+          - name: POSTGRES_PASSWORD_FILE
+            value: /secrets/postgres_password
+          volumeMounts:
+            - name: secret
+              mountPath: "/secrets"
+            - name: data
+              mountPath: /var/lib/postgresql/data
+        - name: exporter
+          image: wrouesnel/postgres_exporter:v0.8.0
+          ports:
+            - name: metrics
+              containerPort: 9187
+          env:
+            - name: DATA_SOURCE_URI
+              value: localhost?sslmode=disable
+            - name: DATA_SOURCE_USER
+              value: postgres
+            - name: DATA_SOURCE_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: todo-db-secret        
+          volumeMounts:
+            - name: secret
+              mountPath: "/secrets"
+      volumes:
+        - name: secret
+          secret:
+            secretName: todo-db-secret
+            defaultMode: 0400
+            items:
+            - key: POSTGRES_PASSWORD
+              path: postgres_password
+        - name: data
+          emptyDir: {}

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: kiamol-ch14-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - image: grafana/grafana:6.7.4
+          name: grafana
+          ports:
+            - containerPort: 3000
+              name: grafana
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              value: "kiamol"
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: "kiamol"
+            - name: GF_USERS_DEFAULT_THEME
+              value: "light"
+          volumeMounts:
+            - name: config-datasources
+              mountPath: "/etc/grafana/provisioning/datasources"
+              readOnly: true
+            - name: config-providers
+              mountPath: "/etc/grafana/provisioning/dashboards"
+              readOnly: true
+            - name: dashboards
+              mountPath: "/var/lib/grafana/dashboards"
+      volumes:
+        - name: config-datasources
+          configMap:
+            name: grafana-config
+            items:
+            - key: datasources.yaml
+              path: datasources.yaml
+        - name: config-providers
+          configMap:
+            name: grafana-config
+            items:
+            - key: providers.yaml
+              path: providers.yaml
+        - name: dashboards
+          projected:
+              sources:
+                - configMap:
+                    name: grafana-dashboard-apod
+                - configMap:
+                    name: grafana-dashboard-todo-list
+                - configMap:
+                    name: grafana-dashboard-numbers-api

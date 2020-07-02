@@ -13,11 +13,38 @@ data:
         kubernetes_sd_configs:
         - role: pod 
         relabel_configs:
-        - source_labels: [__meta_kubernetes_namespace]
+        - source_labels: 
+            - __meta_kubernetes_namespace
           action: keep
           regex: kiamol-ch14-test 
-        - source_labels: [__meta_kubernetes_pod_name]
-          target_label: instance
-        - source_labels: [__meta_kubernetes_pod_annotationpresent_prometheus_io_path,__meta_kubernetes_pod_annotation_prometheus_io_path]
+        - source_labels: 
+            - __meta_kubernetes_pod_annotationpresent_prometheus_io_scrape
+            - __meta_kubernetes_pod_annotation_prometheus_io_scrape
+          regex: true;false
+          action: drop
+        - source_labels: 
+            - __meta_kubernetes_pod_annotationpresent_prometheus_io_path
+            - __meta_kubernetes_pod_annotation_prometheus_io_path
           regex: true;(.*)
           target_label:  __metrics_path__
+        - source_labels: 
+            - __meta_kubernetes_pod_annotationpresent_prometheus_io_target
+            - __meta_kubernetes_pod_annotation_prometheus_io_target
+          regex: true;(.*)
+          target_label:  __param_target
+        - source_labels: 
+            - __meta_kubernetes_pod_annotationpresent_prometheus_io_port
+            - __address__
+            - __meta_kubernetes_pod_annotation_prometheus_io_port
+          action: replace
+          regex: true;([^:]+)(?::\d+)?;(\d+)
+          replacement: $1:$2
+          target_label: __address__
+        - source_labels: 
+            - __meta_kubernetes_pod_labelpresent_app
+            - __meta_kubernetes_pod_label_app
+          regex: true;(.*)
+          target_label: job
+        - source_labels: 
+            - __meta_kubernetes_pod_name
+          target_label: instance

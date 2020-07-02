@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web
+  namespace: kiamol-ch14-test
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: todo-web
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-web-config
+  namespace: kiamol-ch14-test
+data:
+  config.json: |-
+    {
+      "ConfigController": {
+        "Enabled" : true
+      },
+      "Database" : {
+        "Provider" : "Postgres"
+      },
+      "Metrics" : {
+        "Enabled" : true
+      }
+    }
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: todo-web-secret
+  namespace: kiamol-ch14-test
+type: Opaque
+stringData:
+  secrets.json: |-
+    {
+      "ConnectionStrings": {
+        "ToDoDb": "Server=todo-db;Database=todo;User Id=postgres;Password=kiamol-2*2*;"
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web
+  namespace: kiamol-ch14-test
+spec:
+  selector:
+    matchLabels:
+      app: todo-web
+  template:
+    metadata:
+      labels:
+        app: todo-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+              readOnly: true
+            - name: secret
+              mountPath: "/app/secrets"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: todo-web-config
+            items:
+            - key: config.json
+              path: config.json
+        - name: secret
+          secret:
+            secretName: todo-web-secret
+            defaultMode: 0400
+            items:
+            - key: secrets.json
+              path: secrets.json
