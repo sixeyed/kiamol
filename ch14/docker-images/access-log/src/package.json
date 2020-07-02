@@ -4,8 +4,8 @@
   "main": "server.js",
   "author": "kiamol",
   "dependencies": {
-    "restify": "8.3.3",
-    "winston": "3.2.1",
-    "prom-client": "11.5.3"
+    "restify": "8.5.1",
+    "winston": "3.3.3",
+    "prom-client": "12.0.0"
   }
 }

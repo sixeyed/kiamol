@@ -13,9 +13,7 @@ const clientIpGauge = new prom.Gauge({
   help: "Access Log - current unique IP addresses"
 });
 
-//setup Prometheus with hostname label:
-const defaultLabels = { hostname: os.hostname() };
-prom.register.setDefaultLabels(defaultLabels);
+//setup Prometheus with standard metrics:
 prom.collectDefaultMetrics();
 
 function stats(req, res, next) {

@@ -53,28 +53,23 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	indexHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		//random failures:
-		if (rand.Intn(10) > 8) {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Failed"))
-		} else {
-			response,_ := client.Get(imageApiUrl)
-			defer response.Body.Close()
-			data,_ := ioutil.ReadAll(response.Body)
-			image := Image{}
-			json.Unmarshal([]byte(data), &image)	
-			tmpl.Execute(w, image)
-			log := AccessLog{
-				ClientIP: r.RemoteAddr,
-			}
-			jsonLog,_ := json.Marshal(log)
-			response,_ = client.Post(logApiUrl, "application/json", bytes.NewBuffer(jsonLog))
-			defer response.Body.Close()
+		response,_ := client.Get(imageApiUrl)
+		defer response.Body.Close()
+		data,_ := ioutil.ReadAll(response.Body)
+		image := Image{}
+		json.Unmarshal([]byte(data), &image)	
+		tmpl.Execute(w, image)
+		log := AccessLog{
+			ClientIP: r.RemoteAddr,
 		}
+		jsonLog,_ := json.Marshal(log)
+		response,_ = client.Post(logApiUrl, "application/json", bytes.NewBuffer(jsonLog))
+		defer response.Body.Close()
+
 	})
 
 	wrappedIndexHandler := promhttp.InstrumentHandlerInFlight(inFlightGauge,
-							promhttp.InstrumentHandlerCounter(requestCounter, indexHandler))
+						    promhttp.InstrumentHandlerCounter(requestCounter, indexHandler))
 	
 	http.Handle("/", wrappedIndexHandler)
 	http.Handle("/metrics", promhttp.Handler())
