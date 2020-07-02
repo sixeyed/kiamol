@@ -15,7 +15,8 @@ namespace ToDoList
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    config.AddJsonFile("config/logging.json", optional: true, reloadOnChange: true)
+                    config.AddJsonFile("appsettings.json")
+                          .AddJsonFile("config/logging.json", optional: true, reloadOnChange: true)
                           .AddJsonFile("config/config.json", optional: true, reloadOnChange: true)
                           .AddJsonFile("secrets/secrets.json", optional: true, reloadOnChange: true);
                 })

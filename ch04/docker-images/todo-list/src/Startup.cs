@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Prometheus;
 using ToDoList.Model;
 using ToDoList.Services;
 
@@ -54,12 +55,17 @@ namespace ToDoList
             }
 
             app.UseStaticFiles();
-
             app.UseRouting();
+
+            if (Configuration.GetValue<bool>("Metrics:Enabled"))
+            {
+                app.UseHttpMetrics();
+            }
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapMetrics();
             });
         }
     }
