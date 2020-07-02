@@ -153,6 +153,7 @@ data:
           "type": "stat"
         }
       ],
+      "refresh": "30s",
       "schemaVersion": 22,
       "style": "dark",
       "tags": [],

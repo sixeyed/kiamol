@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cadvisor
+  namespace: kube-system
+  labels:
+    kiamol: ch14
+spec:
+  ports:
+  - port: 8080
+    targetPort: http
+  selector:
+    app: cadvisor
+---
+apiVersion: apps/v1 
+kind: DaemonSet
+metadata:
+  name: cadvisor
+  namespace:  kube-system
+  labels:
+    kiamol: ch14
+spec:
+  selector:
+    matchLabels:
+      app: cadvisor
+  template:
+    metadata:
+      labels:
+        app: cadvisor
+    spec:
+      containers:
+      - name: cadvisor
+        image: k8s.gcr.io/cadvisor:v0.35.0
+        volumeMounts:
+        - name: rootfs
+          mountPath: /rootfs
+          readOnly: true
+        - name: var-run
+          mountPath: /var/run
+          readOnly: true
+        - name: sys
+          mountPath: /sys
+          readOnly: true
+        - name: docker
+          mountPath: /var/lib/docker
+          readOnly: true
+        - name: disk
+          mountPath: /dev/disk
+          readOnly: true
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+      automountServiceAccountToken: false
+      volumes:
+      - name: rootfs
+        hostPath:
+          path: /
+      - name: var-run
+        hostPath:
+          path: /var/run
+      - name: sys
+        hostPath:
+          path: /sys
+      - name: docker
+        hostPath:
+          path: /var/lib/docker
+      - name: disk
+        hostPath:
+          path: /dev/disk

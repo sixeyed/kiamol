@@ -1146,6 +1146,7 @@ data:
           }
         }
       ],
+      "refresh": "30s",
       "schemaVersion": 22,
       "style": "light",
       "tags": [],
