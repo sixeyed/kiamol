@@ -48,10 +48,20 @@ data:
         - source_labels: 
             - __meta_kubernetes_pod_name
           target_label: instance
+      
+      - job_name: 'cadvisor'
+        kubernetes_sd_configs:
+        - role: pod 
+        relabel_configs:
+        - source_labels: 
+            - __meta_kubernetes_namespace
+            - __meta_kubernetes_pod_labelpresent_app
+            - __meta_kubernetes_pod_label_app
+          action: keep
+          regex: kube-system;true;cadvisor
 
-      - job_name: 'kube'
+      - job_name: 'kube-state-metrics'
         static_configs:
-        - targets: 
-            - cadvisor.kube-system.svc.cluster.local:8080
+        - targets:
             - kube-state-metrics.kube-system.svc.cluster.local:8080
             - kube-state-metrics.kube-system.svc.cluster.local:8081

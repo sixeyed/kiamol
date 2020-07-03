@@ -19,6 +19,8 @@ public class Image {
     }
     
     public void setUrl(String url) {
+        //TODO - if it's a YouTube link need to format the URL:
+        // https://img.youtube.com/vi/<insert-youtube-video-id-here>/0.jpg
         this.url = url;
     }
 
