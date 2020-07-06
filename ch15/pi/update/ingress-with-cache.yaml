@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: pi
+  labels:
+    kiamol: ch15
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffering: "on" 
     nginx.ingress.kubernetes.io/configuration-snippet: |

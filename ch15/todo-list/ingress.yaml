@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: todo
+  labels:
+    kiamol: ch15
 spec:
   rules:
   - host: todo.kiamol.local

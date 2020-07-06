@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-generator
+  labels:
+    kiamol: ch15
 spec:
   selector:
     matchLabels:

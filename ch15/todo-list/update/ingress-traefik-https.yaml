@@ -1,13 +1,15 @@
 apiVersion: networking.k8s.io/v1beta1 
 kind: Ingress
 metadata:
-  name: todo-new
+  name: todo2-new
+  labels:
+    kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.frontend.rule.type: Path
 spec:
   rules:
-  - host: todo.kiamol.local
+  - host: todo2.kiamol.local
     http:
       paths:
       - path: /new
@@ -20,13 +22,15 @@ spec:
 apiVersion: networking.k8s.io/v1beta1 
 kind: Ingress
 metadata:
-  name: todo-static
+  name: todo2-static
+  labels:
+    kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.frontend.rule.type: PathPrefix
 spec:
   rules:
-  - host: todo.kiamol.local
+  - host: todo2.kiamol.local
     http:
       paths:
       - path: /static
@@ -39,13 +43,15 @@ spec:
 apiVersion: networking.k8s.io/v1beta1 
 kind: Ingress
 metadata:
-  name: todo
+  name: todo2
+  labels:
+    kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.frontend.rule.type: Path
 spec:
   rules:
-  - host: todo.kiamol.local
+  - host: todo2.kiamol.local
     http:
       paths:
       - path: /

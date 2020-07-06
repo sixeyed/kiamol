@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: hello-kiamol
+  labels:
+    kiamol: ch15
 spec:
   rules:
   - host: hello.kiamol.local

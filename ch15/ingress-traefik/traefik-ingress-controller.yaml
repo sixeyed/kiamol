@@ -8,7 +8,7 @@ metadata:
 kind: Service
 apiVersion: v1
 metadata:
-  name: traefik-ingress-service
+  name: ingress-traefik-controller
   namespace: kiamol-ingress-traefik
 spec:
   selector:
@@ -28,7 +28,7 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: traefik-ingress-controller
+  name: ingress-traefik-controller
   namespace: kiamol-ingress-traefik
   labels:
     k8s-app: traefik-ingress-lb

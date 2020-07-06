@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: todo-new
+  labels:
+    kiamol: ch15
   annotations:
     nginx.ingress.kubernetes.io/affinity: cookie
 spec:
@@ -21,6 +23,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: todo-static
+  labels:
+    kiamol: ch15
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffering: "on" 
     nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -44,6 +48,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: todo
+  labels:
+    kiamol: ch15
 spec:
   rules:
   - host: todo.kiamol.local

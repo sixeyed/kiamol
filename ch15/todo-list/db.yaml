@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-db
+  labels:
+    kiamol: ch15
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: todo-db
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: todo-db-secret
+  labels:
+    kiamol: ch15
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: "kiamol-2*2*"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-db
+  labels:
+    kiamol: ch15
+spec:
+  selector:
+    matchLabels:
+      app: todo-db
+  template:
+    metadata:
+      labels:
+        app: todo-db
+    spec:
+      containers:
+        - name: db
+          image: postgres:11.6-alpine
+          env:
+          - name: POSTGRES_PASSWORD_FILE
+            value: /secrets/postgres_password
+          volumeMounts:
+            - name: secret
+              mountPath: "/secrets"
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: secret
+          secret:
+            secretName: todo-db-secret
+            defaultMode: 0400
+            items:
+            - key: POSTGRES_PASSWORD
+              path: postgres_password
+        - name: data
+          emptyDir: {}
