@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  ch15-cert-generator:
+    image: kiamol/ch15-cert-generator
+    build:
+      context: ./cert-generator
