@@ -1,0 +1,60 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: todo-new
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: Path
+spec:
+  rules:
+  - host: todo.kiamol.local
+    http:
+      paths:
+      - path: /new
+        backend:
+          serviceName: todo-web-sticky
+          servicePort: 80
+  tls:
+   - secretName: kiamol-cert
+---
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: todo-static
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: todo.kiamol.local
+    http:
+      paths:
+      - path: /static
+        backend:
+          serviceName: todo-web
+          servicePort: 80
+  tls:
+   - secretName: kiamol-cert
+---
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: todo
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: Path
+spec:
+  rules:
+  - host: todo.kiamol.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: todo-web
+          servicePort: 80
+      - path: /list
+        backend:
+          serviceName: todo-web
+          servicePort: 80
+  tls:
+   - secretName: kiamol-cert

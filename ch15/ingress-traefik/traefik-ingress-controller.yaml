@@ -15,8 +15,11 @@ spec:
     k8s-app: traefik-ingress-lb
   ports:
     - name: http
-      port: 8016      
+      port: 8015      
       targetPort: http
+    - name: https
+      port: 9443      
+      targetPort: https
     - name: admin
       port: 8080
       targetPort: admin
@@ -45,11 +48,16 @@ spec:
         ports:
         - name: http
           containerPort: 80
+        - name: https
+          containerPort: 443
         - name: admin
           containerPort: 8080
         args:
         - --api
         - --kubernetes
         - --kubernetes.ingressclass=traefik
-        - --kubernetes.ingressendpoint.publishedservice=kiamol-ingress-traefik/traefik-ingress-service
-        - --logLevel=INFO
+ #       - --kubernetes.ingressendpoint.publishedservice=kiamol-ingress-traefik/traefik-ingress-service
+ #       - --logLevel=INFO
+        - --defaultentrypoints=http,https
+        - --entrypoints=Name:https Address::443 TLS
+        - --entrypoints=Name:http Address::80

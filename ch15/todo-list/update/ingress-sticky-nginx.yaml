@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: todo-new
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: cookie
+spec:
+  rules:
+  - host: todo.kiamol.local
+    http:
+      paths:
+      - pathType: Exact
+        path: /new
+        backend:
+          serviceName: todo-web
+          servicePort: 80
+---
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: todo-static
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffering: "on" 
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_cache static-cache;
+      proxy_cache_valid 60m;
+      add_header X-Cache $upstream_cache_status;
+spec:
+  rules:
+  - host: todo.kiamol.local
+    http:
+      paths:
+      - pathType: Prefix
+        path: /static
+        backend:
+          serviceName: todo-web
+          servicePort: 80
+---
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: todo
+spec:
+  rules:
+  - host: todo.kiamol.local
+    http:
+      paths:
+      - pathType: Exact
+        path: /
+        backend:
+          serviceName: todo-web
+          servicePort: 80 
+      - pathType: Exact
+        path: /list
+        backend:
+          serviceName: todo-web
+          servicePort: 80

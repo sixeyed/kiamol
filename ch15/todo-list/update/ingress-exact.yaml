@@ -11,7 +11,7 @@ spec:
         path: /
         backend:
           serviceName: todo-web
-          servicePort: 80
+          servicePort: 80 
       - pathType: Exact
         path: /list
         backend:
@@ -19,6 +19,11 @@ spec:
           servicePort: 80
       - pathType: Exact
         path: /new
+        backend:
+          serviceName: todo-web
+          servicePort: 80
+      - pathType: Prefix
+        path: /static
         backend:
           serviceName: todo-web
           servicePort: 80
