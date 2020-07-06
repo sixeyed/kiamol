@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-ingress-traefik
+  labels:
+    kiamol: ch15
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-ingress-service
+  namespace: kiamol-ingress-traefik
+spec:
+  selector:
+    k8s-app: traefik-ingress-lb
+  ports:
+    - name: http
+      port: 8016      
+      targetPort: http
+    - name: admin
+      port: 8080
+      targetPort: admin
+  type: LoadBalancer
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: traefik-ingress-controller
+  namespace: kiamol-ingress-traefik
+  labels:
+    k8s-app: traefik-ingress-lb
+spec:
+  selector:
+    matchLabels:
+      k8s-app: traefik-ingress-lb
+  template:
+    metadata:
+      labels:
+        k8s-app: traefik-ingress-lb
+        name: traefik-ingress-lb
+    spec:
+      containers:
+      - image: traefik:v1.7.24-alpine
+        name: traefik-ingress-lb
+        ports:
+        - name: http
+          containerPort: 80
+        - name: admin
+          containerPort: 8080
+        args:
+        - --api
+        - --kubernetes
+        - --kubernetes.ingressclass=traefik
+        - --kubernetes.ingressendpoint.publishedservice=kiamol-ingress-traefik/traefik-ingress-service
+        - --logLevel=INFO

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kiamol
+  labels:
+    kiamol: ch15
+spec:
+  selector:
+    matchLabels:
+      app: hello-kiamol
+  template:
+    metadata:
+      labels:
+        app: hello-kiamol
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch02-hello-kiamol
+          ports:
+            - containerPort: 80
+              name: http

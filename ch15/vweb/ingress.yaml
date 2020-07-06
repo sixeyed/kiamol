@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: vweb
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: vweb.kiamol.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: vweb-v2
+          servicePort: 80
+      - path: /v1
+        backend:
+          serviceName: vweb-v1
+          servicePort: 80
+      - path: /v2
+        backend:
+          serviceName: vweb-v2
+          servicePort: 80
