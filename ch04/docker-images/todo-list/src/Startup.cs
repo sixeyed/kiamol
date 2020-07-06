@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,22 +52,36 @@ namespace ToDoList
             }
             else
             {
-                app.UseExceptionHandler("/Error");                
+                app.UseStatusCodePages();             
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                RequestPath = "/static",
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append(
+                         "Cache-Control", $"public, max-age=432000");
+                }
+            });
             app.UseRouting();
 
             if (Configuration.GetValue<bool>("Metrics:Enabled"))
             {
                 app.UseHttpMetrics();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapRazorPages();
+                    endpoints.MapMetrics();
+                });
             }
-
-            app.UseEndpoints(endpoints =>
+            else
             {
-                endpoints.MapRazorPages();
-                endpoints.MapMetrics();
-            });
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapRazorPages();
+                });
+            }
         }
     }
 }

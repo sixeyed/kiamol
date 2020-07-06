@@ -52,7 +52,7 @@ namespace ToDoList.Pages
             await _todoService.AddToDoAsync(ToDo);
             _logger.LogInformation("New item created");
 
-            return RedirectToPage("/list");
+            return LocalRedirect("/list");
         }
     }
 }
