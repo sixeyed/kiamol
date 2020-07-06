@@ -12,7 +12,7 @@ kubectl apply -f lab/logging/
 
 ### Part 1
 
-Fluent Bit is [configured](./lab/logging/fluentbit-config.yaml) to store entries from Pods in the namespace `kiamol-ch13-lab`.
+Fluent Bit is [configured](./logging/fluentbit-config.yaml) to store entries from Pods in the namespace `kiamol-ch13-lab`.
 
 Create that namespace and deploy the vweb app:
 
@@ -32,7 +32,7 @@ kubectl apply -f lab/vweb/ -n kiamol-ch13-lab
 
 The logs are there, but not parsed so they're just text.
 
-Deploy an update to the [vweb Deployment](./lab/solution/vweb-with-parser.yaml) which adds an annotation to use the Nginx parser:
+Deploy an update to the [vweb Deployment](./solution/vweb-with-parser.yaml) which adds an annotation to use the Nginx parser:
 
 ```
 kubectl apply -f lab/solution/vweb-with-parser.yaml -n kiamol-ch13-lab
@@ -45,7 +45,7 @@ kubectl apply -f lab/solution/vweb-with-parser.yaml -n kiamol-ch13-lab
 
 ### Part 3
 
-Now to filter out 304s, add a [grep filter](./lab/solution/fluentbit-config-grep.yaml) to the Fluent Bit config and update the Pod:
+Now to filter out 304s, add a [grep filter](./solution/fluentbit-config-grep.yaml) to the Fluent Bit config and update the Pod:
 
 ```
 kubectl apply -f lab/solution/fluentbit-config-grep.yaml

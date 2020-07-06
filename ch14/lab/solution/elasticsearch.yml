@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+        version: "6.8.10"
+      annotations:
+        prometheus.io/port: "9114"
+    spec:
+      containers:
+      - name: elasticsearch
+        image: kiamol/ch13-elasticsearch
+      - name: exporter
+        image: justwatch/elasticsearch_exporter:1.1.0
+        ports:
+          - name: metrics
+            containerPort: 9114
