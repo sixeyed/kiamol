@@ -25,6 +25,9 @@ data:
       },
       "Database" : {
         "Provider" : "Postgres"
+      },
+      "Metrics" : {
+        "Enabled" : true
       }
     }
 ---
