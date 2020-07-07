@@ -6,7 +6,8 @@ metadata:
     kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.frontend.rule.type: Path
+    traefik.ingress.kubernetes.io/router.pathmatcher: Path
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
   - host: todo2.kiamol.local
@@ -27,7 +28,8 @@ metadata:
     kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.frontend.rule.type: PathPrefix
+    traefik.ingress.kubernetes.io/router.pathmatcher: PathPrefix
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
   - host: todo2.kiamol.local
@@ -48,7 +50,8 @@ metadata:
     kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.frontend.rule.type: Path
+    traefik.ingress.kubernetes.io/router.pathmatcher: Path
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
   - host: todo2.kiamol.local

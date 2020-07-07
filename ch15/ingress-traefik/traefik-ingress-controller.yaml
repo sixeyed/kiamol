@@ -43,7 +43,7 @@ spec:
         name: traefik-ingress-lb
     spec:
       containers:
-      - image: traefik:v1.7.24-alpine
+      - image: traefik:v2.2.1
         name: traefik-ingress-lb
         ports:
         - name: http
@@ -53,12 +53,13 @@ spec:
         - name: admin
           containerPort: 8080
         args:
-        - --api
-        - --kubernetes
-        - --kubernetes.ingressclass=traefik
-        - --defaultentrypoints=http,https
-        - --entrypoints=Name:https Address::443 TLS
-        - --entrypoints=Name:http Address::80
+        - --api.insecure
+        - --api.dashboard
+        - --providers.kubernetesingress
+        - --providers.kubernetesingress.ingressClass=traefik
+        - --entryPoints.web.address=:80
+        - --entryPoints.websecure.address=:443
+        - --log.level=debug
       serviceAccountName: ingress-traefik
 ---
 # RBAC configuration
