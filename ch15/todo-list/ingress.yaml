@@ -9,8 +9,7 @@ spec:
   - host: todo.kiamol.local
     http:
       paths:
-      - pathType: Prefix
-        path: /
+      - path: /
         backend:
           serviceName: todo-web
           servicePort: 80

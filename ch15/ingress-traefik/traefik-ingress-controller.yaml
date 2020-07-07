@@ -56,8 +56,59 @@ spec:
         - --api
         - --kubernetes
         - --kubernetes.ingressclass=traefik
- #       - --kubernetes.ingressendpoint.publishedservice=kiamol-ingress-traefik/traefik-ingress-service
- #       - --logLevel=INFO
         - --defaultentrypoints=http,https
         - --entrypoints=Name:https Address::443 TLS
         - --entrypoints=Name:http Address::80
+      serviceAccountName: ingress-traefik
+---
+# RBAC configuration
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ingress-traefik
+  namespace: kiamol-ingress-traefik
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: ingress-traefik-controller
+  namespace: kiamol-ingress-traefik
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - endpoints
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - extensions
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+    - extensions
+    resources:
+    - ingresses/status
+    verbs:
+    - update
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: ingress-traefik-controller
+  namespace: kiamol-ingress-traefik
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ingress-traefik-controller
+subjects:
+- kind: ServiceAccount
+  name: ingress-traefik
+  namespace: kiamol-ingress-traefik
