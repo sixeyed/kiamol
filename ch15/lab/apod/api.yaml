@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apod-api
+spec:
+  ports:
+    - port: 80
+      targetPort: api
+  selector:
+    app: apod-api
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apod-api
+spec:
+  selector:
+    matchLabels:
+      app: apod-api
+  template:
+    metadata:
+      labels:
+        app: apod-api
+    spec:
+      containers:
+        - name: api
+          image: kiamol/ch14-image-of-the-day
+          ports:
+            - containerPort: 80
+              name: api
+

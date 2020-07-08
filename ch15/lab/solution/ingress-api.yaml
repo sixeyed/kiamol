@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: apod-api
+  labels:
+    kiamol: ch15-lab
+  annotations:
+    kubernetes.io/ingress.class: nginx-lab
+    nginx.ingress.kubernetes.io/limit-rpm: "2"
+spec:
+  rules:
+  - host: api.apod.local
+    http:
+      paths:
+      - pathType: Exact
+        path: /image
+        backend:
+          serviceName: apod-api
+          servicePort: 80

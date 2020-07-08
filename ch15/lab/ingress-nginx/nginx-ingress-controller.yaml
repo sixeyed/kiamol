@@ -1,0 +1,268 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-ch15-lab
+  labels:
+    kiamol: ch15-lab
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-ingress-lab
+  labels:
+    kiamol: ch15-lab
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-lab-controller
+  namespace: kiamol-ingress-lab
+data:
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-lab-controller
+  namespace: kiamol-ingress-lab
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: ingress-lab
+    app.kubernetes.io/instance: ingress-lab
+    app.kubernetes.io/component: controller
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-lab-controller
+  namespace: kiamol-ingress-lab
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-lab
+      app.kubernetes.io/instance: ingress-lab
+      app.kubernetes.io/component: controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ingress-lab
+        app.kubernetes.io/instance: ingress-lab
+        app.kubernetes.io/component: controller
+    spec:
+      containers:
+        - name: controller
+          image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.33.0
+          args:
+            - /nginx-ingress-controller
+            - --election-id=ingress-controller-leader-lab
+            - --publish-service=kiamol-ingress-lab/ingress-lab-controller
+            - --configmap=kiamol-ingress-lab/ingress-lab-controller
+            - --ingress-class=nginx-lab            
+            - --watch-namespace=kiamol-ch15-lab
+          securityContext:
+            runAsUser: 101
+            allowPrivilegeEscalation: true
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+      serviceAccountName: ingress-lab
+---
+# RBAC configuration
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ingress-lab
+  namespace: kiamol-ingress-lab
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ingress-lab
+  namespace: kiamol-ingress-lab
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - configmaps
+      - endpoints
+      - nodes
+      - pods
+      - secrets
+    verbs:
+      - list
+      - watch
+  - apiGroups:
+      - ''
+    resources:
+      - nodes
+    verbs:
+      - get
+  - apiGroups:
+      - ''
+    resources:
+      - services
+    verbs:
+      - get
+      - list
+      - update
+      - watch
+  - apiGroups:
+      - extensions
+      - networking.k8s.io   # k8s 1.14+
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ''
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+  - apiGroups:
+      - extensions
+      - networking.k8s.io   # k8s 1.14+
+    resources:
+      - ingresses/status
+    verbs:
+      - update
+  - apiGroups:
+      - networking.k8s.io   # k8s 1.14+
+    resources:
+      - ingressclasses
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ingress-lab
+  namespace: kiamol-ingress-lab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ingress-lab
+subjects:
+  - kind: ServiceAccount
+    name: ingress-lab
+    namespace: kiamol-ingress-lab
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ingress-lab
+  namespace: kiamol-ingress-lab
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - namespaces
+    verbs:
+      - get
+  - apiGroups:
+      - ''
+    resources:
+      - configmaps
+      - pods
+      - secrets
+      - endpoints
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ''
+    resources:
+      - services
+    verbs:
+      - get
+      - list
+      - update
+      - watch
+  - apiGroups:
+      - extensions
+      - networking.k8s.io   # k8s 1.14+
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - extensions
+      - networking.k8s.io   # k8s 1.14+
+    resources:
+      - ingresses/status
+    verbs:
+      - update
+  - apiGroups:
+      - networking.k8s.io   # k8s 1.14+
+    resources:
+      - ingressclasses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ''
+    resources:
+      - configmaps
+    resourceNames:
+      - ingress-controller-leader-lab
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - ''
+    resources:
+      - configmaps
+    verbs:
+      - create
+  - apiGroups:
+      - ''
+    resources:
+      - endpoints
+    verbs:
+      - create
+      - get
+      - update
+  - apiGroups:
+      - ''
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ingress-lab
+  namespace: kiamol-ingress-lab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ingress-lab
+subjects:
+  - kind: ServiceAccount
+    name: ingress-lab
+    namespace: kiamol-ingress-lab
