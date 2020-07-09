@@ -1,0 +1,49 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: policyresourcelimits
+spec:
+  crd:
+    spec:
+      names:
+        kind: PolicyResourceLimits
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package policyresourcelimits
+
+        missing(obj, field) = true {
+          not obj[field]
+        }
+        
+        missing(obj, field) = true {
+          obj[field] == ""
+        }
+
+        violation[{"msg": msg}] {
+          general_violation[{"msg": msg, "field": "containers"}]
+        }
+
+        general_violation[{"msg": msg, "field": field}] {
+          container := input.review.object.spec[field][_]
+          not container.resources
+          msg := sprintf("container <%v> has no resource limits", [container.name])
+        }
+
+        general_violation[{"msg": msg, "field": field}] {
+          container := input.review.object.spec[field][_]
+          not container.resources.limits
+          msg := sprintf("container <%v> has no resource limits", [container.name])
+        }
+
+        general_violation[{"msg": msg, "field": field}] {
+          container := input.review.object.spec[field][_]
+          missing(container.resources.limits, "cpu")
+          msg := sprintf("container <%v> has no cpu limit", [container.name])
+        }
+
+        general_violation[{"msg": msg, "field": field}] {
+          container := input.review.object.spec[field][_]
+          missing(container.resources.limits, "memory")
+          msg := sprintf("container <%v> has no memory limit", [container.name])
+        }

@@ -1,0 +1,25 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: RequiredLabels
+metadata:
+  name: requiredlabels-kiamol
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service", "Deployment", "ConfigMap"]
+      - apiGroups: ["apps"]
+        kinds: ["Deployment"]
+  parameters:
+    labels: ["kiamol"]
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: RequiredLabels
+metadata:
+  name: requiredlabels-app
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    labels: ["app", "version"]

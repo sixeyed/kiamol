@@ -1,0 +1,14 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: PolicyImageRepository
+metadata:
+  name: image-repository
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "kiamol-ch16"
+  parameters:
+    repos:
+      - "kiamol"
