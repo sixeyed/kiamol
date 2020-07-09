@@ -1,0 +1,19 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: nonrootpolicy
+  labels:
+    kiamol: ch16
+webhooks:
+  - name: nonrootpolicy.kiamol.net
+    rules:
+      - operations: [ "CREATE", "UPDATE" ]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+    clientConfig:
+      service:
+        name: admission-webhook
+        namespace: default
+        path: "/mutate"
+      caBundle: <CA_BUNDLE> #use helm here

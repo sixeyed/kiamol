@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  vweb-v2
+  labels:
+    kiamol: ch16
+spec:
+  selector:
+    matchLabels:
+      app: vweb-v2
+  template:
+    metadata:
+      labels:
+        app: vweb-v2
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: false
+      containers:
+        - name: web
+          image: kiamol/ch09-vweb:v2
+          ports:
+            - name: http
+              containerPort: 80
+

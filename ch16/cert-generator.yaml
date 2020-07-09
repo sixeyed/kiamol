@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cert-generator
+  labels:
+    kiamol: ch16
+spec:
+  selector:
+    matchLabels:
+      app: cert-generator
+  template:
+    metadata:
+      labels:
+        app: cert-generator
+    spec:
+      containers:
+        - name: cert-generator
+          image: kiamol/ch15-cert-generator
+          env:
+            - name: HOST_NAME
+              value: admission-webhook.default.svc
+            - name: SAN
+              value: DNS:admission-webhook.default.svc
+            - name: CREATE_SECRET
+              value: admission-webhook-secret
+            - name: SECRET_LABEL
+              value: ch16

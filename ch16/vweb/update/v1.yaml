@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vweb-v1
+  labels:
+    kiamol: ch16
+spec:
+  ports:
+    - port: 8017
+      targetPort: http
+  selector:
+    app: vweb-v1
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  vweb-v1
+  labels:
+    kiamol: ch16
+spec:
+  selector:
+    matchLabels:
+      app: vweb-v1
+  template:
+    metadata:
+      labels:
+        app: vweb-v1
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: web
+          image: kiamol/ch09-vweb:v1
+          ports:
+            - name: http
+              containerPort: 80

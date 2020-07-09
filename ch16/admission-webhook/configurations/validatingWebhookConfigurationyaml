@@ -1,0 +1,19 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: servicetokenpolicy
+  labels:
+    kiamol: ch16
+webhooks:
+  - name: servicetokenpolicy.kiamol.net
+    rules:
+      - operations: [ "CREATE", "UPDATE" ]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+    clientConfig:
+      service:
+        name: admission-webhook
+        namespace: default
+        path: "/validate"
+      caBundle: <CA_BUNDLE> #use helm here

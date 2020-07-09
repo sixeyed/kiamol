@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admission-webhook
+  labels:
+    kiamol: ch16
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: https
+  selector:
+    app: admission-webhook
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admission-webhook
+  labels:
+    kiamol: ch16
+spec:
+  selector:
+    matchLabels:
+      app: admission-webhook
+  template:
+    metadata:
+      labels:
+        app: admission-webhook
+    spec:
+      containers:
+        - name: admission-webhook
+          image: kiamol/ch16-admission-webhook
+          env:
+            - name: USE_HTTPS
+              value: "true" 
+            - name: PORT
+              value: "8443"              
+          ports:
+            - name: https
+              containerPort: 8443
+          volumeMounts:
+            - name: certs
+              mountPath: /run/secrets/tls
+              readOnly: true
+      volumes:
+        - name: certs
+          secret:
+            secretName: admission-webhook-secret 

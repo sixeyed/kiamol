@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  ch16-admission-webhook:
+    image: kiamol/ch16-admission-webhook
+    build:
+      context: ./admission-webhook

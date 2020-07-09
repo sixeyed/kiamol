@@ -31,4 +31,17 @@ kubectl config set-credentials user --token=$(cat /var/run/secrets/kubernetes.io
 kubectl config set-context default --user=user
 kubectl config use-context default
 
+if [ -n "$CREATE_SECRET" ]; then
+    mv server-cert.pem tls.crt
+    mv server-key.pem tls.key
+    kubectl create secret tls $CREATE_SECRET --key=tls.key --cert=tls.crt
+    kubectl label secret $CREATE_SECRET kiamol=$SECRET_LABEL
+
+    echo ---------------
+    echo Created secret.
+    echo ---------------
+
+    openssl base64 -A <"ca.pem" > ca.base64
+fi
+
 while true; do sleep 1000; done

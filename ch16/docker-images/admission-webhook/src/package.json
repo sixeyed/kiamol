@@ -1,0 +1,11 @@
+{
+  "name": "admission-webhook",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "kiamol",
+  "dependencies": {
+    "js-base64": "^2.5.1",
+    "restify": "8.5.1",
+    "winston": "3.3.3"
+  }
+}
