@@ -16,4 +16,4 @@ webhooks:
         name: admission-webhook
         namespace: default
         path: "/validate"
-      caBundle: <CA_BUNDLE> #use helm here
+      caBundle: {{ .Values.caBundle }}

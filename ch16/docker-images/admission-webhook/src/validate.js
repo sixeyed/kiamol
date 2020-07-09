@@ -5,7 +5,7 @@ function post(req, res, next) {
 
   var admissionRequest = req.body;
   var object = admissionRequest.request.object;
-  log.Logger.info(`Validating: ${object.metadata.name}; request UID: ${admissionRequest.request.uid}`);
+  log.Logger.info(`Validating object; request UID: ${admissionRequest.request.uid}`);
 
   var admissionResponse = {
     uid: admissionRequest.request.uid,

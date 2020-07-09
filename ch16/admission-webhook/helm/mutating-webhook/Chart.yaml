@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mutating-webhook
+description: Mutating webhook configuration
+type: application
+version: 1.0.0
+appVersion: 1.0.0

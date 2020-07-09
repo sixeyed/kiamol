@@ -6,7 +6,7 @@ function post(req, res, next) {
 
   var admissionRequest = req.body; 
   var object = admissionRequest.request.object;
-  log.Logger.info(`Mutating object: ${object.metadata.name}; request UID: ${admissionRequest.request.uid}`);
+  log.Logger.info(`Mutating object; request UID: ${admissionRequest.request.uid}`);
   
   var admissionReview = {
     apiVersion: admissionRequest.apiVersion,

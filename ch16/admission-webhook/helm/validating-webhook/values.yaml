@@ -1,0 +1,2 @@
+# base-64 encoded CA cert for the webhook server
+caBundle: TODO
