@@ -14,5 +14,4 @@ spec:
         matchLabels:
           app: apod-web
     ports:
-    - protocol: TCP
-      port: api
+    - port: api
