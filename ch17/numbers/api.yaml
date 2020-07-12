@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-api
+  labels:
+    kiamol: ch07
+spec:
+  selector:
+    matchLabels:
+      app: numbers
+      component: api
+  template:
+    metadata:
+      labels:
+        app: numbers
+        component: api
+    spec:
+      containers:
+        - name: api
+          image: kiamol/ch03-numbers-api:windows
+      nodeSelector:
+        kubernetes.io/os: windows
