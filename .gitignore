@@ -7,6 +7,10 @@ ch10/charts/
 ch10/pi/Chart.lock
 ch10/vweb-values.yaml
 ch12/api-url.txt
+*.box
+.vagrant/
+packer_cache/
+builds/
 
 # .net
 
@@ -359,4 +363,3 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-

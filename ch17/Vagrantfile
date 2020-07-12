@@ -1,0 +1,56 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "kiamol-control" do |control|
+    control.vm.box = "kiamol/ubuntu-20.04"
+    control.vm.hostname = "kiamol-control"
+
+    control.vm.provider :hyperv do |v|
+      v.vmname = "kiamol-control"
+      v.maxmemory = 3000
+      v.cpus = 2
+    end
+
+    control.vm.provider :virtualbox do |v|
+      v.name = "kiamol-control"
+      v.memory = 3000
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define "kiamol-node" do |node|
+    node.vm.box = "kiamol/ubuntu-20.04"
+    node.vm.hostname = "kiamol-node"
+
+    node.vm.provider :hyperv do |v|
+      v.vmname = "kiamol-node"
+      v.maxmemory = 1500
+      v.cpus = 1
+    end
+
+    node.vm.provider :virtualbox do |v|
+      v.name = "kiamol-node"
+      v.memory = 1500
+      v.cpus = 1
+    end
+  end  
+
+  config.vm.define "kiamol-node-win" do |nodewin|
+    nodewin.vm.box = "kiamol/windows-2019"
+    nodewin.vm.hostname = "kiamol-node-win"
+    nodewin.vm.guest = "windows"    
+    nodewin.vm.communicator = "winrm"
+
+    nodewin.vm.provider :hyperv do |v|
+      v.vmname = "kiamol-node-win"
+      v.maxmemory = 3000
+      v.cpus = 1
+    end
+    
+    nodewin.vm.provider :virtualbox do |v|
+      v.name = "kiamol-node-win"
+      v.memory = 3000
+      v.cpus = 1
+    end
+  end
+
+end
