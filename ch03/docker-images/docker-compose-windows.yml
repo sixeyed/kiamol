@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  ch03-numbers-api-windows:
+    image: kiamol/ch03-numbers-api:windows
+    build:
+      context: ./numbers
+      dockerfile: ./numbers-api/Dockerfile.windows

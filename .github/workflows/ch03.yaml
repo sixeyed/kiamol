@@ -21,4 +21,18 @@ jobs:
         working-directory: ./ch03/docker-images
         run: |
           docker-compose build 
-          docker-compose push
+          docker-compose push          
+
+  ch03-windows:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@master
+      - uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: ch03-windows
+        working-directory: ./ch03/docker-images
+        run: |          
+          docker-compose -f docker-compose-windows.yml build
+          docker image push kiamol/ch03-numbers-api:windows
