@@ -1,0 +1,20 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: RestrictedPaths
+metadata:
+  name: restrictedpaths-host
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    labelSelector:
+      matchExpressions:
+        - key: kiamol
+          operator: In
+          values:
+            - ch16-lab
+  parameters:
+    paths: 
+      - "/"
+      - "/bin"
+      - "/etc"

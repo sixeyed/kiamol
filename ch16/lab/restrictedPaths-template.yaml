@@ -1,0 +1,31 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: restrictedpaths
+spec:
+  crd:
+    spec:
+      names:
+        kind: RestrictedPaths
+      validation:
+        openAPIV3Schema:
+          properties:
+            paths:
+              type: array
+              items: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package restrictedPaths
+
+         violation[{"msg": msg}] {
+            # get all the paths for HostPath volumes:
+            requested := {path | v := input.review.object.spec.volumes[_]
+                                 path := v.hostPath.path}
+            # get all the restricted paths:
+            restricted := {path | path:= input.parameters.paths[_]}
+            # if any match then the request is blocked:
+            blocked := requested & restricted
+            count(blocked) > 0
+            msg := sprintf("HostPath '%v' is restricted", [blocked])
+        }

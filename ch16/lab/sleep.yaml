@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+  labels:
+    kiamol: ch16-lab
+spec:
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+        kiamol: ch16-lab
+    spec:
+      containers:
+        - name: sleep
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: node-root
+              mountPath: /node-root
+            - name: node-bin
+              mountPath: /node-bin          
+            - name: node-etc
+              mountPath: /node-etc
+      volumes:
+        - name: node-root
+          hostPath:
+            path: /
+            type: Directory
+        - name: node-bin
+          hostPath:
+            path: /bin
+            type: Directory
+        - name: node-etc
+          hostPath:
+            path: /etc
+            type: Directory
