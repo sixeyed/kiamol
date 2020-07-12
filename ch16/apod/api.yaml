@@ -26,8 +26,6 @@ spec:
     metadata:
       labels:
         app: apod-api
-      annotations:
-        prometheus.io/path: "/actuator/prometheus"
     spec:
       containers:
         - name: api
