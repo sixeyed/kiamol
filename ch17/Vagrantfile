@@ -34,6 +34,40 @@ Vagrant.configure("2") do |config|
     end
   end  
 
+  config.vm.define "kiamol-node2" do |node2|
+    node2.vm.box = "bento/ubuntu-20.04"
+    node2.vm.hostname = "kiamol-node2"
+
+    node2.vm.provider :hyperv do |v|
+      v.vmname = "kiamol-node2"
+      v.maxmemory = 1500
+      v.cpus = 1
+    end
+
+    node2.vm.provider :virtualbox do |v|
+      v.name = "kiamol-node2"
+      v.memory = 1500
+      v.cpus = 1
+    end
+  end 
+
+  config.vm.define "kiamol-node3" do |node3|
+    node3.vm.box = "bento/ubuntu-20.04"
+    node3.vm.hostname = "kiamol-node3"
+
+    node3.vm.provider :hyperv do |v|
+      v.vmname = "kiamol-node3"
+      v.maxmemory = 1500
+      v.cpus = 1
+    end
+
+    node3.vm.provider :virtualbox do |v|
+      v.name = "kiamol-node3"
+      v.memory = 1500
+      v.cpus = 1
+    end
+  end  
+
   config.vm.define "kiamol-node-win" do |nodewin|
     nodewin.vm.box = "kiamol/windows-2019"
     nodewin.vm.hostname = "kiamol-node-win"
@@ -48,6 +82,44 @@ Vagrant.configure("2") do |config|
     
     nodewin.vm.provider :virtualbox do |v|
       v.name = "kiamol-node-win"
+      v.memory = 3000
+      v.cpus = 1
+    end
+  end
+
+  config.vm.define "kiamol-node-win2" do |nodewin2|
+    nodewin2.vm.box = "kiamol/windows-2019"
+    nodewin2.vm.hostname = "kiamol-node-win2"
+    nodewin2.vm.guest = "windows"    
+    nodewin2.vm.communicator = "winrm"
+
+    nodewin2.vm.provider :hyperv do |v|
+      v.vmname = "kiamol-node-win2"
+      v.maxmemory = 3000
+      v.cpus = 1
+    end
+    
+    nodewin2.vm.provider :virtualbox do |v|
+      v.name = "kiamol-node-win2"
+      v.memory = 3000
+      v.cpus = 1
+    end
+  end
+
+  config.vm.define "kiamol-node-win3" do |nodewin3|
+    nodewin3.vm.box = "kiamol/windows-2019"
+    nodewin3.vm.hostname = "kiamol-node-win3"
+    nodewin3.vm.guest = "windows"    
+    nodewin3.vm.communicator = "winrm"
+
+    nodewin3.vm.provider :hyperv do |v|
+      v.vmname = "kiamol-node-win3"
+      v.maxmemory = 3000
+      v.cpus = 1
+    end
+    
+    nodewin3.vm.provider :virtualbox do |v|
+      v.name = "kiamol-node-win3"
       v.memory = 3000
       v.cpus = 1
     end

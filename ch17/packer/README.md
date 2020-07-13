@@ -1,24 +1,43 @@
 Scripts for provisioning base Vagrant boxes.
 
-## Build
+## Hyper-V
 
-Hyper-V:
+Build:
 
 ```
 packer build -force -only=hyperv-iso -var "hyperv_switch=Default Switch" .\windows\windows-2019-core.json
 ```
 
-## Export
-
-Hyper-V:
+Export:
 
 ```
 vagrant box add --name kiamol-windows-2019 .\windows\windows-2019-core-hyperv.box
 ```
 
-## Publish
+Publish:
 
-Hyper-V:
+```
+vagrant cloud auth login
+
+vagrant cloud provider create kiamol/windows-2019 hyperv 0.0.1
+vagrant cloud provider upload kiamol/windows-2019 hyperv 0.0.1 windows-2019-core-hyperv.box
+```
+
+## VirtualBox
+
+Build:
+
+```
+packer build -force -only=virtualbox-iso .\windows\windows-2019-core.json
+```
+
+Export:
+
+```
+vagrant box add --name kiamol-windows-2019 .\windows\windows-2019-core-hyperv.box
+```
+
+Publish:
 
 ```
 vagrant cloud auth login

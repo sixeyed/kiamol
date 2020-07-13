@@ -7,7 +7,7 @@ KUBERNETES_VERSION="1.18.5-00"
 swapoff -a 
 sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 
-# install Docker 18.09 (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+# install Docker (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 apt-get update
 apt-get install -y \
     apt-transport-https \
