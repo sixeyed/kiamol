@@ -2,6 +2,7 @@
 
 DOCKER_VERSION="5:19.03.12~3-0~ubuntu-focal"
 KUBERNETES_VERSION="1.18.5-00"
+hostname -I | awk '{print $NF}' > /tmp/ip.txt
 
 # turn off swap - for the Kubelet
 swapoff -a 

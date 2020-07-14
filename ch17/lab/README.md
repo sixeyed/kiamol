@@ -24,7 +24,13 @@ When you're done working on the node you can bring it back into service by uncor
 kubectl uncordon kiamol-node
 ```
 
-That marks the node as available for work, but Kubernetes doesn't automatically reschedule existing workloads so the node won't start any application Pods.
+That marks the node as available for work, but Kubernetes doesn't automatically reschedule existing workloads so the node won't start any application Pods. 
+
+You can rebalance the API Pods by restarting the rollout:
+
+```
+kubectl rollout restart deploy apod-api
+```
 
 ## Teardown
 
