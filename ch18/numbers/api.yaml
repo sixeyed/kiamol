@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-api
+  labels:
+    kiamol: ch18
+    app: numbers
+spec:
+  selector:
+    matchLabels:
+      app: numbers
+      component: api
+  template:
+    metadata:
+      labels:
+        app: numbers
+        component: api
+    spec:
+      containers:
+        - name: api
+          image: kiamol/ch03-numbers-api
