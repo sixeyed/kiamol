@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stress-low
+  name: stress
   labels:
     kiamol: ch18
 spec:
@@ -9,23 +9,15 @@ spec:
   selector:
     matchLabels:
       app: stress
-      level: low
   template:
     metadata:
       labels:
         app: stress
-        level: low
-    spec:      
-      priorityClassName: kiamol-low
+    spec:
       containers:
       - name: stress
         image: kiamol/ch18-stress
         env:
           - name: MEMORY_STRESS_MB
-            value: "200"
-        resources:
-          requests:
-            memory: 50Mi
-          limits:
-            memory: 250Mi
+            value: "300"
       

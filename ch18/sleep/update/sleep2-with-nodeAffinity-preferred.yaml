@@ -53,3 +53,10 @@ spec:
                 operator: In
                 values:
                 - linux
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: beta.kubernetes.io/os
+                operator: In
+                values:
+                - linux

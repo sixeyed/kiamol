@@ -22,4 +22,4 @@ spec:
         value: "hdd"
         effect: "NoSchedule"
       nodeSelector:        
-        kubernetes.io/arch: arm64
+        kubernetes.io/arch: zxSpectrum

@@ -22,10 +22,10 @@ spec:
         image: kiamol/ch18-stress
         env:
           - name: MEMORY_STRESS_MB
-            value: "200"
+            value: "300"
         resources:
           requests:
-            memory: 150Mi
-          limits:
             memory: 250Mi
+          limits:
+            memory: 350Mi
       
