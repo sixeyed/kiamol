@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-explorer
+  labels:
+    kiamol: ch19
+spec:
+  selector:
+    matchLabels:
+      app: kube-explorer
+  template:
+    metadata:
+      labels:
+        app: kube-explorer
+    spec:
+      serviceAccountName: kube-explorer
+      containers:
+        - image: kiamol/ch19-kube-explorer
+          name: web
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Development
