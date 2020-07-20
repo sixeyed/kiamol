@@ -1,0 +1,41 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Pods";
+}
+
+<h1>Pod List</h1>
+
+<h2>Namespace: @Model.Namespace</h2>
+
+@if (@Model.Pods == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Node</th>
+                <th>Phase</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pod in @Model.Pods)
+            {
+            <tr>
+                <td>@pod.Name</td>
+                <td>@pod.Image</td>
+                <td>@pod.Node</td>
+                <td>@pod.Phase</td>
+                <td><a asp-page="./Delete" asp-route-name="@pod.Name" asp-route-ns="@Model.Namespace">Delete</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
