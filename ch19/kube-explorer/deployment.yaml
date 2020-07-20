@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-explorer
+  labels:
+    kiamol: ch19
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ch19-reader
+  labels: 
+    kiamol: ch19
+rules:
+- apiGroups: [""] 
+  resources: ["namespaces"]
+  resourceNames: ["kiamol-ch19"]
+  verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: todo-web-reader
+  labels: 
+    kiamol: ch19
+subjects:
+- kind: ServiceAccount
+  name: todo-web
+  namespace: kiamol-ch19
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ch19-reader
