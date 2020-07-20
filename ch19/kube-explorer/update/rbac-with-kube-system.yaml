@@ -1,20 +1,20 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: default-pod-reader
-  namespace: default 
+  name: system-pod-reader
+  namespace: kube-system 
   labels:
     kiamol: ch19
 rules:
 - apiGroups: [""] #core
   resources: ["pods"]
-  verbs: ["get", "list", "delete"]
+  verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: kube-explorer-default
-  namespace: default 
+  name: kube-explorer-system
+  namespace: kube-system  
   labels:
     kiamol: ch19
 subjects:
@@ -24,4 +24,4 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: default-pod-reader
+  name: system-pod-reader
