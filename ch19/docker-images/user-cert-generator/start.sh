@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# set up access to Kube API
+kubectl config set-cluster default --server=https://kubernetes.default --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+kubectl config set-context default --cluster=default
+kubectl config set-credentials user --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+kubectl config set-context default --user=user
+kubectl config use-context default
+
 echo ----------------
 echo "Generating user cert - username: $USER_NAME; group: $GROUP"
 echo ----------------
@@ -13,13 +20,6 @@ sed -i "s/{USER_NAME}/$USER_NAME/g" csr.yaml
 
 echo '** CSR generated.'
 
-# set up access to Kube API
-kubectl config set-cluster default --server=https://kubernetes.default --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-kubectl config set-context default --cluster=default
-kubectl config set-credentials user --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-kubectl config set-context default --user=user
-kubectl config use-context default
-
 kubectl apply -f csr.yaml
 kubectl certificate approve $USER_NAME
 
@@ -30,5 +30,13 @@ kubectl get csr/$USER_NAME -o json | jq '.status.certificate' -r | base64 -d > u
 echo ----------------
 echo "Cert generated: /certs/user.key and /certs/user.crt"
 echo ----------------
+
+if [ -n "$SET_CONTEXT" ]; then
+    kubectl config set-credentials $USER_NAME --client-key=./user.key --client-certificate=./user.crt --embed-certs=true
+    kubectl config set-context $USER_NAME --user=$USER_NAME --cluster default
+    kubectl config use-context $USER_NAME
+
+    echo "** Using context for user: $USER_NAME; group: $GROUP"
+fi
 
 while true; do sleep 1000; done

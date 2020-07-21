@@ -7,7 +7,8 @@ COPY start.sh /
 RUN chmod +x /start.sh
 
 ENV USER_NAME="reader@kiamol.net" \
-    GROUP="view"
+    GROUP="kiamol" \
+    SET_CONTEXT=""
 
 WORKDIR /certs
 CMD /start.sh
