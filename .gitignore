@@ -13,7 +13,6 @@ packer_cache/
 builds/
 ch19/user.crt
 ch19/user.key
-ch19/real-user.txt
 
 # .net
 
