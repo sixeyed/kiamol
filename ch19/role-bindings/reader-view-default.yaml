@@ -3,6 +3,8 @@ kind: RoleBinding
 metadata:
   name: reader-view
   namespace: default
+  labels:
+    kiamol: ch19
 subjects:
 - kind: User
   name: reader@kiamol.net

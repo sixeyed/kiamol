@@ -2,6 +2,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: sre-sa-view-cluster
+  labels:
+    kiamol: ch19
 subjects:
 - kind: Group
   name: system:serviceaccounts:kiamol-authn-sre
