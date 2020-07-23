@@ -28,3 +28,8 @@ All patterns are described generically, so you can easily apply them to your app
 ![Ch11](https://github.com/sixeyed/kiamol/workflows/Ch11%20Image%20Builds/badge.svg)
 ![Ch12](https://github.com/sixeyed/kiamol/workflows/Ch12%20Image%20Builds/badge.svg)
 ![Ch13](https://github.com/sixeyed/kiamol/workflows/Ch13%20Image%20Builds/badge.svg)
+![Ch14](https://github.com/sixeyed/kiamol/workflows/Ch14%20Image%20Builds/badge.svg)
+![Ch15](https://github.com/sixeyed/kiamol/workflows/Ch15%20Image%20Builds/badge.svg)
+![Ch16](https://github.com/sixeyed/kiamol/workflows/Ch16%20Image%20Builds/badge.svg)
+![Ch17](https://github.com/sixeyed/kiamol/workflows/Ch17%20Image%20Builds/badge.svg)
+![Ch19](https://github.com/sixeyed/kiamol/workflows/Ch19%20Image%20Builds/badge.svg)
