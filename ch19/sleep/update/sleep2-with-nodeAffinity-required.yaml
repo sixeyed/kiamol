@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep2
+  labels:
+    kiamol: ch19
+spec:
+  selector:
+    matchLabels:
+      app: sleep2
+  template:
+    metadata:
+      labels:
+        app: sleep2
+    spec:
+      containers:
+      - name: sleep
+        image: kiamol/ch03-sleep      
+      tolerations:
+      - key: "kiamol-disk"
+        operator: "Equal"
+        value: "hdd"
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+              - matchExpressions:
+                - key: beta.kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64

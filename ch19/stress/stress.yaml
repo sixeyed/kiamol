@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stress
+  labels:
+    kiamol: ch19
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: stress
+  template:
+    metadata:
+      labels:
+        app: stress
+    spec:
+      containers:
+      - name: stress
+        image: kiamol/ch19-stress
+        env:
+          - name: MEMORY_STRESS_MB
+            value: "300"
+      

@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kube-explorer-lab-pods-ns
+  namespace: kiamol-ch17-lab 
+  labels:
+    kiamol: ch17-lab
+subjects:
+- kind: ServiceAccount
+  name: kube-explorer-lab
+  namespace: kiamol-ch17-lab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: default-pod-reader-lab

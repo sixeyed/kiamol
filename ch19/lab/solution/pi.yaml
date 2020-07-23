@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-web-lab
+  labels:
+    kiamol: ch19-lab
+spec:
+  selector:
+    matchLabels:
+      app: pi-web-lab
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: pi-web-lab
+    spec:
+      containers:
+        - image: kiamol/ch05-pi
+          command: ["dotnet", "Pi.Web.dll", "-m", "web"]
+          name: web
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              cpu: 200m
+            requests:
+              cpu: 100m      
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: kiamol.net/region
+                  operator: In
+                  values:
+                  - eu
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm: 
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                      - pi-web-lab
+                topologyKey: "kubernetes.io/hostname"   

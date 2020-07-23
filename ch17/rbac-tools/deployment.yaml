@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rbac-tools
+  labels:
+    kiamol: ch17
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rbac-tools
+  labels:
+    kiamol: ch17
+spec:
+  selector:
+    matchLabels:
+      app: rbac-tools
+  template:
+    metadata:
+      labels:
+        app: rbac-tools
+    spec:
+      serviceAccountName: rbac-tools
+      containers:
+      - name: rbac-tools
+        image: kiamol/ch17-rbac-tools

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: todo-web
+  namespace: kiamol-ch17
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web
+  namespace: kiamol-ch17
+spec:
+  selector:
+    matchLabels:
+      app: todo-web
+  template:
+    metadata:
+      labels:
+        app: todo-web
+    spec:
+      serviceAccountName: todo-web
+      initContainers:
+        - name: configurator
+          image: kiamol/ch17-todo-list-configurator
+          volumeMounts:
+            - name: shared
+              mountPath: "/config-out"
+              readOnly: false
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list
+          volumeMounts:
+            - name: shared
+              mountPath: "/app/config"
+              readOnly: true
+      volumes:
+        - name: shared
+          emptyDir: {}

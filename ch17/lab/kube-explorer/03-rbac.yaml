@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: default-pod-reader-lab  
+  labels:
+    kiamol: ch17-lab
+rules:
+- apiGroups: [""] #core
+  resources: ["pods"]
+  verbs: ["get", "list", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kube-explorer-lab-pods-default
+  namespace: default 
+  labels:
+    kiamol: ch17-lab
+subjects:
+- kind: ServiceAccount
+  name: kube-explorer-lab
+  namespace: kiamol-ch17-lab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: default-pod-reader-lab

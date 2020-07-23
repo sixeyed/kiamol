@@ -1,0 +1,14 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pi-cpu
+  labels:
+    kiamol: ch19-lab
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pi-web-lab
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50

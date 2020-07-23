@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-explorer
+  namespace: kiamol-ch17-lab
+spec:
+  ports:
+    - port: 8022
+      targetPort: http
+  selector:
+    app: kube-explorer
+  type: LoadBalancer

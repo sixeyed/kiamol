@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: petshop-web
+  labels:
+    kiamol: ch18
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+      nodePort: 30002
+  selector:
+    app: petshop
+    component: web
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petshop-web
+  labels:
+    kiamol: ch18
+spec:
+  selector:
+    matchLabels:
+      app: petshop
+      component: web
+  template:
+    metadata:
+      labels:
+        app: petshop
+        component: web
+    spec:
+      containers:
+        - image: sixeyed/petshop-web:1809
+          name: petshop-web
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: connection-string
+              mountPath: "/petshop-web/config"
+              readOnly: true
+      volumes:
+        - name: connection-string
+          secret:
+            secretName: petshop-connection-string-secret
+      nodeSelector:
+        kubernetes.io/os: windows

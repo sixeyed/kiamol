@@ -1,18 +1,18 @@
+*.box
+*.tgz
+.vagrant/
+packer_cache/
+builds/
 ch04/docker-images/todo-list/src/todo-list.db
 ch05/kiamolStorageClass.json
 ch05/defaultStorageClass.json
-*.tgz
 ch09/url.txt
 ch10/charts/
 ch10/pi/Chart.lock
 ch10/vweb-values.yaml
 ch12/api-url.txt
-*.box
-.vagrant/
-packer_cache/
-builds/
-ch19/user.crt
-ch19/user.key
+ch17/user.crt
+ch17/user.key
 
 # .net
 

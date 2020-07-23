@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers-web
+  labels:
+    kiamol: ch19
+    app: numbers
+spec:
+  selector:
+    matchLabels:
+      app: numbers
+      component: web
+  template:
+    metadata:
+      labels:
+        app: numbers
+        component: web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - numbers
+              - key: component
+                operator: In
+                values:
+                - api
+            topologyKey: "kubernetes.io/hostname"
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - numbers
+              - key: component
+                operator: In
+                values:
+                - web
+            topologyKey: "kubernetes.io/hostname"

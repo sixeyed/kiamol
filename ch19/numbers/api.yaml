@@ -3,7 +3,8 @@ kind: Deployment
 metadata:
   name: numbers-api
   labels:
-    kiamol: ch07
+    kiamol: ch19
+    app: numbers
 spec:
   selector:
     matchLabels:
@@ -17,6 +18,4 @@ spec:
     spec:
       containers:
         - name: api
-          image: kiamol/ch03-numbers-api:windows
-      nodeSelector:
-        kubernetes.io/os: windows
+          image: kiamol/ch03-numbers-api

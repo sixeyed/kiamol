@@ -1,51 +1,73 @@
-# Ch19 lab
+# ch19 lab
 
 ## Setup
 
-Deploy the Kube Explorer app in the lab configuration:
+Deploy metrics-server if you need it (check with `kubectl top nodes` - no stats means you need it):
 
 ```
-kubectl apply -f lab/kube-explorer/
+kubectl apply -f metrics-server/
 ```
 
-Note that [02-service-account.yaml](./kube-explorer/02-service-account.yaml) sets `automountServiceAccountToken` to `false` so Pods don't automatically see the token; [04-deployment.yaml](./kube-explorer/04-deployment.yaml) explicitly mounts the token in the Pod spec.
+Run the app:
 
-> Browse to the app and check you can access Pods - e.g. http://localhost:8022
+```
+kubectl apply -f lab/pi/
+```
 
-> But not Pods in the lab namespace - http://localhost:8022?ns=kiamol-ch19-lab
+Confirm the metrics are coming through:
+
+```
+kubectl top pods -l app=pi-web-lab
+```
+
+> Browse to the app and check the CPU spikes - e.g. http://localhost:8032/?dp=100000
 
 ## Sample Solution
 
-To access Pods in the lab namespace [rbac-pods.yaml](./solution/rbac-pods.yaml) applies the `default-pod-reader-lab` ClusterRole to the lab namespace:
+You need to label your node to indicate it's in the EU region - you can use any key and value for this, but you'll need to use the same in your affinity rules:
 
 ```
-kubectl apply -f lab/solution/rbac-pods.yaml
+kubectl label node --all kiamol.net/region=eu
 ```
 
-> Now you can work with Pods in the lab namespace - http://localhost:8022?ns=kiamol-ch19-lab
+### Pod with affinity rules 
 
-![Kube Explorer browsing Pods in the lab namespace](./solution/pods.png)
+The updated deployment in [solution/pi.yaml](./solution/pi.yaml) adds these settings:
 
-> But not Service Accounts - http://localhost:8022/ServiceAccounts
-
-To access Service Accounts [rbac-serviceaccounts.yaml](./solution/rbac-serviceaccounts.yaml) creates:
-
-- a ClusterRole with get and list access to ServiceAccounts
-- a RoleBinding applying the ClusterRole to the default namespace
-- a RoleBinding applying the ClusterRole to the lab namespace
+- **node affinity** - require to run on nodes with region=eu
+- **pod anti-affinity** - prefer to run on nodes without any other Pi pods
+- **resources** - add memory request for the HPA to use
+- **replicas** - start with 2 as that's the desired minimum
 
 ```
-kubectl apply -f lab/solution/rbac-serviceaccounts.yaml
+kubectl apply -f lab/solution/pi.yaml
 ```
 
-> Now you can access Pods in the default and lab namespaces - http://localhost:8022/ServiceAccounts?ns=kiamol-ch19-lab
+> You'll have two Pods running; browse to the app in a few tabs and both will spike CPU
 
-![Kube Explorer browsing Service Accounts in the lab namespace](./solution/service-accounts.png)
+### HPA for scaling on CPU
+
+The HPA spec in [solution/hpa-cpu.yaml](./solution/hpa-cpu.yaml) scales from 2 to 5 Pods based on target CPU utilization of 50%.
+
+```
+kubectl apply -f lab/solution/hpa-cpu.yaml
+```
+
+> Make lots of browser requests in different tabs (or adapt the `ch19/loadpi` script in) and you'll see the Pods scale up to a maximum of five replicas:
+
+![Horizontal pod autoscaling in action](./solution/hpa.png)
+
 
 ## Teardown
 
 Delete all the resources:
 
 ```
-kubectl delete ns,rolebinding,role,clusterrole -l kiamol=ch19-lab
+kubectl delete all,hpa -l kiamol=ch19-lab
+```
+
+And metrics-server if you deployed it:
+
+```
+kubectl delete -f metrics-server/
 ```

@@ -3,13 +3,12 @@ kind: Service
 metadata:
   name: numbers-web
   labels:
-    kiamol: ch07
+    kiamol: ch19
 spec:
   ports:
     - port: 8090
       targetPort: 80
-      nodePort: 30001
   selector:
     app: numbers
     component: web
-  type: NodePort
+  type: LoadBalancer

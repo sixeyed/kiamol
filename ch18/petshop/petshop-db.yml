@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: petshop-db
+  labels:
+    kiamol: ch18
+spec:
+  type: ClusterIP
+  ports:
+    - port: 1433
+      targetPort: mssql
+  selector:
+    app: petshop
+    component: db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petshop-db
+  labels:
+    kiamol: ch18
+spec:
+  selector:
+    matchLabels:
+      app: petshop
+      component: db
+  template:
+    metadata:
+      labels:
+        app: petshop
+        component: db
+    spec:
+      containers:
+        - image: sixeyed/petshop-db:1809
+          name: db
+          ports:
+            - containerPort: 1433
+              name: mssql
+      nodeSelector:
+        kubernetes.io/os: windows

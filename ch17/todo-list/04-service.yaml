@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web
+  namespace: kiamol-ch17
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8020
+      targetPort: 80
+  selector:
+    app: todo-web

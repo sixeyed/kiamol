@@ -1,22 +1,7 @@
 version: "3.7"
 
 services:
-  ch19-user-cert-generator:
-    image: kiamol/ch19-user-cert-generator
+  ch19-stress:
+    image: kiamol/ch19-stress
     build:
-      context: ./user-cert-generator
-
-  ch19-kube-explorer:
-    image: kiamol/ch19-kube-explorer
-    build:
-      context: ./kube-explorer
-
-  ch19-kubectl:
-    image: kiamol/ch19-todo-list-configurator
-    build:
-      context: ./todo-list-configurator
-
-  ch19-rbac-tools:
-    image: kiamol/ch19-rbac-tools
-    build:
-      context: ./rbac-tools
+      context: ./stress

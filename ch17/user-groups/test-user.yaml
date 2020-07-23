@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-user
+  labels:
+    kiamol: ch17
+spec:
+  serviceAccountName: user-cert-generator
+  containers:
+    - name: user-cert-generator
+      image: kiamol/ch17-user-cert-generator
+      env:
+        - name: USER_NAME
+          value: tester1
+        - name: GROUP
+          value: test
+        - name: SET_CONTEXT
+          value: "true"

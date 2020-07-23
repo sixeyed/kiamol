@@ -1,7 +1,0 @@
-version: "3.7"
-
-services:
-  ch18-stress:
-    image: kiamol/ch18-stress
-    build:
-      context: ./stress

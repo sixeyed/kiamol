@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-authn-test
+  labels:
+    kiamol: ch17
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tester2
+  namespace: kiamol-authn-test
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tester2-sa-token
+  namespace: kiamol-authn-test
+  annotations:
+    kubernetes.io/service-account.name: tester2
+type: kubernetes.io/service-account-token

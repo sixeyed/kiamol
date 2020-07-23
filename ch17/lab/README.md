@@ -1,41 +1,51 @@
-# Ch17 lab
+# ch17 lab
 
 ## Setup
 
-Connect to the control plane node:
+Deploy the Kube Explorer app in the lab configuration:
 
 ```
-vagrant ssh kiamol-control
+kubectl apply -f lab/kube-explorer/
 ```
+
+Note that [02-service-account.yaml](./kube-explorer/02-service-account.yaml) sets `automountServiceAccountToken` to `false` so Pods don't automatically see the token; [04-deployment.yaml](./kube-explorer/04-deployment.yaml) explicitly mounts the token in the Pod spec.
+
+> Browse to the app and check you can access Pods - e.g. http://localhost:8022
+
+> But not Pods in the lab namespace - http://localhost:8022?ns=kiamol-ch17-lab
 
 ## Sample Solution
 
-You take a node out of service by draining it, which reschedules the Pods - you need the DaemonSet flag so the system components are ignored:
+To access Pods in the lab namespace [rbac-pods.yaml](./solution/rbac-pods.yaml) applies the `default-pod-reader-lab` ClusterRole to the lab namespace:
 
 ```
-kubectl drain kiamol-node --ignore-daemonsets
+kubectl apply -f lab/solution/rbac-pods.yaml
 ```
 
-There is also the `kubectl cordon` command which marks the node so it won't have any new Pods scheduled, but that doesn't remove the existing Pods.
+> Now you can work with Pods in the lab namespace - http://localhost:8022?ns=kiamol-ch17-lab
 
-When you're done working on the node you can bring it back into service by uncordoning it:
+![Kube Explorer browsing Pods in the lab namespace](./solution/pods.png)
+
+> But not Service Accounts - http://localhost:8022/ServiceAccounts
+
+To access Service Accounts [rbac-serviceaccounts.yaml](./solution/rbac-serviceaccounts.yaml) creates:
+
+- a ClusterRole with get and list access to ServiceAccounts
+- a RoleBinding applying the ClusterRole to the default namespace
+- a RoleBinding applying the ClusterRole to the lab namespace
 
 ```
-kubectl uncordon kiamol-node
+kubectl apply -f lab/solution/rbac-serviceaccounts.yaml
 ```
 
-That marks the node as available for work, but Kubernetes doesn't automatically reschedule existing workloads so the node won't start any application Pods. 
+> Now you can access Pods in the default and lab namespaces - http://localhost:8022/ServiceAccounts?ns=kiamol-ch17-lab
 
-You can rebalance the API Pods by restarting the rollout:
-
-```
-kubectl rollout restart deploy apod-api
-```
+![Kube Explorer browsing Service Accounts in the lab namespace](./solution/service-accounts.png)
 
 ## Teardown
 
-You can delete all of the Vagrant VMs with:
+Delete all the resources:
 
 ```
-vagrant destroy
+kubectl delete ns,rolebinding,role,clusterrole -l kiamol=ch17-lab
 ```

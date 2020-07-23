@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: test-sa-logs-cluster
+  labels:
+    kiamol: ch17
+subjects:
+- kind: Group
+  name: system:serviceaccounts:kiamol-authn-test
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: logs-reader
+  apiGroup: rbac.authorization.k8s.io

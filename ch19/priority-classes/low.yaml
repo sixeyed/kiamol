@@ -1,0 +1,9 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: kiamol-low
+  labels:
+    kiamol: ch19
+value: 100
+globalDefault: true
+description: "Low priority - OK to be evicted"
