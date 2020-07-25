@@ -1,10 +1,17 @@
+FROM node:12.17 AS builder
+
+WORKDIR /src
+COPY src/package.json .
+RUN npm install
+
 FROM node:12.17-alpine3.11
 
-CMD ["node", "/web-ping/app.js"]
+CMD ["node", "/app/app.js"]
 
 ENV TARGET="blog.sixeyed.com" \
     METHOD="HEAD" \
     INTERVAL="3000"
 
-WORKDIR /web-ping
-COPY app.js .
+WORKDIR /app
+COPY --from=builder /src/node_modules/ /app/node_modules/
+COPY src/ .

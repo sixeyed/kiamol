@@ -1,0 +1,9 @@
+{
+  "name": "web-ping",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "kiamol",
+  "dependencies": {
+    "winston": "3.3.3"
+  }
+}
