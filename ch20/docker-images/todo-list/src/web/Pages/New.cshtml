@@ -1,0 +1,16 @@
+﻿@page
+@model ToDoList.Pages.NewModel
+
+@{
+    var attr = Model.ReadOnly ? "disabled='disabled'" : "";
+}
+
+<h1>New Item</h1>
+
+<form method="post">
+        <fieldset @attr>
+            Name:
+            <input asp-for="ToDo.Item" />
+            <input type="submit" />
+        </fieldset>
+</form>

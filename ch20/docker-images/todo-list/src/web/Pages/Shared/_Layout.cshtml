@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIAMOL To-Do List</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css" />
+    <link href="static/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <app>
+        <div class="sidebar">
+            <div class="top-row pl-4 navbar navbar-dark">
+                <a class="navbar-brand" href="">KIAMOL To-Do List</a>
+            </div>
+            <div>
+                <ul class="nav flex-column">
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="">
+                            <span class="oi oi-home" aria-hidden="true"></span> Home
+                        </a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="new">
+                            <span class="oi oi-plus" aria-hidden="true"></span> New item
+                        </a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="list">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> To-do list
+                        </a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="diagnostics">
+                            <span class="oi oi-cog" aria-hidden="true"></span> Diagnostics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="top-row px-4">
+                <div class="col-md-6">@ViewData["BannerMessage"]</div>
+                <environment include="Development">
+                    <div>[This is DEV]</div>
+                </environment>
+                <environment include="Test">
+                    <div>[This is TEST]</div>
+                </environment>
+                <a href="https://github.com/sixeyed/kiamol/tree/master/ch20/docker-images/todo-list" target="_blank">Source Code</a>
+            </div>
+
+            <div class="content px-4">
+                @RenderBody()
+            </div>
+        </div>
+
+    </app>
+</body>
+</html>

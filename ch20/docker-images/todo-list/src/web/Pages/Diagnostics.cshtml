@@ -1,0 +1,27 @@
+﻿@page
+@model ToDoList.Pages.DiagnosticsModel
+@{
+    ViewData["Title"] = "Diagnostics";
+}
+
+<h1>Diagnostics</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hostname</th>
+            <th>.NET Version</th>
+            <th>OS Architecture</th>
+            <th>OS Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Diagnostics.HostName</td>
+            <td>@Model.Diagnostics.FrameworkDescription</td>
+            <td>@Model.Diagnostics.OSArchitecture</td>
+            <td>@Model.Diagnostics.OSDescription</td>
+        </tr>
+    </tbody>
+</table>
+

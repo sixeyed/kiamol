@@ -1,0 +1,31 @@
+﻿@page
+@model ToDoList.Pages.ConfigModel
+
+<h1>Config</h1>
+
+@if (@Model.ConfigItems == null)
+{
+    <p>Nothing to see here</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model.ConfigItems
+                                        .Where(x=>string.IsNullOrEmpty(x.Value) == false)
+                                        .OrderBy(x=>x.Key))
+            {
+                <tr>
+                    <td>@item.Key</td>
+                    <td>@item.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

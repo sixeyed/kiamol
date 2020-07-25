@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPingOperator.WebPingerController", ".\WebPingOperator.WebPingerController\WebPingOperator.WebPingerController.csproj", "{27D653BB-04EA-470B-BE5C-A25D78D9DF8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPingOperator.Installer", ".\WebPingOperator.Installer\WebPingOperator.Installer.csproj", "{DFCDEACF-E27B-412F-8636-5DA7A3D38FBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPingOperator.Model", ".\WebPingOperator.Model\WebPingOperator.Model.csproj", "{085364F0-8DB7-456B-AA2C-1594EB6329EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPingOperator.WebPingerArchiveController", ".\WebPingOperator.WebPingerArchiveController\WebPingOperator.WebPingerArchiveController.csproj", "{AAEE6551-29F4-427B-BED1-198DE14653D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27D653BB-04EA-470B-BE5C-A25D78D9DF8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D653BB-04EA-470B-BE5C-A25D78D9DF8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D653BB-04EA-470B-BE5C-A25D78D9DF8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D653BB-04EA-470B-BE5C-A25D78D9DF8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCDEACF-E27B-412F-8636-5DA7A3D38FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCDEACF-E27B-412F-8636-5DA7A3D38FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCDEACF-E27B-412F-8636-5DA7A3D38FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCDEACF-E27B-412F-8636-5DA7A3D38FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{085364F0-8DB7-456B-AA2C-1594EB6329EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{085364F0-8DB7-456B-AA2C-1594EB6329EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{085364F0-8DB7-456B-AA2C-1594EB6329EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{085364F0-8DB7-456B-AA2C-1594EB6329EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAEE6551-29F4-427B-BED1-198DE14653D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAEE6551-29F4-427B-BED1-198DE14653D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAEE6551-29F4-427B-BED1-198DE14653D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAEE6551-29F4-427B-BED1-198DE14653D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F0A108E-19CF-43E6-911D-5E11AAD9A0E3}
+	EndGlobalSection
+EndGlobal

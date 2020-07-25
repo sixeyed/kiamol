@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  ch20-user-controller:
+    image: kiamol/ch20-user-controller
+    build:
+      context: ./user-controller
+
+  ch20-log-archiver:
+    image: kiamol/ch20-log-archiver
+    build:
+      context: ./log-archiver
+
+  ch20-web-ping-archiver:
+    image: kiamol/ch20-web-ping-archiver
+    build:
+      context: ./web-ping-archiver
+
+  ch20-wpo-installer:
+    image: kiamol/ch20-wpo-installer
+    build:
+      context: ./web-ping-operator
+      dockerfile: docker/installer/Dockerfile
+
+  ch20-wpo-pinger-controller:
+    image: kiamol/ch20-wpo-pinger-controller
+    build:
+      context: ./web-ping-operator
+      dockerfile: docker/pinger-controller/Dockerfile
+
+  ch20-wpo-archive-controller:
+    image: kiamol/ch20-wpo-archive-controller
+    build:
+      context: ./web-ping-operator
+      dockerfile: docker/archive-controller/Dockerfile
+
+  ch20-todo-list:
+    image: kiamol/ch20-todo-list
+    build:
+      context: ./todo-list
+      dockerfile: docker/web/Dockerfile
+
+  ch20-todo-save-handler:
+    image: kiamol/ch20-todo-save-handler
+    build:
+      context: ./todo-list
+      dockerfile: docker/save-handler/Dockerfile
