@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-controller
+  labels:
+    kiamol: ch20
+spec:
+  selector:
+    matchLabels:
+      app: user-controller
+  template:
+    metadata:
+      labels:
+        app: user-controller
+    spec:
+      serviceAccountName: user-controller
+      automountServiceAccountToken: true
+      containers:
+        - image: kiamol/ch20-user-controller
+          name: controller

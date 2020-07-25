@@ -1,0 +1,9 @@
+apiVersion: "ch20.kiamol.net/v1"
+kind: User
+metadata:
+  name: tester3
+  labels:
+    kiamol: ch20
+spec:
+  email: tester3@kiamol.net
+  group: test 

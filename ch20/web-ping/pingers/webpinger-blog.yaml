@@ -1,0 +1,10 @@
+apiVersion: "ch20.kiamol.net/v1"
+kind: WebPinger
+metadata:
+  name: blog-sixeyed-com
+  labels:
+    kiamol: ch20
+spec:
+  target: blog.sixeyed.com
+  method: HEAD
+  interval: "7s"

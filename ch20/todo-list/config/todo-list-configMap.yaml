@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-list-config
+  labels:
+    kiamol: ch20
+data:
+  config.json: |-
+    {
+      "Database" : {
+        "Provider" : "MySql"
+      },
+      "MessageQueue": {
+        "Url": "nats://todo-list-queue:4222"
+      }
+    }

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: todo-db-secret
+  labels:
+    kiamol: ch20
+type: Opaque
+stringData:
+  ROOT_PASSWORD: "kiamol-2*2*"
+---
+apiVersion: mysql.presslabs.org/v1alpha1
+kind: MysqlCluster
+metadata:
+  name: todo-db
+spec:
+  mysqlVersion: "5.7.24"
+  replicas: 2
+  secretName: todo-db-secret  
+  podSpec:    
+    resources:
+      limits:
+        memory: 200Mi
+        cpu: 200m

@@ -1,0 +1,9 @@
+apiVersion: "ch20.kiamol.net/v1"
+kind: ToDo
+metadata:
+  name: ch20
+  labels:
+    kiamol: ch20
+spec:
+  item: "Finish KIAMOL Ch20"
+  dueDate: "2020-07-26"

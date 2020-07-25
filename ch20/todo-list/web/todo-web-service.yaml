@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web
+  labels:
+    kiamol: ch20
+spec:
+  ports:
+    - port: 8020
+      targetPort: 80
+  selector:    
+    app: todo-list
+    component: web
+  type: LoadBalancer

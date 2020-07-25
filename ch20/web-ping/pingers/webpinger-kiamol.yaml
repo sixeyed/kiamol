@@ -1,0 +1,10 @@
+apiVersion: "ch20.kiamol.net/v1"
+kind: WebPinger
+metadata:
+  name: kiamol-net
+  labels:
+    kiamol: ch20
+spec:
+  target: kiamol.net
+  method: GET
+  interval: "15s"

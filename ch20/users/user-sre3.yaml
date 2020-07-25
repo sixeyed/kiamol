@@ -1,0 +1,9 @@
+apiVersion: "ch20.kiamol.net/v1"
+kind: User
+metadata:
+  name: sre3
+  labels:
+    kiamol: ch20
+spec:
+  email: sre3@kiamol.net
+  group: sre

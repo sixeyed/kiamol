@@ -1,0 +1,31 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: user-controller
+  labels:
+    kiamol: ch20
+rules:
+- apiGroups: [""] 
+  resources: ["namespaces", "serviceaccounts"]
+  verbs: ["list", "create", "delete"]
+- apiGroups: [""] 
+  resources: ["secrets"]
+  verbs: ["list", "create"]
+- apiGroups: ["ch20.kiamol.net"] 
+  resources: ["users"]
+  verbs: ["list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: user-controller
+  labels:
+    kiamol: ch20
+subjects:
+- kind: ServiceAccount
+  name: user-controller
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: user-controller

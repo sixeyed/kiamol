@@ -1,0 +1,37 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: users.ch20.kiamol.net
+  labels:
+    kiamol: ch20
+spec:
+  group: ch20.kiamol.net
+  scope: Namespaced
+  names:
+    plural: users
+    singular: user
+    kind: User
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                email:
+                  type: string
+                group:
+                  type: string
+      additionalPrinterColumns:
+        - name: Email
+          type: string
+          description: Email Address
+          jsonPath: .spec.email
+        - name: Group
+          type: string
+          description: Group
+          jsonPath: .spec.group

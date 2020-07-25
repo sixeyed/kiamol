@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-ping-operator
+  labels:
+    kiamol: ch20
+spec:
+  selector:
+    matchLabels:
+      app: web-ping-operator
+  template:
+    metadata:
+      labels:
+        app: web-ping-operator
+    spec:
+      serviceAccountName: web-ping-operator
+      automountServiceAccountToken: true
+      initContainers:
+        - name: installer
+          image: kiamol/ch20-wpo-installer
+      containers:
+        - name: pinger-controller
+          image: kiamol/ch20-wpo-pinger-controller
+        - name: archive-controller
+          image: kiamol/ch20-wpo-archive-controller
+          
