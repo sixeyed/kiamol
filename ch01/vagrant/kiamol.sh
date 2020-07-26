@@ -6,7 +6,7 @@ echo '---------'
 
 # create the cluster
 mkdir -p ~/.kube
-sudo kind create cluster --image kindest/node:v1.15.7 --name kiamol --kubeconfig /home/vagrant/.kube/config
+sudo kind create cluster --image kindest/node:v1.16.9 --name kiamol --kubeconfig /home/vagrant/.kube/config
 sudo chown vagrant ~/.kube/config
 
 # set MOTD

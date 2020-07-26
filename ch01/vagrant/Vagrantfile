@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
   
   config.vm.define "kiamol" do |kiamol|
-    kiamol.vm.box = "bento/ubuntu-20.04"
+    kiamol.vm.box = "bento/ubuntu-16.04"    # 20.04 uses resolved which messes with Kind's DNS
     kiamol.vm.hostname = "kiamol"
     kiamol.vm.network "private_network", type: "dhcp"
 
