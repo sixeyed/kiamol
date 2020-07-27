@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timecheck-controller
+  labels:
+    kiamol: ch20-lab
+spec:
+  selector:
+    matchLabels:
+      app: timecheck-controller
+  template:
+    metadata:
+      labels:
+        app: timecheck-controller
+    spec:
+      serviceAccountName: timecheck-controller
+      automountServiceAccountToken: true
+      containers:
+        - image: kiamol/ch20-timecheck-controller
+          name: controller

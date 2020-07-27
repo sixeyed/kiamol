@@ -1,0 +1,9 @@
+apiVersion: "ch20.kiamol.net/v1"
+kind: TimeCheck
+metadata:
+  name: test
+  labels:
+    kiamol: ch20-lab
+spec:
+  environment: TEST
+  interval: 10

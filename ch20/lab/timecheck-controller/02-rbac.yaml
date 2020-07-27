@@ -1,0 +1,28 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: timecheck-controller
+  labels:
+    kiamol: ch20-lab
+rules:
+- apiGroups: ["apps"] 
+  resources: ["deployments"]
+  verbs: ["list", "create", "delete"]
+- apiGroups: ["ch20.kiamol.net"] 
+  resources: ["timechecks"]
+  verbs: ["list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: timecheck-controller
+  labels:
+    kiamol: ch20-lab
+subjects:
+- kind: ServiceAccount
+  name: timecheck-controller
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: timecheck-controller

@@ -45,3 +45,8 @@ services:
     build:
       context: ./todo-list
       dockerfile: docker/save-handler/Dockerfile
+
+  ch20-timecheck-controller:
+    image: kiamol/ch20-timecheck-controller
+    build:
+      context: ./timecheck-controller
