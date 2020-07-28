@@ -16,13 +16,16 @@ namespace Microsoft.Extensions.DependencyInjection
             _ = dbProvider switch
             {
                 DbProvider.Sqlite => services.AddDbContext<ToDoContext>(options =>
-                     options.UseSqlite(connectionString)),
+                     options.UseSqlite(connectionString),
+                     lifetime),
 
                 DbProvider.Postgres => services.AddDbContext<ToDoContext>(options =>
-                     options.UseNpgsql(connectionString, postgresOptions => postgresOptions.EnableRetryOnFailure())),
+                     options.UseNpgsql(connectionString, postgresOptions => postgresOptions.EnableRetryOnFailure()),
+                     lifetime),
 
                 DbProvider.MySql => services.AddDbContext<ToDoContext>(options =>
-                     options.UseMySQL(connectionString)),
+                     options.UseMySQL(connectionString),
+                     lifetime),
 
                 _ => throw new NotSupportedException("Supported providers: Sqlite, Posgtres and MySQL")
             };
