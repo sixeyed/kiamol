@@ -9,8 +9,6 @@ subjects:
 - kind: ServiceAccount
   name: rbac-tools
   namespace: default
-  labels:
-    kiamol: ch17
 roleRef:
   kind: ClusterRole
   name: cluster-admin   # think *very* carefully before you do this!
