@@ -1,0 +1,16 @@
+service: todo-audit
+
+provider:
+  name: kubeless
+  runtime: python3.7
+
+plugins:
+  - serverless-kubeless
+
+functions:
+  todo-audit:
+    handler: audit.handler
+    events:
+      - trigger: 
+          queue: nats
+          topic: events.todo.newitem

@@ -1,0 +1,16 @@
+service: todo-api
+
+provider:
+  name: kubeless
+  runtime: nodejs12
+
+plugins:
+  - serverless-kubeless
+
+functions:
+  todo-api:
+    description: 'ToDo list - create item API'
+    handler: server.handler
+    events:
+      - http:
+          path: /todos

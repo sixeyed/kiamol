@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  ch21-serverless-cli:
+    image: kiamol/ch21-serverless-cli
+    build:
+      context: ./serverless-cli

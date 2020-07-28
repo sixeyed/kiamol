@@ -1,0 +1,28 @@
+apiVersion: kubeless.io/v1beta1
+kind: Function
+metadata:
+  name: todo-mutating-handler
+  namespace: default
+  label:
+    created-by: kubeless
+spec:
+  runtime: php7.3
+  timeout: "10"
+  handler: todo-mutating-handler.mutate  
+  deps: ""
+  function-content-type: text
+  function: |
+    <?php
+
+      function mutate($event, $context) {
+        fwrite(STDOUT, '* Mutating handler called.');
+        $conn = pg_connect('host=todo-db dbname=todo user=postgres password=kiamol-2*2*');
+        if (!$conn) {
+          echo 'Connection failed';
+          exit;
+        }
+        $sql = 'UPDATE "public"."ToDos" SET "Item"=\'Leave a nice review for KIAMOL :)\'';
+        $result = pg_query($conn, $sql); 
+        fwrite(STDOUT, '* Mutation complete.');
+        return "* Mutated...";
+      }

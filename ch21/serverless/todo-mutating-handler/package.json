@@ -1,0 +1,9 @@
+{
+  "name": "todo-mutating-handler",
+  "version": "0.1.0",
+  "author": "kiamol",
+  "description": "ToDo list - mutating handler",
+  "dependencies": {
+    "serverless-kubeless": "0.10.0"
+  }
+}

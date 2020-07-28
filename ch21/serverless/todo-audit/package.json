@@ -1,0 +1,9 @@
+{
+  "name": "todo-audit",
+  "version": "0.1.0",
+  "author": "kiamol",
+  "description": "ToDo list - new item audit",
+  "dependencies": {
+    "serverless-kubeless": "0.10.0"
+  }
+}

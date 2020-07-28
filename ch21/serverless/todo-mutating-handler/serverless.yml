@@ -1,0 +1,14 @@
+service: todo-mutating-handler
+
+provider:
+  name: kubeless
+  runtime: php7.3
+
+plugins:
+  - serverless-kubeless
+
+functions:
+  todo-mutating-handler:
+    handler: mutation.handler    
+    events:
+      - schedule: "*/1 * * * *"

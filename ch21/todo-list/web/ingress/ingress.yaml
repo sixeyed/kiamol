@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: todo-web
+  labels:
+    kiamol: ch21
+spec:
+  rules:
+  - host: todo.kiamol.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: todo-web
+          servicePort: 80

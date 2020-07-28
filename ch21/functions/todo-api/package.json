@@ -1,0 +1,11 @@
+{
+    "name": "todo-api",
+    "version": "0.1.0",
+    "main": "server.js",
+    "author": "kiamol",
+    "dependencies": {
+      "nats" : "1.4.9",
+      "uuid" : "8.2.0"
+    }
+}
+  
