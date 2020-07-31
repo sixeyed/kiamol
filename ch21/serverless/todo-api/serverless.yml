@@ -3,6 +3,7 @@ service: todo-api
 provider:
   name: kubeless
   runtime: nodejs12
+  hostname: api.todo.kiamol.local
 
 plugins:
   - serverless-kubeless
