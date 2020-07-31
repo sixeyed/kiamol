@@ -1,5 +1,6 @@
 *.box
 *.tgz
+.serverless/
 .vagrant/
 packer_cache/
 builds/

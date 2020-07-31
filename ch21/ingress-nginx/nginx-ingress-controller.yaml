@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: kiamol-ingress-nginx
   labels:
-    kiamol: ch15
+    kiamol: ch21
 ---
 apiVersion: v1
 kind: ConfigMap

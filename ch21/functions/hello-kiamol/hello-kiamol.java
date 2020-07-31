@@ -1,4 +1,4 @@
-package ch21.net.kiamol;
+package io.kubeless;
 
 import io.kubeless.Event;
 import io.kubeless.Context;

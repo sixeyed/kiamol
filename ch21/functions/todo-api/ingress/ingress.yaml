@@ -13,3 +13,8 @@ spec:
         backend:
           serviceName: todo-api
           servicePort: 8080
+
+# this spec is equivalent to running 
+# kubeless trigger http create todo-api --function-name todo-api --path todos --hostname api.todo.kiamol.local
+# but that fails with Kubeless 1.0.7 running on Kubernetes 1.18 - see
+# https://github.com/kubeless/kubeless/issues/1130

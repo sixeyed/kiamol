@@ -1,0 +1,15 @@
+apiVersion: kubeless.io/v1beta1
+kind: CronJobTrigger
+metadata:
+  finalizers:
+  - kubeless.io/cronjobtrigger 
+  labels:
+    created-by: kubeless
+  name: todo-mutating-handler
+  namespace: default
+spec:
+  function-name: todo-mutating-handler
+  schedule: '*/1 * * * *'
+
+# finalizers help with clean-up tasks - see
+# https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#finalizers

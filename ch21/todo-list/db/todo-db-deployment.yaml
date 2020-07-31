@@ -17,6 +17,8 @@ spec:
           env:
           - name: POSTGRES_PASSWORD_FILE
             value: /secrets/postgres_password
+          - name: PGDATA
+            value: /var/lib/postgresql/data/pgdata
           volumeMounts:
             - name: secret
               mountPath: "/secrets"
