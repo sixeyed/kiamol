@@ -1,8 +1,12 @@
 {
   "name": "todo-mutating-handler",
+  "description" : "To-do list - mutating handler",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/sixeyed/kiamol"
+  },
   "version": "0.1.0",
   "author": "kiamol",
-  "description": "ToDo list - mutating handler",
   "dependencies": {
     "serverless-kubeless": "0.10.0"
   }
