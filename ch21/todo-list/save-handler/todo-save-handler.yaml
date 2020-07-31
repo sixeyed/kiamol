@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: todo-save-handler
   labels:
-    kiamol: ch20
+    kiamol: ch21
 spec:
   selector:
     matchLabels:
