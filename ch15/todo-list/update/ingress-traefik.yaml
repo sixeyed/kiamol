@@ -5,6 +5,7 @@ metadata:
   labels:
     kiamol: ch15
   annotations:
+    kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
 spec:
   ports:
