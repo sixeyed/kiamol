@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-list-config
+  namespace: todo
+  labels:
+    kiamol: ch21-lab
+data:
+  config.json: |-
+    {
+      "Database" : {
+        "Provider" : "Postgres"
+      },
+      "MessageQueue": {
+        "Url": "nats://message-queue:4222"
+      }
+    }

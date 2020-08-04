@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-db
+  namespace: todo
+  labels:
+    kiamol: ch21-lab
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: todo-db

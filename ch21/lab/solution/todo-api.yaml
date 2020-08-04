@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1 
+kind: Service
+metadata:
+  name: api
+  namespace: todo
+  labels:
+    kiamol: ch21-lab
+spec:
+  template:
+    spec:
+      containers:
+        - image: kiamol/ch21-todo-api

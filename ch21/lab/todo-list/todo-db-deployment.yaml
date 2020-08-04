@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-db
+  namespace: todo
+  labels:
+    kiamol: ch21-lab
+spec:
+  selector:
+    matchLabels:
+      app: todo-db
+  template:
+    metadata:
+      labels:
+        app: todo-db
+    spec:
+      containers:
+        - name: db
+          image: postgres:11.6-alpine
+          env:
+          - name: POSTGRES_PASSWORD_FILE
+            value: /secrets/postgres_password
+          - name: PGDATA
+            value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: secret
+              mountPath: "/secrets"
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: secret
+          secret:
+            secretName: todo-db-secret
+            defaultMode: 0400
+            items:
+            - key: POSTGRES_PASSWORD
+              path: postgres_password
+        - name: data
+          persistentVolumeClaim:
+            claimName: todo-db-pvc

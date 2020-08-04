@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-save-handler
+  namespace: todo
+  labels:
+    kiamol: ch21-lab
+spec:
+  selector:
+    matchLabels:
+      app: todo-list
+      component: save-handler
+  template:
+    metadata:
+      labels:
+        app: todo-list
+        component: save-handler
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch20-todo-save-handler
+          env:
+            - name: Events__events.todo.itemsaved__Publish
+              value: "true"
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+              readOnly: true
+            - name: secret
+              mountPath: "/app/secrets"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: todo-list-config
+            items:
+            - key: config.json
+              path: config.json
+        - name: secret
+          secret:
+            secretName: todo-list-secret
+            defaultMode: 0400
+            items:
+            - key: secrets.json
+              path: secrets.json

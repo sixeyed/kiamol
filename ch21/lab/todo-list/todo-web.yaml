@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web
+  namespace: todo
+  labels:
+    kiamol: ch21-lab
+spec:
+  selector:
+    matchLabels:
+      app: todo-list
+      component: web
+  template:
+    metadata:
+      labels:
+        app: todo-list
+        component: web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch20-todo-list
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+              readOnly: true
+            - name: secret
+              mountPath: "/app/secrets"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: todo-list-config
+            items:
+            - key: config.json
+              path: config.json
+        - name: secret
+          secret:
+            secretName: todo-list-secret
+            defaultMode: 0400
+            items:
+            - key: secrets.json
+              path: secrets.json
