@@ -9,7 +9,7 @@ entries:
     name: vweb
     type: application
     urls:
-    - https://kiamol.blob.core.windows.net/charts/vweb-2.0.0.tgz
+    - https://github.com/sixeyed/kiamol/files/4757286/vweb-2.0.0.tar.gz
     version: 2.0.0
   - apiVersion: v2
     appVersion: 1.0.0
@@ -19,6 +19,6 @@ entries:
     name: vweb
     type: application
     urls:
-    - https://kiamol.blob.core.windows.net/charts/vweb-1.0.0.tgz
+    - https://github.com/sixeyed/kiamol/files/4757269/vweb-1.0.0.tar.gz
     version: 1.0.0
 generated: "2020-06-10T10:01:44.600496+01:00"
