@@ -27,6 +27,7 @@ spec:
       labels:
         app: jenkins
     spec:
+      serviceAccountName: jenkins
       containers:
         - name: jenkins
           image: kiamol/ch11-jenkins
@@ -45,3 +46,49 @@ spec:
             items:
             - key: .dockerconfigjson
               path: config.json
+---
+# RBAC configuration - ignore this until we get to chapter 17 :)
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins
+  labels:
+    kiamol: ch11
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: jenkins
+  labels:
+    kiamol: ch11
+rules:
+- apiGroups: [""]
+  resources: [pods"]
+  verbs: ["create","delete","get","list","patch","update","watch"]
+- apiGroups: [""]
+  resources: [pods/exec"]
+  verbs: ["create","delete","get","list","patch","update","watch"]
+- apiGroups: [""]
+  resources: [pods/log"]
+  verbs: [get","list","watch"]
+- apiGroups: [""]
+  resources: ["services","secrets","configmaps"]
+  verbs: ["get","list","create","delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get","list","create","delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: jenkins
+  labels:
+    kiamol: ch11
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: jenkins
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+  namespace: default

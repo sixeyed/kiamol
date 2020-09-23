@@ -42,7 +42,7 @@ spec:
         - containerPort: 8081
           name: telemetry
 ---
-# RBAC configuration - ignore this until we get to chapter 19 :)
+# RBAC configuration - ignore this until we get to chapter 17 :)
 apiVersion: v1
 kind: ServiceAccount
 metadata:
