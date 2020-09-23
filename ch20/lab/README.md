@@ -5,7 +5,7 @@
 Deploy the custom controller:
 
 ```
-kubectl apply -f lab/timechechk-controller/
+kubectl apply -f lab/timecheck-controller/
 ```
 
 Try to create custom resource:
@@ -39,7 +39,7 @@ kubectl delete pods -l app=timecheck-controller
 Now you can create the custom resource:
 
 ```
-kubectl apply -f timecheck-test.yaml
+kubectl apply -f lab/timecheck-test.yaml
 ```
 
 Check the controller has created a Deployment:
@@ -71,5 +71,5 @@ kubectl delete crd timechecks.ch20.kiamol.net
 And the controller:
 
 ```
-kubectl delete -f timecheck-controller/
+kubectl delete -f lab/timecheck-controller/
 ```

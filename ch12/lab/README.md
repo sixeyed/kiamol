@@ -31,11 +31,11 @@ My Pi app is set in [web.yaml](./solution/web.yaml) to use 0.5 cores, so I can r
 Deploy to each namespace:
 
 ```
-kubectl apply -f lab/solution/pi/ -n pi-dev
+kubectl apply -f lab/solution/web.yaml -n pi-dev
 
-kubectl apply -f lab/solution/pi/ -n pi-test
+kubectl apply -f lab/solution/web.yaml -n pi-test
 
-kubectl apply -f lab/solution/pi/ -n pi-uat
+kubectl apply -f lab/solution/web.yaml -n pi-uat
 ```
 
 You should find all ReplicaSets are running at desired capacity:

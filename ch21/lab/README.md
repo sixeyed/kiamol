@@ -5,7 +5,7 @@
 Deploy Knative with Contour:
 
 ```
-k apply -f lab/knative/
+kubectl apply -f lab/knative/
 ```
 
 Deploy the to-do app:

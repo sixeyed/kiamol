@@ -5,7 +5,7 @@
 Deploy the monitoring subsystem:
 
 ```
-kubectl apply -f lab/prometheus/
+kubectl apply -f lab/monitoring/
 ```
 
 > Browse to the Prometheus UI - there are no targets
