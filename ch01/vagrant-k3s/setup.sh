@@ -13,8 +13,12 @@ sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 # install Docker
 curl -fsSL https://get.docker.com | sh
 
-# use Docker without sudo:
+# use Docker without sudo
 sudo usermod -aG docker vagrant
+
+# install Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.27.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 # install Helm
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
