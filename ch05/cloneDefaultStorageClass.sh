@@ -15,7 +15,7 @@ kubectl wait --for=condition=Ready pod/clone-sc
 kubectl cp defaultStorageClass.json clone-sc:/defaultStorageClass.json
 
 # run the clone script, which generates a custom sc defintion:
-kubectl exec clone-sc /scripts/duplicate-default-storage-class.sh > kiamolStorageClass.json
+kubectl exec clone-sc -- /scripts/duplicate-default-storage-class.sh > kiamolStorageClass.json
 
 # apply the new sc:
 kubectl apply -f kiamolStorageClass.json
