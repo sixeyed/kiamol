@@ -10,10 +10,16 @@ Create resource group:
 az group create --name kiamol --location eastus
 ```
 
-Create cluster:
+Check the supported versions of Kubernetes:
 
 ```
-az aks create -g kiamol -n kiamol-aks --node-count 1 --kubernetes-version 1.18.8
+az aks get-versions --location eastus -o table
+```
+
+Create cluster - using one of the supported versions:
+
+```
+az aks create -g kiamol -n kiamol-aks --node-count 1 --kubernetes-version 1.18.14
 ```
 
 Get credentials to use the cluster with Kubectl:
