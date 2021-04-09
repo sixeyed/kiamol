@@ -11,7 +11,7 @@ services:
     build:
       context: ./kube-explorer
 
-  ch17-kubectl:
+  ch17-todo-list-configurator:
     image: kiamol/ch17-todo-list-configurator
     build:
       context: ./todo-list-configurator
