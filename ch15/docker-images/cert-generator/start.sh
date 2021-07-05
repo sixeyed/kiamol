@@ -44,4 +44,4 @@ if [ -n "$CREATE_SECRET" ]; then
     openssl base64 -A <"ca.pem" > ca.base64
 fi
 
-while true; do sleep 1000; done
+trap : TERM INT; (while true; do sleep 1000; done) & wait
