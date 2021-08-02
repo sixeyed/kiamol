@@ -10,3 +10,9 @@ services:
     image: kiamol/ch11-jenkins
     build:
       context: ./jenkins
+
+  ch11-jenkins-current:
+    image: kiamol/ch11-jenkins:2.289.3
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile.current
