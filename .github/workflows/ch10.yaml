@@ -6,7 +6,7 @@ on:
       - ".github/workflows/ch10.yaml"
       - "ch10/docker-images/**"
   schedule:
-    - cron: "0 0-7 * * *"
+    - cron: "0 10 * * 0"
 
 jobs:
   ch10:
