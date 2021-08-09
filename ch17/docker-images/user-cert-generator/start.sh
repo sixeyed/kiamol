@@ -39,4 +39,6 @@ if [ -n "$SET_CONTEXT" ]; then
     echo "** Using context for user: $USER_NAME; group: $GROUP"
 fi
 
-while true; do sleep 1000; done
+if [ -n "$WAIT" ]; then
+    while true; do sleep 1000; done
+fi
