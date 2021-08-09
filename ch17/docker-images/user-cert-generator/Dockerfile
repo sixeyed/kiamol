@@ -9,7 +9,7 @@ RUN chmod +x /start.sh
 ENV USER_NAME="reader@kiamol.net" \
     GROUP="kiamol" \
     SET_CONTEXT="" \
-    WAIT="true"
+    PRINT_CERTS=""
 
 WORKDIR /certs
 CMD /start.sh

@@ -39,6 +39,11 @@ if [ -n "$SET_CONTEXT" ]; then
     echo "** Using context for user: $USER_NAME; group: $GROUP"
 fi
 
-if [ -n "$WAIT" ]; then
+if [ -n "$PRINT_CERTS" ]; then
+    echo "user.key"
+    cat /certs/user.key
+    echo "user.crt"
+    cat /certs/user.crt
+else 
     while true; do sleep 1000; done
 fi
