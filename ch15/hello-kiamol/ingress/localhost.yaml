@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello-kiamol
@@ -9,6 +9,9 @@ spec:
   - http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: hello-kiamol
-          servicePort: 80
+          service:
+            name: hello-kiamol
+            port: 
+              number: 80
