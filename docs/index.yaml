@@ -9,7 +9,7 @@ entries:
     name: vweb
     type: application
     urls:
-    - https://github.com/sixeyed/kiamol/files/4757286/vweb-2.0.0.tar.gz
+    - https://github.com/sixeyed/kiamol/releases/download/v2.0.0/vweb-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v2
     appVersion: 1.0.0

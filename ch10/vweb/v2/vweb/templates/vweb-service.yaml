@@ -9,7 +9,10 @@ metadata:
 spec:
   ports:
     - port: {{ .Values.servicePort }}
-      targetPort: http
+      targetPort: http    
+      {{- if eq .Values.serviceType "NodePort" }}
+      nodePort: {{ .Values.servicePort }}
+      {{- end }}
   selector:
     app.kubernetes.io/name: vweb
     app.kubernetes.io/instance: {{ .Release.Name }}
