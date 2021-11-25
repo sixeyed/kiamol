@@ -1,15 +1,15 @@
 FROM alpine:3.12 AS installer
 
-ARG JENKINS_VERSION="2.289.3"
+ARG JENKINS_VERSION="2.303.3"
 WORKDIR /downloads/jenkins
 RUN wget http://mirrors.jenkins.io/war-stable/$JENKINS_VERSION/jenkins.war
 
-ARG BUILDKIT_VERSION="v0.9.0"
+ARG BUILDKIT_VERSION="v0.9.3"
 WORKDIR /downloads/buildkit
 RUN wget https://github.com/moby/buildkit/releases/download/$BUILDKIT_VERSION/buildkit-$BUILDKIT_VERSION.linux-amd64.tar.gz
 RUN tar xvf buildkit-$BUILDKIT_VERSION.linux-amd64.tar.gz
 
-ARG HELM_VERSION="v3.6.2"
+ARG HELM_VERSION="v3.7.1"
 WORKDIR /downloads/helm
 RUN wget https://get.helm.sh/helm-$HELM_VERSION-linux-amd64.tar.gz
 RUN tar xvf helm-$HELM_VERSION-linux-amd64.tar.gz
@@ -32,7 +32,7 @@ RUN apk add --no-cache \
 RUN apk add --no-cache \
     jq
     
-ARG JENKINS_VERSION="2.2.289.3"
+ARG JENKINS_VERSION="2.303.3"
 ENV JENKINS_VERSION=${JENKINS_VERSION} \
     JENKINS_HOME="/data"
 
