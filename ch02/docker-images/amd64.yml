@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   ch02-hello-kiamol:
-    image: kiamol/ch02-hello-kiamol-linux-amd64
+    image: kiamol/ch02-hello-kiamol:linux-amd64
 
   ch02-whoami:
-    image: kiamol/ch02-whoami-linux-amd64
+    image: kiamol/ch02-whoami:linux-amd64
