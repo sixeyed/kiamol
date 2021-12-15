@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  ch03-numbers-api:
+    image: kiamol/ch03-numbers-api:latest-linux-arm64
+
+  ch03-numbers-web:
+    image: kiamol/ch03-numbers-web:latest-linux-arm64
+
+  ch03-numbers-web-v2:
+    image: kiamol/ch03-numbers-web:v2-linux-arm64
+
+  ch03-sleep:
+    image: kiamol/ch03-sleep:latest-linux-arm64
