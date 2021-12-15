@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:  
+  gogs:
+    image: courselabs/gogs:0.12.3-linux-arm64
+
+  jenkins:
+    image: courselabs/jenkins:2.319.1-linux-arm64
+
+  sonarqube:
+    image: courselabs/sonarqube:9.2.1-linux-arm64
+  
+  elasticsearch:
+    image: courselabs/elasticsearch:7.10-linux-arm64
+
+  logstash:
+    image: courselabs/logstash:7.10-linux-arm64
+
+  kibana:
+    image: courselabs/kibana:7.10-linux-arm64
