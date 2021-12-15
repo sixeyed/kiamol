@@ -1,0 +1,5 @@
+version: "3.7"
+
+services:
+  ch04-todo-list:
+    image: kiamol/ch04-todo-list:latest-linux-amd64
