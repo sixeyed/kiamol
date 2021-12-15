@@ -2,6 +2,6 @@ version: "3.6"
 
 services:
   ch05-pi:
-    image: kiamol/ch05-pi
+    image: kiamol/ch05-pi:latest
     build:
       context: ./pi

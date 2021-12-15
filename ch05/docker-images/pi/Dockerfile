@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.301 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS builder
 
 WORKDIR /src
 COPY src/Pi.Math/Pi.Math.csproj ./Pi.Math/
@@ -14,7 +14,7 @@ COPY src/Pi.Web /src/Pi.Web/
 RUN dotnet publish -c Release -o /out Pi.Web.csproj
 
 # app image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.5
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine 
 
 EXPOSE 80
 ENTRYPOINT ["dotnet", "Pi.Web.dll"]

@@ -1,0 +1,5 @@
+version: "3.7"
+
+services:
+  ch05-pi:
+    image: kiamol/ch05-pi:latest-linux-amd64
