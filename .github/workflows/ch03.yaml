@@ -9,7 +9,7 @@ on:
     - cron: "0 3 * * 0"
 
 jobs:
-  ch03:
+  build-amd64:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -20,10 +20,24 @@ jobs:
       - name: ch03
         working-directory: ./ch03/docker-images
         run: |
-          docker-compose build 
-          docker-compose push          
+          docker-compose -f docker-compose.yml -f amd64.yml build --pull
+          docker-compose -f docker-compose.yml -f amd64.yml push  
 
-  ch03-windows:
+  build-arm64:
+    runs-on: [self-hosted, Linux, ARM64, docker]
+    steps:
+      - uses: actions/checkout@master
+      - uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: ch03
+        working-directory: ./ch03/docker-images
+        run: |
+          docker compose -f docker-compose.yml -f arm64.yml build --pull
+          docker compose -f docker-compose.yml -f arm64.yml push    
+
+  build-windows:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@master
@@ -36,3 +50,19 @@ jobs:
         run: |          
           docker-compose -f docker-compose-windows.yml build
           docker image push kiamol/ch03-numbers-api:windows
+
+  push-manifests:
+    runs-on: ubuntu-latest
+    needs: ['build-amd64', 'build-arm64']
+    steps:
+      - uses: actions/checkout@master
+      - uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: ch02
+        working-directory: ./ch02/docker-images
+        run: |
+          ./push-manifests.ps1        
+        shell: pwsh
+
