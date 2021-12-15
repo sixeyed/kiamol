@@ -2,10 +2,11 @@ version: "3.6"
 
 services:
   ch07-timecheck:
-    image: kiamol/ch07-timecheck
+    image: kiamol/ch07-timecheck:latest
     build:
       context: ./timecheck
+      
   ch07-simple-proxy:
-    image: kiamol/ch07-simple-proxy
+    image: kiamol/ch07-simple-proxy:latest
     build:
       context: ./simple-proxy

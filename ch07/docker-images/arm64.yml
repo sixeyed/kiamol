@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  ch07-timecheck:
+    image: kiamol/ch07-timecheck:latest-linux-arm64
+      
+  ch07-simple-proxy:
+    image: kiamol/ch07-simple-proxy:latest-linux-arm64
