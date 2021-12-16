@@ -1,10 +1,10 @@
-FROM node:12.17 AS builder
+FROM node:16.13.1-alpine3.14 AS builder
 
 WORKDIR /src
 COPY src/package.json .
 RUN npm install
 
-FROM node:12.17-alpine3.11
+FROM node:16.13.1-alpine3.14
 
 CMD ["node", "/app/app.js"]
 
