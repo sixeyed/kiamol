@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  ch09-vweb-v1:
+    image: kiamol/ch09-vweb:v1-linux-amd64
+      
+  ch09-vweb-v2:
+    image: kiamol/ch09-vweb:v2-linux-amd64
+
+  ch09-vweb-v3:
+    image: kiamol/ch09-vweb:v3-linux-amd64
