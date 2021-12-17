@@ -15,6 +15,3 @@ echo "*** Using registry: $REGISTRY_SERVER, with user: $REGISTRY_USER ***"
 
 # run Jenkins
 java -Duser.home=${JENKINS_HOME} -Djenkins.install.runSetupWizard=false -jar /jenkins/jenkins.war
-
-
-https://index.docker.io/v1/

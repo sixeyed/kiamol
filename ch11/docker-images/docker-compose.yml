@@ -2,17 +2,24 @@ version: "3.7"
 
 services:  
   ch11-gogs:
-    image: kiamol/ch11-gogs
+    image: kiamol/ch11-gogs:latest
     build:
       context: ./gogs
 
   ch11-jenkins:
-    image: kiamol/ch11-jenkins
+    image: kiamol/ch11-jenkins:latest
     build:
       context: ./jenkins
 
   ch11-jenkins-current:
-    image: kiamol/ch11-jenkins:2.289.3
+    image: kiamol/ch11-jenkins:2.319.1
     build:
       context: ./jenkins
-      dockerfile: Dockerfile.current
+      dockerfile: Dockerfile
+      args:
+        ALPINE_VERSION: '3.15'
+        JENKINS_VERSION: '2.319.1'
+        KUBECTL_VERSION: '1.22.4-r0'
+        BUILDKIT_VERSION: 'v0.9.3'
+        HELM_VERSION: 'v3.7.2'
+

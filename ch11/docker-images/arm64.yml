@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:  
+  ch11-gogs:
+    image: kiamol/ch11-gogs:latest-linux-arm64
+
+  ch11-jenkins:
+    image: kiamol/ch11-jenkins:latest-linux-arm64
+
+  ch11-jenkins-current:
+    image: kiamol/ch11-jenkins:2.319.1-linux-arm64
