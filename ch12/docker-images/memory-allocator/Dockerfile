@@ -1,4 +1,4 @@
-FROM golang:1.14.4 AS builder
+FROM golang:1.15-alpine AS builder
 ENV CGO_ENABLED=0
 
 WORKDIR /src
@@ -9,7 +9,7 @@ COPY ./src/main.go .
 RUN go build -o /server
 
 # app
-FROM alpine:3.12
+FROM alpine:3.15
 
 EXPOSE 80
 CMD ["/app/server"]

@@ -1,7 +1,7 @@
 module kiamol/memory-allocator
 
-go 1.14
+go 1.15
 
 require (
-    github.com/spf13/viper v1.7.0
+    github.com/spf13/viper v1.10.1
 )

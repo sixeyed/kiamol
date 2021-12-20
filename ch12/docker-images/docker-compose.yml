@@ -2,6 +2,6 @@ version: "3.7"
 
 services:  
   ch12-memory-allocator:
-    image: kiamol/ch12-memory-allocator
+    image: kiamol/ch12-memory-allocator:latest
     build:
       context: ./memory-allocator
