@@ -26,8 +26,8 @@ ENV KIBANA_HOME="/usr/share/kibana"
 
 WORKDIR /usr/share/kibana
 COPY --from=installer /kibana .
-COPY ./bin/kibana bin/
-COPY ./config/kibana.yml config/
+COPY ./kibana bin/
+COPY ./kibana.yml config/
 
 RUN chmod +x bin/kibana
 CMD ["/usr/share/kibana/bin/kibana", "--allow-root"]
