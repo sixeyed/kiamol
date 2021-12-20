@@ -47,12 +47,14 @@ data:
         Match           kube.kiamol-ch13-test.*
         Host            elasticsearch
         Index           test
+        Generate_ID     On
 
     [OUTPUT]
         Name            es
         Match           kube.kube-system.*
         Host            elasticsearch
         Index           sys
+        Generate_ID     On
 
   parsers.conf: |
     [PARSER]

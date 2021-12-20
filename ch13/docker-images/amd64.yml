@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:  
+  ch13-elasticsearch:
+    image: kiamol/ch13-elasticsearch:latest-linux-amd64
+
+  ch13-kibana:
+    image: kiamol/ch13-kibana:latest-linux-amd64

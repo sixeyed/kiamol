@@ -39,6 +39,7 @@ data:
         Match           kube.kiamol-ch13-lab.*
         Host            elasticsearch
         Index           lab
+        Generate_ID     On
 
   parsers.conf: |
     [PARSER]
