@@ -8,7 +8,7 @@ COPY . .
 RUN mvn package
 
 # app
-FROM openjdk:11-jre-slim
+FROM openjdk:11.0.11-jre-slim
 
 WORKDIR /app
 COPY --from=builder /usr/src/iotd/target/iotd-service-0.1.0.jar .

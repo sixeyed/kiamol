@@ -1,4 +1,4 @@
-FROM golang:1.14.4  AS builder
+FROM golang:1.15-alpine  AS builder
 ENV CGO_ENABLED=0
 
 WORKDIR /src
@@ -9,7 +9,7 @@ COPY main.go .
 RUN go build -o /server
 
 # app
-FROM alpine:3.12
+FROM alpine:3.15
 
 ENV IMAGE_API_URL="http://apod-api/image" \
     ACCESS_API_URL="http://apod-log/access-log"

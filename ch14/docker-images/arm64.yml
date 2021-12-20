@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  ch14-access-log:
+    image: kiamol/ch14-access-log:latest-linux-arm64
+
+  ch14-image-gallery:
+    image: kiamol/ch14-image-gallery:latest-linux-arm64
+
+  ch14-image-of-the-day:
+    image: kiamol/ch14-image-of-the-day:latest-linux-arm64

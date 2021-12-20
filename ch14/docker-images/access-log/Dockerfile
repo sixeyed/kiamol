@@ -1,11 +1,11 @@
-FROM node:10.19.0-slim AS builder
+FROM node:16.13.1-alpine3.14 AS builder
 
 WORKDIR /src
 COPY src/package.json .
 RUN npm install
 
 # app
-FROM node:10.19.0-slim
+FROM node:16.13.1-alpine3.14
 
 EXPOSE 80
 ENV PORT=80
