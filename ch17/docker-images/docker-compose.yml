@@ -2,21 +2,21 @@ version: "3.7"
 
 services:
   ch17-user-cert-generator:
-    image: kiamol/ch17-user-cert-generator
+    image: kiamol/ch17-user-cert-generator:latest
     build:
       context: ./user-cert-generator
 
   ch17-kube-explorer:
-    image: kiamol/ch17-kube-explorer
+    image: kiamol/ch17-kube-explorer:latest
     build:
       context: ./kube-explorer
 
   ch17-todo-list-configurator:
-    image: kiamol/ch17-todo-list-configurator
+    image: kiamol/ch17-todo-list-configurator:latest
     build:
       context: ./todo-list-configurator
 
   ch17-rbac-tools:
-    image: kiamol/ch17-rbac-tools
+    image: kiamol/ch17-rbac-tools:latest
     build:
       context: ./rbac-tools

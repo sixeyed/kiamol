@@ -1,4 +1,5 @@
-FROM alpine:3.12
+ARG ALPINE_VERSION="3.15"    
+FROM alpine:$ALPINE_VERSION
 
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing kubectl
 

@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  ch17-user-cert-generator:
+    image: kiamol/ch17-user-cert-generator:latest-linux-arm64
+
+  ch17-kube-explorer:
+    image: kiamol/ch17-kube-explorer:latest-linux-arm64
+
+  ch17-todo-list-configurator:
+    image: kiamol/ch17-todo-list-configurator:latest-linux-arm64
+
+  ch17-rbac-tools:
+    image: kiamol/ch17-rbac-tools:latest-linux-arm64
