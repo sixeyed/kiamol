@@ -3,8 +3,10 @@ kind: CertificateSigningRequest
 metadata:
   name: {USER_NAME}
 spec:
+  signerName: kubernetes.io/kube-apiserver-client
   groups:
   - system:authenticated
   request: {CSR}
   usages:
   - client auth
+  
