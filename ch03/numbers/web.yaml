@@ -11,6 +11,17 @@ spec:
       labels:
         app: numbers-web
     spec:
+      initContainers:
+        # The app requires more than the common Linux default of 128
+        - name: configure-sysctl
+          image: alpine
+          command:
+            - sysctl
+            - '-w'
+            - fs.inotify.max_user_instances=8192
+          securityContext:
+            privileged: true
+            runAsUser: 0
       containers:
         - name: web
           image: kiamol/ch03-numbers-web
