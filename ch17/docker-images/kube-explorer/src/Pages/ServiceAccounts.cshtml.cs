@@ -34,7 +34,7 @@ namespace KubeExplorer.Pages
             {
                 Name = x.Metadata.Name,
                 AutomountServiceAccountToken = x.AutomountServiceAccountToken ?? true,
-                SecretCount = x.Secrets.Count()
+                SecretCount = 0 //x.Secrets.Count()
             }) ;
 
             _logger.LogDebug($"Fetched {ServiceAccounts.Count()} ServiceAccounts.");
