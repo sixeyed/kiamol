@@ -11,7 +11,7 @@ RUN ARCH2= && alpineArch="$(apk --print-arch)" \
     echo $ARCH2 > /arch2.txt 
 
 FROM download-base AS packages
-ARG KUBECTL_VERSION="1.22.4-r0"
+ARG KUBECTL_VERSION="1.24.4-r0"
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     kubectl=$KUBECTL_VERSION
 
