@@ -19,7 +19,7 @@ services:
       args:
         ALPINE_VERSION: '3.15'
         JENKINS_VERSION: '2.319.1'
-        KUBECTL_VERSION: '1.22.4-r0'
+        KUBECTL_VERSION: '1.24.4-r0'
         BUILDKIT_VERSION: 'v0.9.3'
         HELM_VERSION: 'v3.7.2'
 
