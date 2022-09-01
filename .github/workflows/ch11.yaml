@@ -46,8 +46,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: ch10
-        working-directory: ./ch10/docker-images
+      - name: ch11
+        working-directory: ./ch11/docker-images
         run: |
           ./push-manifests.ps1        
         shell: pwsh
