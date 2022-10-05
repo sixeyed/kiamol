@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: todo2-new
@@ -16,10 +16,12 @@ spec:
       paths:
       - path: /new
         backend:
-          serviceName: todo-web-sticky
-          servicePort: 80
+          service:
+            name: todo-web-sticky
+            port: 
+              number: 80
 ---
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: todo2-static
@@ -37,10 +39,12 @@ spec:
       paths:
       - path: /static
         backend:
-          serviceName: todo-web
-          servicePort: 80
+          service:
+            name: todo-web
+            port: 
+              number: 80
 ---
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: todo2
@@ -58,9 +62,13 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: todo-web
-          servicePort: 80
+          service:
+            name: todo-web
+            port: 
+              number: 80
       - path: /list
         backend:
-          serviceName: todo-web
-          servicePort: 80
+          service:
+            name: todo-web
+            port: 
+              number: 80

@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: apod-api
@@ -15,5 +15,7 @@ spec:
       - pathType: Exact
         path: /image
         backend:
-          serviceName: apod-api
-          servicePort: 80
+          service:
+            name: apod-api
+            port: 
+              number: 80
