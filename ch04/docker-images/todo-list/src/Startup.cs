@@ -46,6 +46,7 @@ namespace ToDoList
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
