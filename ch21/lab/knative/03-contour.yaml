@@ -1,4 +1,4 @@
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: contour-external
@@ -1375,7 +1375,7 @@ metadata:
   labels:
     networking.knative.dev/ingress-provider: contour
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: contour
@@ -1391,7 +1391,7 @@ subjects:
   name: contour-certgen
   namespace: contour-external
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: contour-certgen
@@ -1455,7 +1455,7 @@ spec:
   completions: 1
   backoffLimit: 1
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: contour
@@ -1534,7 +1534,7 @@ rules:
   - post
   - patch
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: contour-leaderelection
@@ -1561,7 +1561,7 @@ rules:
   - update
   - patch
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: contour-leaderelection
@@ -1871,7 +1871,7 @@ spec:
       restartPolicy: Always
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: contour-internal
@@ -3248,7 +3248,7 @@ metadata:
   labels:
     networking.knative.dev/ingress-provider: contour
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: contour
@@ -3264,7 +3264,7 @@ subjects:
   name: contour-certgen
   namespace: contour-internal
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: contour-certgen
@@ -3328,7 +3328,7 @@ spec:
   completions: 1
   backoffLimit: 1
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: contour
@@ -3407,7 +3407,7 @@ rules:
   - post
   - patch
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: contour-leaderelection
@@ -3434,7 +3434,7 @@ rules:
   - update
   - patch
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: contour-leaderelection

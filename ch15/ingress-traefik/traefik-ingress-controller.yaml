@@ -70,7 +70,7 @@ metadata:
   namespace: kiamol-ingress-traefik
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: ingress-traefik-controller
   namespace: kiamol-ingress-traefik
@@ -101,7 +101,7 @@ rules:
     - update
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: ingress-traefik-controller
   namespace: kiamol-ingress-traefik
