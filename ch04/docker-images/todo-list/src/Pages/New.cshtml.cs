@@ -48,7 +48,7 @@ namespace ToDoList.Pages
                 return Page();
             }
 
-            ToDo.DateAdded = DateTime.Now;
+            ToDo.DateAdded = DateTime.UtcNow;
             await _todoService.AddToDoAsync(ToDo);
             _logger.LogInformation("New item created");
 
