@@ -20,8 +20,8 @@ jobs:
       - name: ch13
         working-directory: ./ch13/docker-images
         run:  |
-          docker compose -f docker compose.yml -f amd64.yml build --pull
-          docker compose -f docker compose.yml -f amd64.yml push   
+          docker compose -f docker-compose.yml -f amd64.yml build --pull
+          docker compose -f docker-compose.yml -f amd64.yml push   
 
   build-arm64:
     runs-on: [self-hosted, Linux, ARM64, docker]
@@ -34,5 +34,5 @@ jobs:
       - name: ch13
         working-directory: ./ch13/docker-images
         run: |
-          docker compose -f docker compose.yml -f arm64.yml build --pull
-          docker compose -f docker compose.yml -f arm64.yml push 
+          docker compose -f docker-compose.yml -f arm64.yml build --pull
+          docker compose -f docker-compose.yml -f arm64.yml push 
