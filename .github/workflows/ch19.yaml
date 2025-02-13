@@ -20,5 +20,5 @@ jobs:
       - name: ch19
         working-directory: ./ch19/docker-images
         run: |
-          docker-compose build 
-          docker-compose push
+          docker compose build 
+          docker compose push

@@ -20,8 +20,8 @@ jobs:
       - name: ch03
         working-directory: ./ch03/docker-images
         run: |
-          docker-compose -f docker-compose.yml -f amd64.yml build --pull
-          docker-compose -f docker-compose.yml -f amd64.yml push  
+          docker compose -f docker compose.yml -f amd64.yml build --pull
+          docker compose -f docker compose.yml -f amd64.yml push  
 
   build-arm64:
     runs-on: [self-hosted, Linux, ARM64, docker]
@@ -34,8 +34,8 @@ jobs:
       - name: ch03
         working-directory: ./ch03/docker-images
         run: |
-          docker compose -f docker-compose.yml -f arm64.yml build --pull
-          docker compose -f docker-compose.yml -f arm64.yml push    
+          docker compose -f docker compose.yml -f arm64.yml build --pull
+          docker compose -f docker compose.yml -f arm64.yml push    
 
   build-windows:
     runs-on: windows-2019
@@ -48,7 +48,7 @@ jobs:
       - name: ch03-windows
         working-directory: ./ch03/docker-images
         run: |          
-          docker-compose -f docker-compose-windows.yml build
+          docker compose -f docker compose-windows.yml build
           docker image push kiamol/ch03-numbers-api:windows
 
   push-manifests:
