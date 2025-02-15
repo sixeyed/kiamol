@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vweb
@@ -12,14 +12,23 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: vweb-v2
-          servicePort: 80
+          service:
+            name: vweb-v2
+            port:
+              number: 80
       - path: /v1
+        pathType: Prefix
         backend:
-          serviceName: vweb-v1
-          servicePort: 80
+          service:
+            name: vweb-v1
+            port:
+              number: 80
       - path: /v2
+        pathType: Prefix  
         backend:
-          serviceName: vweb-v2
-          servicePort: 80
+          service:
+            name: vweb-v2
+            port:
+              number: 80

@@ -49,7 +49,7 @@ $env:Path += ";$global:KubernetesPath"
 
 DownloadFile $kubeletBinPath https://dl.k8s.io/$KubernetesVersion/bin/windows/amd64/kubelet.exe
 DownloadFile "$global:KubernetesPath\kubeadm.exe" https://dl.k8s.io/$KubernetesVersion/bin/windows/amd64/kubeadm.exe
-DownloadFile "$global:KubernetesPath\wins.exe" https://github.com/rancher/wins/releases/download/v0.0.4/wins.exe
+DownloadFile "$global:KubernetesPath\wins.exe" https://github.com/rancher/wins/releases/download/v0.1.1/wins.exe
 
 # Create host network to allow kubelet to schedule hostNetwork pods
 Write-Host "Creating Docker host network"
